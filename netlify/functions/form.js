@@ -103,8 +103,9 @@ async function getTwitchChannelId(username, clientId, accessToken) {
 }
 
 // Функція для перевірки чи користувач підписаний на канал
-async function checkTwitchFollower(fromUserId, toUserLogin, accessToken) {
-    const followUrl = `https://api.twitch.tv/helix/users/follows?from_id=${fromUserId}&to_id=${toUserLogin}`;
+// Перевірка підписки, оновлений код для врахування відмінностей
+async function checkTwitchFollower(fromUserId, toUserId, accessToken) {
+    const followUrl = `https://api.twitch.tv/helix/users/follows?from_id=${fromUserId}&to_id=${toUserId}`;
     const response = await fetch(followUrl, {
         method: 'GET',
         headers: {
@@ -114,7 +115,9 @@ async function checkTwitchFollower(fromUserId, toUserLogin, accessToken) {
     });
 
     const data = await response.json();
-    
-    // Якщо відповідь має дані, значить є підписка
-    return data.data && data.data.length > 0;
+
+    console.log(data);  // Лог для перевірки відповіді від Twitch API
+
+    return data.data && data.data.length > 0;  // Якщо дані є, користувач є фоловером
 }
+
