@@ -108,7 +108,7 @@ async function checkTwitchFollower(twitchId, twitchInput) {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${twitchAccessToken}`, // OAuth токен
-          'Client-Id': 'your-client-id', // Ваш client ID
+          'Client-Id': '174860188', // Ваш client ID
         },
       });
       
