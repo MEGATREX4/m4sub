@@ -64,7 +64,7 @@ exports.handler = async function(event, context) {
 // Функція для перевірки фоловера на Twitch
 async function checkTwitchFollower(username, accessToken) {
     const twitchClientId = process.env.TWITCH_CLIENT_ID; // твій Twitch Client ID
-    const channelId = 'YOUR_TWITCH_CHANNEL_ID'; // твій Twitch Channel ID
+    const channelId = 'MEGATREX4'; // твій Twitch Channel ID
 
     const response = await fetch(`https://api.twitch.tv/helix/users/follows?from_id=${username}&to_id=${channelId}`, {
         method: 'GET',
