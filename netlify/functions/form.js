@@ -1,6 +1,6 @@
-import fetch from 'node-fetch'; // Замінили require на import
+const fetch = require('node-fetch'); // Використовуємо require для 2.x версії
 
-export const handler = async function(event, context) {
+exports.handler = async function(event, context) {
     const webhookUrl = process.env.WEBHOOK_URL;
     const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; // твій Twitch access token
     
