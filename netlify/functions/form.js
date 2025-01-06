@@ -3,6 +3,7 @@ const fetch = require('node-fetch'); // Використовуємо require д�
 exports.handler = async function(event, context) {
     const webhookUrl = process.env.WEBHOOK_URL;
     const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; // твій Twitch access token
+    const twitchClientId = process.env.TWITCH_CLIENT_ID; // твій Twitch Client ID
     
     // Перевірка на отримання даних через POST-запит
     if (event.httpMethod === 'POST') {
@@ -11,8 +12,17 @@ exports.handler = async function(event, context) {
         // Перевірка, чи є twitchInput (наприклад, Twitch username)
         const twitchUsername = twitchInput;
 
+        // Отримуємо Twitch ID для каналу
+        const channelId = await getTwitchChannelId(twitchUsername, twitchClientId, twitchAccessToken);
+        if (!channelId) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ message: 'Невірний Twitch username!' }),
+            };
+        }
+
         // Перевірка чи користувач фоловить твій канал
-        const isFollower = await checkTwitchFollower(twitchUsername, twitchAccessToken);
+        const isFollower = await checkTwitchFollower(twitchUsername, channelId, twitchAccessToken);
 
         if (!isFollower) {
             return {
@@ -61,15 +71,30 @@ exports.handler = async function(event, context) {
     }
 };
 
-// Функція для перевірки фоловера на Twitch
-async function checkTwitchFollower(username, accessToken) {
-    const twitchClientId = process.env.TWITCH_CLIENT_ID; // твій Twitch Client ID
-    const channelId = '174860188'; // твій Twitch Channel ID
+// Функція для отримання ID користувача на Twitch
+async function getTwitchChannelId(username, clientId, accessToken) {
+    const response = await fetch(`https://api.twitch.tv/helix/users?login=${username}`, {
+        method: 'GET',
+        headers: {
+            'Client-ID': clientId,
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    });
 
+    const data = await response.json();
+    if (data.data && data.data.length > 0) {
+        return data.data[0].id; // Отримуємо ID каналу
+    } else {
+        return null;
+    }
+}
+
+// Функція для перевірки фоловера на Twitch
+async function checkTwitchFollower(username, channelId, accessToken) {
     const response = await fetch(`https://api.twitch.tv/helix/users/follows?from_id=${username}&to_id=${channelId}`, {
         method: 'GET',
         headers: {
-            'Client-ID': twitchClientId,
+            'Client-ID': process.env.TWITCH_CLIENT_ID,
             'Authorization': `Bearer ${accessToken}`,
         },
     });
