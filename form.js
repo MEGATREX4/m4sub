@@ -17,7 +17,7 @@ async function sendContact(ev) {
       }],
     };
 
-    const webhookUrl = 'https://discord.com/api/webhooks/1030955493948133407/r2kFDqfkrFezOmw__pHpq9NC9huJYv0XcMV9_GoA5V9mHExlEfE9Sk3cCbvUwAt_PyyU';
+    const webhookUrl = process.env.WEBHOOK_URL;
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
