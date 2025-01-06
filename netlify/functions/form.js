@@ -31,8 +31,9 @@ exports.handler = async function(event, context) {
 
         console.log(`Twitch ID для ${twitchUsername}: ${channelId}`);
 
-        // Перевірка чи користувач фоловить твій канал MEGATREX4 через список стрімів, на які він підписаний
-        const isFollower = await checkTwitchFollower(channelId, twitchAccessToken);
+        // Перевірка чи користувач фоловить твій канал MEGATREX4 через список стрімів
+        const isFollower = await checkTwitchFollower(channelId, twitchInput, twitchAccessToken);
+        
         if (!isFollower) {
             return {
                 statusCode: 400,
@@ -102,32 +103,33 @@ async function getTwitchChannelId(username, clientId, accessToken) {
 }
 
 // Функція для перевірки фоловера на Twitch за допомогою отриманого токену доступу
-async function checkTwitchFollower(twitchId, twitchInput) {
+async function checkTwitchFollower(twitchId, twitchInput, twitchAccessToken) {
     try {
-      const followedStreamsResponse = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${twitchId}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${twitchAccessToken}`, // OAuth токен
-          'Client-Id': '174860188', // Ваш client ID
-        },
-      });
-      
-      const followedStreamsData = await followedStreamsResponse.json();
-  
-      // Перевіряємо, чи є дані і чи це масив
-      if (followedStreamsData.data && Array.isArray(followedStreamsData.data)) {
-        const isFollowing = followedStreamsData.data.some(stream => stream.user_login === twitchInput);
+        const followedStreamsResponse = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${twitchId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${twitchAccessToken}`, // OAuth токен
+                'Client-Id': '174860188', // Ваш client ID
+            },
+        });
         
-        if (isFollowing) {
-          console.log(`Користувач ${twitchInput} підписаний на ваш канал.`);
+        const followedStreamsData = await followedStreamsResponse.json();
+
+        // Перевіряємо, чи є дані і чи це масив
+        if (followedStreamsData.data && Array.isArray(followedStreamsData.data)) {
+            const isFollowing = followedStreamsData.data.some(stream => stream.user_login === twitchInput);
+            
+            if (isFollowing) {
+                console.log(`Користувач ${twitchInput} підписаний на ваш канал.`);
+            } else {
+                console.log(`Користувач ${twitchInput} не підписаний на ваш канал.`);
+            }
         } else {
-          console.log(`Користувач ${twitchInput} не підписаний на ваш канал.`);
+            console.error('Не вдалося отримати дані про підписки.');
         }
-      } else {
-        console.error('Не вдалося отримати дані про підписки.');
-      }
     } catch (error) {
-      console.error('Сталася помилка під час перевірки підписки на Twitch:', error);
+        console.error('Сталася помилка під час перевірки підписки на Twitch:', error);
     }
-  }
+}
+
   
