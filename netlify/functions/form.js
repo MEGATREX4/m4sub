@@ -102,18 +102,32 @@ async function getTwitchChannelId(username, clientId, accessToken) {
 }
 
 // Функція для перевірки фоловера на Twitch за допомогою отриманого токену доступу
-async function checkTwitchFollower(userId, accessToken) {
-    const response = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${userId}`, {
+async function checkTwitchFollower(twitchId, twitchInput) {
+    try {
+      const followedStreamsResponse = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${twitchId}`, {
         method: 'GET',
         headers: {
-            'Client-ID': process.env.TWITCH_CLIENT_ID,
-            'Authorization': `Bearer ${accessToken}`,
+          'Authorization': `Bearer ${twitchAccessToken}`, // OAuth токен
+          'Client-Id': 'your-client-id', // Ваш client ID
         },
-    });
-
-    const data = await response.json();
-
-    // Перевірка, чи є канал серед тих, на які підписаний користувач
-    const isFollowing = data.data.some(stream => stream.user_id === myTwitchChannelId);
-    return isFollowing;
-}
+      });
+      
+      const followedStreamsData = await followedStreamsResponse.json();
+  
+      // Перевіряємо, чи є дані і чи це масив
+      if (followedStreamsData.data && Array.isArray(followedStreamsData.data)) {
+        const isFollowing = followedStreamsData.data.some(stream => stream.user_login === twitchInput);
+        
+        if (isFollowing) {
+          console.log(`Користувач ${twitchInput} підписаний на ваш канал.`);
+        } else {
+          console.log(`Користувач ${twitchInput} не підписаний на ваш канал.`);
+        }
+      } else {
+        console.error('Не вдалося отримати дані про підписки.');
+      }
+    } catch (error) {
+      console.error('Сталася помилка під час перевірки підписки на Twitch:', error);
+    }
+  }
+  
