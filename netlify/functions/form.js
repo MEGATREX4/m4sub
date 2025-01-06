@@ -4,7 +4,7 @@ exports.handler = async function(event, context) {
     const webhookUrl = process.env.WEBHOOK_URL;
     const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; // твій Twitch access token
     const twitchClientId = process.env.TWITCH_CLIENT_ID; // твій Twitch Client ID
-    const myTwitchChannelId = '12345678'; // Замінити на твій канал MEGATREX4
+    const myTwitchChannelId = '174860188'; // Замінити на твій канал MEGATREX4
 
     // Дебаг повідомлення про час і пам'ять
     console.log(`Request received at ${new Date().toISOString()}`);
@@ -32,8 +32,8 @@ exports.handler = async function(event, context) {
         console.log(`Twitch ID для ${twitchUsername}: ${channelId}`);
 
         // Перевірка чи користувач фоловить твій канал MEGATREX4 через список стрімів
-        const isFollower = await checkTwitchFollower(channelId, twitchInput, twitchAccessToken);
-        
+        const isFollower = await checkTwitchFollower(channelId, twitchUsername, twitchAccessToken);
+
         if (!isFollower) {
             return {
                 statusCode: 400,
@@ -102,34 +102,19 @@ async function getTwitchChannelId(username, clientId, accessToken) {
     }
 }
 
-// Функція для перевірки фоловера на Twitch за допомогою отриманого токену доступу
-async function checkTwitchFollower(twitchId, twitchInput, twitchAccessToken) {
-    try {
-        const followedStreamsResponse = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${twitchId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${twitchAccessToken}`, // OAuth токен
-                'Client-Id': '174860188', // Ваш client ID
-            },
-        });
-        
-        const followedStreamsData = await followedStreamsResponse.json();
+// Функція для перевірки чи користувач підписаний на канал
+async function checkTwitchFollower(fromUserId, toUserLogin, accessToken) {
+    const followUrl = `https://api.twitch.tv/helix/users/follows?from_id=${fromUserId}&to_id=${toUserLogin}`;
+    const response = await fetch(followUrl, {
+        method: 'GET',
+        headers: {
+            'Client-ID': process.env.TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    });
 
-        // Перевіряємо, чи є дані і чи це масив
-        if (followedStreamsData.data && Array.isArray(followedStreamsData.data)) {
-            const isFollowing = followedStreamsData.data.some(stream => stream.user_login === twitchInput);
-            
-            if (isFollowing) {
-                console.log(`Користувач ${twitchInput} підписаний на ваш канал.`);
-            } else {
-                console.log(`Користувач ${twitchInput} не підписаний на ваш канал.`);
-            }
-        } else {
-            console.error('Не вдалося отримати дані про підписки.');
-        }
-    } catch (error) {
-        console.error('Сталася помилка під час перевірки підписки на Twitch:', error);
-    }
+    const data = await response.json();
+    
+    // Якщо відповідь має дані, значить є підписка
+    return data.data && data.data.length > 0;
 }
-
-  
