@@ -25,7 +25,7 @@ async function sendContact(ev) {
   });
 
   if (response.ok) {
-    window.open('https://megatrex4sub.online/accepted.html/');
+    window.open('https://m4sub.netlify.app/accepted.html/');
   } else {
     alert('Помилка, спробуй пізніше!');
   }
