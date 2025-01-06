@@ -4,7 +4,7 @@ exports.handler = async function(event, context) {
     const webhookUrl = process.env.WEBHOOK_URL;
     const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; // твій Twitch access token
     const twitchClientId = process.env.TWITCH_CLIENT_ID; // твій Twitch Client ID
-    const myTwitchChannelId = '174860188'; // Замінити на твій канал MEGATREX4
+    const myTwitchChannelId = '12345678'; // Замінити на твій канал MEGATREX4
 
     // Дебаг повідомлення про час і пам'ять
     console.log(`Request received at ${new Date().toISOString()}`);
@@ -31,8 +31,8 @@ exports.handler = async function(event, context) {
 
         console.log(`Twitch ID для ${twitchUsername}: ${channelId}`);
 
-        // Перевірка чи користувач фоловить твій канал MEGATREX4
-        const isFollower = await checkTwitchFollower(channelId, myTwitchChannelId, twitchAccessToken);
+        // Перевірка чи користувач фоловить твій канал MEGATREX4 через список стрімів, на які він підписаний
+        const isFollower = await checkTwitchFollower(channelId, twitchAccessToken);
         if (!isFollower) {
             return {
                 statusCode: 400,
@@ -101,9 +101,9 @@ async function getTwitchChannelId(username, clientId, accessToken) {
     }
 }
 
-// Функція для перевірки фоловера на Twitch
-async function checkTwitchFollower(followerId, channelId, accessToken) {
-    const response = await fetch(`https://api.twitch.tv/helix/users/follows?from_id=${followerId}&to_id=${channelId}`, {
+// Функція для перевірки фоловера на Twitch за допомогою отриманого токену доступу
+async function checkTwitchFollower(userId, accessToken) {
+    const response = await fetch(`https://api.twitch.tv/helix/streams/followed?user_id=${userId}`, {
         method: 'GET',
         headers: {
             'Client-ID': process.env.TWITCH_CLIENT_ID,
@@ -113,9 +113,7 @@ async function checkTwitchFollower(followerId, channelId, accessToken) {
 
     const data = await response.json();
 
-    // Перевіряємо, чи є запис про фоловера
-    if (data.data && data.data.length > 0) {
-        return true;
-    }
-    return false;
+    // Перевірка, чи є канал серед тих, на які підписаний користувач
+    const isFollowing = data.data.some(stream => stream.user_id === myTwitchChannelId);
+    return isFollowing;
 }
