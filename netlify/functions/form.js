@@ -12,10 +12,10 @@ exports.handler = async function(event, context) {
 
     // Перевірка на отримання даних через POST-запит
     if (event.httpMethod === 'POST') {
-        const { minecaftInput, twitchInput } = JSON.parse(event.body);
+        const { minecraftInput, twitchInput } = JSON.parse(event.body);
 
         // Дебаг повідомлення про отримані дані
-        console.log(`Received minecraftInput: ${minecaftInput}, twitchInput: ${twitchInput}`);
+        console.log(`Received minecraftInput: ${minecraftInput}, twitchInput: ${twitchInput}`);
 
         // Перевірка чи є twitchInput (наприклад, Twitch username)
         const twitchUsername = twitchInput;
@@ -31,8 +31,8 @@ exports.handler = async function(event, context) {
 
         console.log(`Twitch ID для ${twitchUsername}: ${channelId}`);
 
-        // Перевірка чи користувач фоловить твій канал MEGATREX4 через список стрімів
-        const isFollower = await checkTwitchFollower(channelId, twitchUsername, twitchAccessToken);
+        // Перевірка чи користувач фоловить твій канал MEGATREX4
+        const isFollower = await checkTwitchFollower(channelId, myTwitchChannelId, twitchAccessToken, twitchClientId);
 
         if (!isFollower) {
             return {
@@ -48,7 +48,7 @@ exports.handler = async function(event, context) {
             embeds: [{
                 title: 'Заявки на сервер',
                 fields: [
-                    { name: 'Minecraft', value: minecaftInput },
+                    { name: 'Minecraft', value: minecraftInput },
                     { name: 'Twitch', value: twitchInput },
                 ],
             }],
@@ -102,22 +102,20 @@ async function getTwitchChannelId(username, clientId, accessToken) {
     }
 }
 
-// Функція для перевірки чи користувач підписаний на канал
-// Перевірка підписки, оновлений код для врахування відмінностей
-async function checkTwitchFollower(fromUserId, toUserId, accessToken) {
-    const followUrl = `https://api.twitch.tv/helix/users/follows?from_id=${fromUserId}&to_id=${toUserId}`;
-    const response = await fetch(followUrl, {
+// Функція для перевірки, чи фоловить користувач твій канал
+async function checkTwitchFollower(userId, channelId, accessToken, clientId) {
+    const response = await fetch(`https://api.twitch.tv/helix/users/follows?from_id=${userId}&to_id=${channelId}`, {
         method: 'GET',
         headers: {
-            'Client-ID': process.env.TWITCH_CLIENT_ID,
+            'Client-ID': clientId,
             'Authorization': `Bearer ${accessToken}`,
         },
     });
 
     const data = await response.json();
-
-    console.log(data);  // Лог для перевірки відповіді від Twitch API
-
-    return data.data && data.data.length > 0;  // Якщо дані є, користувач є фоловером
+    if (data.total > 0) {
+        return true; // Користувач фоловить канал
+    } else {
+        return false; // Користувач не фоловить канал
+    }
 }
-
