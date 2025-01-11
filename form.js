@@ -1,13 +1,3 @@
-async function authorizeTwitch() {
-  // Redirect to Twitch authorization URL
-  const clientId = "3aqr3muydrdhh7aemfdjiw9stxpvcc";
-  const redirectUri = encodeURIComponent("https://megatrex4sub.online/oauth.html");
-  const scopes = "user:read:subscriptions";
-  const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scopes}`;
-
-  window.location.href = authUrl;
-}
-
 async function sendContact(ev) {
   ev.preventDefault();
 

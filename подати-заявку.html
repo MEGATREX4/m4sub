@@ -80,65 +80,32 @@
                   <h6 class="u-align-center-lg u-align-center-sm u-align-center-xl u-custom-font u-text u-text-default u-text-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">подати Заявку</h6>
                   <div class="u-custom-color-3 u-hidden-md u-hidden-sm u-hidden-xs u-radius-50 u-shape u-shape-round u-shape-3"></div>
                   <div class="u-align-center-xs u-expanded-width-xs u-form u-form-1">
-
-
-
-                    <form
-                    action="https://megatrex4sub.online/accepted.html/"
-                    class="u-clearfix u-form-spacing-13 u-form-vertical u-inner-form"
-                    style="padding: 25px;"
-                    name="form"
-                    method="POST"
-                    onsubmit="sendContact(event)"
-                  >
-                    <div class="u-form-group u-form-name">
-                      <label for="name-daf4" class="u-custom-font u-label u-label-1">
-                        Minecraft Нік
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Введіть свій нік в грі"
-                        id="minecraftInput"
-                        name="text-1"
-                        class="u-grey-5 u-input u-input-rectangle u-radius-17 u-input-2"
-                        required
-                        maxlength="30"
-                      />
-                    </div>
-                    <div class="u-form-group u-align-center">
-                      <button
-                        type="button"
-                        id="twitchLoginButton"
-                        class="u-active-palette-1-light-2 u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-hover-palette-2-base u-radius-17"
-                        onclick="authorizeTwitch()"
-                      >
-                        Log in with Twitch
-                      </button>
-                    </div>
-                    <div class="u-form-agree u-form-group u-form-group-4">
-                      <input type="checkbox" id="agree-60ca" name="agree-1" class="u-agree-checkbox" required />
-                      <label for="agree-60ca" class="u-agree-label u-custom-font u-label u-label-4">
-                        Я погоджуюсь з
-                        <a href="Правила-проекту.html">Правилами проекту</a>
-                      </label>
-                    </div>
-                    <div class="u-align-left u-form-group u-form-submit">
-                      <a
-                        href="#"
-                        class="u-active-palette-1-light-2 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-2-base u-radius-17 u-btn-1"
-                      >
-                        Відправити
-                      </a>
-                      <input type="submit" value="submit" class="u-form-control-hidden" />
-                    </div>
-                    <input type="hidden" id="twitchToken" name="twitchToken" />
-                    <input type="hidden" value="" name="recaptchaResponse" />
-                    <input type="hidden" name="formServices" value="4987c495f2c4aaf75ec66ce7afc8a06a" />
-                  </form>
-                  
-
-
-                    
+                    <form action="https://megatrex4sub.online/accepted.html/" class="u-clearfix u-form-spacing-13 u-form-vertical u-inner-form" style="padding: 25px;" source="email" name="form" method="POST" onsubmit="sendContact(event)">
+                      <div class="u-form-group u-form-name">
+                        <label for="name-daf4" class="u-custom-font u-label u-label-1">Twitch нік</label>
+                        <input type="text" placeholder="Twitch нік" id="twitchInput" name="text" class="u-grey-5 u-input u-input-rectangle u-radius-17 u-input-1" required="" maxlength="30" autofocus="autofocus">
+                      </div>
+                      <div class="u-form-group">
+                        <label for="email-daf4" class="u-custom-font u-label u-label-2">нік в грі</label>
+                        <input type="text" placeholder="Введіть свій нік в грі" id="minecaftInput" name="text-1" class="u-grey-5 u-input u-input-rectangle u-radius-17 u-input-2" required="required" maxlength="30">
+                      </div>
+                      <div class="u-form-agree u-form-group u-form-group-3">
+                        <input type="checkbox" id="agree-60ca" name="agree-1" class="u-agree-checkbox" required="">
+                        <label for="agree-60ca" class="u-agree-label u-custom-font u-label u-label-3">Я підписаний на <a href="https://twitch.tv/MEGATREX4">Twitch</a>
+                        </label>
+                      </div>
+                      <div class="u-form-agree u-form-group u-form-group-4">
+                        <input type="checkbox" id="agree-f183" name="agree" class="u-agree-checkbox" required="">
+                        <label for="agree-f183" class="u-agree-label u-custom-font u-label u-label-4">Я погоджуюсь з <a href="Правила-проекту.html">Правилами проекту</a>
+                        </label>
+                      </div>
+                      <div class="u-align-left u-form-group u-form-submit">
+                        <a href="#" class="u-active-palette-1-light-2 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-2-base u-radius-17 u-btn-1">Відправити</a>
+                        <input type="submit" value="submit" class="u-form-control-hidden">
+                      </div>
+                      <input type="hidden" value="" name="recaptchaResponse">
+                      <input type="hidden" name="formServices" value="4987c495f2c4aaf75ec66ce7afc8a06a">
+                    </form>
                   </div>
                 </div>
               </div>
