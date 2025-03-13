@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a0ff110df7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="map.css">
 </head>
 <body class="bg-[var(--background-color)] text-[var(--text-color)] flex flex-col min-h-screen"> <!-- Updated text color to light pink -->
 
@@ -25,24 +26,20 @@
     
 
 <!-- MAIN CONTENT -->
+<!-- MAIN CONTENT -->
 <main class="flex-grow flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
-    <div class="bg-[var(--secondary-background-color)] p-8 rounded-lg min-w-5xl max-w-5xl drop-shadow-[0_0_10px_#00000040]">
-        <h2 class="text-3xl font-bold mb-4">ЦЕ M4SUB!</h2>
-        <p class="text-lg">M4SUB - ЛІЦЕНЗІЙНИЙ VANILLA+ Майнкрафт сервер для підписників MEGATREX4!</p>
-        <p class="text-lg">Приєднуйтесь до нас і отримуйте задоволення!</p>
-        <div class="mt-6 space-y-4">
-            <p class="text-lg">
-                Ми – сервер, створений спільнотою, орієнтований на створення веселого та дружнього середовища для всіх гравців.
-                На нашому сервері є різноманітні плагіни та власний контент, щоб покращити ваш досвід гри в Minecraft. Більше ви можете прочитати в <a href="faq.html" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">FAQ</a>.
-            </p>
-            <div class="mt-6">
-                <a href="apply.html" class="bg-[#FFDFEF] text-[#171717] px-6 py-2 rounded-md font-bold hover:bg-[#EABDE6] transition">
-                    Подати заявку
-                </a>
-            </div>
-        </div>
+    <div class="bg-[var(--secondary-background-color)] p-6 rounded-lg w-full drop-shadow-[0_0_10px_#00000040]">
+        <h2 class="text-2xl font-bold mb-4">Мапа сервера</h2>
+        <iframe
+            src="http://de5.mineconnect.xyz:19156/"
+            title="Мапа сервера"
+            sandbox="allow-scripts allow-same-origin"
+            loading="lazy"
+        ></iframe>
     </div>
 </main>
+
+
 
 
 
@@ -54,9 +51,8 @@
     </footer>
 
     <!-- BOTTOM NAVBAR (Visible only on small screens) -->
-        <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]" style="position: sticky;">
-
-        <a id="home-tab" href="index.html" class="nav-link active text-center flex items-center justify-center h-12 w-12">
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]" style="position: sticky;">
+        <a id="home-tab" href="index.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-home text-2xl"></i>
         </a>
         <a id="apply-tab" href="apply.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
@@ -65,7 +61,7 @@
         <a id="rules-tab" href="rules.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-book text-2xl"></i>
         </a>
-        <a id="map-tab" href="map.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+        <a id="map-tab" href="map.html" class="active nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-map text-2xl"></i>
         </a>
         <a id="faq-tab" href="faq.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
