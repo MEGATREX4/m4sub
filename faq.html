@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧП - M4SUB Ванільний майнкрафт сервер</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a0ff110df7.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+    <script src="faq.js"></script>
+</head>
+<body class="bg-[var(--background-color)] text-[var(--text-color)] flex flex-col min-h-screen"> <!-- Updated text color to light pink -->
+
+    <!-- HEADER (Visible only on large screens) -->
+    <header class="text-[var(--text-color)] py-4 px-6 flex items-center lg:flex hidden">
+        <h1 class="text-2xl font-bold">M4SUB</h1>
+        <nav class="space-x-1 ml-4">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span id="home-tab">Головна</span></a>
+            <a href="apply.html" class="nav-link"><i class="fas fa-user-plus"></i> <span id="apply-tab">Заявка</span></a>
+            <a href="rules.html" class="nav-link"><i class="fas fa-book"></i> <span id="rules-tab">Правила</span></a>
+            <a href="map.html" class="nav-link"><i class="fas fa-map"></i> <span  id="map-tab">Мапа сервера</span></a>
+            <a href="faq.html" class="nav-link active"><i class="fas fa-info-circle"></i> <span id="faq-tab">Часті питання</span></a>
+            <a href="discord.html" class="nav-link"><i class="fab fa-discord"></i> <span id="discord-tab">Discord</span></a>
+        </nav>
+    </header>
+    <script>
+        // JavaScript function to toggle visibility of answers
+        function toggleVisibility(id) {
+            const element = document.getElementById(id);
+            if (element.classList.contains("hidden")) {
+                element.classList.remove("hidden");
+            } else {
+                element.classList.add("hidden");
+            }
+        }
+    </script>
+
+<!-- MAIN CONTENT -->
+<main class="flex-grow flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
+    <div class="bg-[var(--secondary-background-color)] p-8 rounded-lg min-w-5xl max-w-5xl drop-shadow-[0_0_10px_#00000040] text-left">
+        <h2 class="text-3xl font-bold mb-4">Часті питання</h2>
+        <p class="text-lg">
+            <b>Що таке M4SUB?</b><br>
+            M4SUB - сервер, створений спільнотою, орієнтований на створення веселого та дружнього середовища для всіх гравців. 
+            Ми хочемо, щоб наші гравці почувалися як вдома, тому ми постійно працюємо над покращенням нашого сервера.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Хто такий MEGATREX4?</b><br>
+            MEGATREX4 - це твіч стрімер, ютубер, митець і це саме його сервер, більше ви можете дізнатись <a href="https://megatrex4.netlify.app/" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">на його сайті</a>.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Як приєднатися до сервера?</b><br>
+            Щоб приєднатися до нашого сервера, вам потрібно <a href="apply.html" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">подати заявку</a>.
+            Після того, як ми отримаємо вашу заявку, ми зв'яжемося з вами для подальшого спілкування.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Що таке Vanilla+ сервер?</b><br>
+            Vanilla+ сервер Minecraft — це місце для гравців, які хочуть насолоджуватися класичним Minecraft з комфортними доповненнями. Тут ти знайдеш голосовий чат, опцію Keep Inventory з невеликим штрафом для досвіду, а також свободу для будівництва (з обмеженнями на ферми поблизу спавну). Сервер завжди актуальний, працює на останній версії Minecraft 1.21.4. Баланс між PVE та PVP дозволяє гравцям жити в мирі або випробувати свої сили у бою.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Чи є на сервері голосовий чат?</b><br>
+            Так, на сервері ми використовуємо Simple Voice Chat, що дозволяє гравцям спілкуватися через голос, коли вони знаходяться поруч з іншими гравцями. Це додає більше інтерактивності та занурення в гру.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Як працює система Keep Inventory?</b><br>
+            На сервері діє опція Keep Inventory, що дозволяє зберігати ваші предмети після смерті. Однак існує невеликий штраф для досвіду, щоб збалансувати цей механізм і не робити його занадто простим.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Які обмеження на ферми на сервері?</b><br>
+            Ми маємо обмеження на будівництво великих ферм поблизу спавну, щоб не перевантажувати сервер. Це допомагає підтримувати стабільну продуктивність гри та комфортне середовище для всіх гравців.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Чи є на сервері PVP?</b><br>
+            Так, на сервері є можливість випробувати свої сили в PVP, але це не є обов'язковим. Гравці можуть вибирати мирний спосіб гри або активно брати участь у битвах.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Чи є правила гри на сервері?</b><br>
+            Так, на сервері є низка правил, які допомагають підтримувати дружню атмосферу та взаємоповагу серед гравців. Ви можете ознайомитись з ними <a href="rules.html" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">тут</a>.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Чи є моди або плагіни на сервері?</b><br>
+            Сервер підтримує кілька корисних доповнень, таких як Simple Voice Chat та інші покращення, але в цілому він працює на стандартному Minecraft, що дозволяє зберегти класичний досвід гри.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Як зв'язатися з адміністрацією сервера?</b><br>
+            Якщо у вас виникли питання або проблеми, ви можете звернутися до адміністрації сервера через наш <a href="discord.html" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">Discord сервер</a> або надіслати повідомлення через інші канали підтримки.
+        </p>
+        <p class="text-lg mt-6">
+            <b>Як увійти на сервер?</b><br>
+            Щоб приєднатися до нашого сервера, виконайте наступні кроки:
+            <ol class="list-decimal ml-6">
+                <li><b>Безкоштовно підпишіться (follow) на Twitch канал MEGATREX4.</b></li>
+                <li><b>Подайте заявку на сайті в розділі "Подати заявку".</b></li>
+                <li><b>Вступіть в наш Discord сервер</b> та чекайте, поки вашу заявку схвалять і додадуть вас у білий список. Щоб перевірити, ви можете спробувати зайти на сервер.</li>
+                <li><b>Коли увійдете на сервер, вам потрібно буде ввести код бота, що відображається при першому вході, щоб зв'язати ваш акаунт Discord з акаунтом Minecraft.</b></li>
+                <li><b>Тепер ви можете грати! Вдалого вам гри!</b></li>
+            </ol>
+            <p class="mt-4">
+                <b>Опціонально:</b> Завантажте нашу збірку з прикріпленого коментаря в Discord для покращеного досвіду гри.
+            </p>
+        </p>        
+    </div>
+</main>
+
+
+
+
+    <!-- FOOTER -->
+    <footer class="bg-[var(--accent-color-2)] text-center py-4 mt-auto"> <!-- Updated footer bg color -->
+        <p>&copy; 2025 Сервер M4SUB. Всі права захищені кимсь.</p>
+        <p style="font-size: 0.8rem; opacity: 0.6;">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
+    </footer>
+
+    <!-- BOTTOM NAVBAR (Visible only on small screens) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]">
+        <a id="home-tab" href="index.html" class="nav-link active text-center flex items-center justify-center h-12 w-12">
+            <i class="fas fa-home text-2xl"></i>
+        </a>
+        <a id="apply-tab" href="apply.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+            <i class="fas fa-user-plus text-2xl"></i>
+        </a>
+        <a id="rules-tab" href="rules.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+            <i class="fas fa-book text-2xl"></i>
+        </a>
+        <a id="map-tab" href="map.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+            <i class="fas fa-map text-2xl"></i>
+        </a>
+        <a id="faq-tab" href="faq.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+            <i class="fas fa-info-circle text-2xl"></i>
+        </a>
+        <a id="discord-tab" href="discord.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+            <i class="fab fa-discord text-2xl"></i>
+        </a>
+    </nav>
+</body>
+</html>
