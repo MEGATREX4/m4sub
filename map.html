@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заявка - M4SUB Ванільний майнкрафт сервер</title>
+    <title>M4SUB Ванільний майнкрафт сервер</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a0ff110df7.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="accepted.css">
+    <link rel="stylesheet" href="map.css">
 </head>
 <body class="bg-[var(--background-color)] text-[var(--text-color)] flex flex-col min-h-screen"> <!-- Updated text color to light pink -->
 
@@ -18,7 +18,7 @@
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span id="home-tab">Головна</span></a>
             <a href="apply.html" class="nav-link"><i class="fas fa-user-plus"></i> <span id="apply-tab">Заявка</span></a>
             <a href="rules.html" class="nav-link"><i class="fas fa-book"></i> <span id="rules-tab">Правила</span></a>
-            <a href="map.html" class="nav-link"><i class="fas fa-map"></i> <span  id="map-tab">Мапа сервера</span></a>
+            <a href="map.html" class="active nav-link"><i class="fas fa-map"></i> <span  id="map-tab">Мапа сервера</span></a>
             <a href="faq.html" class="nav-link"><i class="fas fa-info-circle"></i> <span id="faq-tab">Часті питання</span></a>
             <a href="discord.html" class="nav-link"><i class="fab fa-discord"></i> <span id="discord-tab">Discord</span></a>
         </nav>
@@ -27,12 +27,18 @@
 
 <!-- MAIN CONTENT -->
 <main class="flex-grow flex flex-col items-center justify-center p-6 text-center relative shadow-lg">
-    <div class="bg-[var(--secondary-background-color)] p-8 rounded-lg max-w-2xl drop-shadow-[0_0_10px_#00000040]">
-        <p style="font-size: 20px;">Ваша заявка відправлена, очікуйте підтвердження</p>
-        <p style="font-size: 20px;">Посилання на <a class="discord pt" href="https://discord.gg/RBuQk37xr8">Discord</a></p><br>
-        <a href="index.html"><i class="fa fa-long-arrow-left colors" aria-hidden="true"></i><span class="colors" style="font-size: 20px;"> Перейти на головну сторінку</span></a>
+    <div class="bg-[var(--secondary-background-color)] p-6 rounded-lg w-full drop-shadow-[0_0_10px_#00000040]">
+        <h2 class="text-2xl font-bold mb-4">Мапа сервера</h2>
+        <iframe
+            src="https://m4submap.dynmap.me"
+            title="Мапа сервера"
+            sandbox="allow-scripts allow-same-origin"
+            loading="lazy"
+        ></iframe>
     </div>
 </main>
+
+
 
 
 
@@ -44,8 +50,7 @@
     </footer>
 
     <!-- BOTTOM NAVBAR (Visible only on small screens) -->
-        <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]" style="position: sticky;">
-
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]" style="position: sticky;">
         <a id="home-tab" href="index.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-home text-2xl"></i>
         </a>
@@ -55,7 +60,7 @@
         <a id="rules-tab" href="rules.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-book text-2xl"></i>
         </a>
-        <a id="map-tab" href="map.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
+        <a id="map-tab" href="map.html" class="active nav-link text-center flex items-center justify-center h-12 w-12">
             <i class="fas fa-map text-2xl"></i>
         </a>
         <a id="faq-tab" href="faq.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
