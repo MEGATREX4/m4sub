@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "http://sunrise.bubble.wtf:10009/*"
+  to = "https://play.m4sub.click/:splat"
+  status = 301
+  force = true
