@@ -32,7 +32,7 @@ exports.handler = async function (event) {
 
   // Друге повідомлення (з аватаром гравця)
   const avatarMessage = {
-    username: "Новий гравець",
+    username: minecaftInput,
     avatar_url: avatarUrl,
     thumbnail: { url: avatarUrl },
     embeds: [{
