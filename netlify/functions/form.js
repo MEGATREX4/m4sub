@@ -36,13 +36,16 @@ exports.handler = async function (event) {
     avatar_url: avatarUrl,
     thumbnail: { url: avatarUrl },
     embeds: [{
-      title: `Вітаємо нового гравця на сервері!`,
-      thumbnail: { url: avatarUrl },
+      title: 'Заявка на сервер',
+      description: `Ми раді вітати ${minecaftInput} на нашому сервері!`,
       color: 0x3498db,
+      thumbnail: { url: avatarUrl },
       fields: [
-        { name: '🎮 Minecraft', value: minecaftInput, inline: false },
-        { name: '📺 Twitch', value: twitchInput, inline: false },
+        { name: '🎮 Minecraft Нік:', value: `**${minecaftInput}**`, inline: true },
+        { name: '📺 Twitch Нік:', value: `**${twitchInput}**`, inline: true },
       ],
+      footer: { text: 'Приєднуйтесь до нашої спільноти та грайте разом!' },
+      timestamp: new Date().toISOString(),
     }],
   };
 
