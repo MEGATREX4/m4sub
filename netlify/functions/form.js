@@ -22,8 +22,8 @@ exports.handler = async function (event) {
       title: 'Заявка на сервер',
       color: 0x00ff00, // Зелений колір
       fields: [
-        { name: '🎮 Minecraft', value: minecaftInput, inline: true },
-        { name: '📺 Twitch', value: twitchInput, inline: true },
+        { name: '🎮 Minecraft', value: minecaftInput, inline: false },
+        { name: '📺 Twitch', value: twitchInput, inline: false },
       ],
       footer: { text: "🔗 Нова заявка на сервер" },
       timestamp: new Date().toISOString(),
