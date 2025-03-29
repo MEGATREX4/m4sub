@@ -1,5 +1,4 @@
-// ./netlify/functions/form.js backend
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 exports.handler = async function (event) {
   // Отримання змінних середовища
@@ -25,37 +24,31 @@ exports.handler = async function (event) {
 
   try {
     // Відправка заявки в Discord Webhook
-    await fetch(webhookUrl, {
-      method: 'POST',
+    await axios.post(webhookUrl, webhookBody, {
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(webhookBody),
     });
 
-    // Відправка команди "/say api test" на сервер
-    const commandResponse = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ command: "/say api test" }),
-    });
-
-    const result = await commandResponse.json();
-
-    if (!commandResponse.ok) {
-      throw new Error(`Помилка виконання команди: ${JSON.stringify(result)}`);
-    }
+    // Відправка команди "/say api test" на сервер через Pterodactyl API
+    const commandResponse = await axios.post(
+      apiUrl,
+      { command: "/say api test" },
+      {
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      }
+    );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Команда виконана успішно!', response: result }),
+      body: JSON.stringify({ message: 'Команда виконана успішно!', response: commandResponse.data }),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: `Помилка: ${error.message}` }),
+      body: JSON.stringify({ message: `Помилка: ${error.response?.data || error.message}` }),
     };
   }
 };
