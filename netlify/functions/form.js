@@ -41,7 +41,7 @@ exports.handler = async function (event) {
         { name: '🎮 Minecraft', value: minecaftInput, inline: true },
         { name: '📺 Twitch', value: twitchInput, inline: true },
       ],
-      image: { url: avatarUrl }
+      Thumbnail: { url: avatarUrl }
     }],
   };
 
