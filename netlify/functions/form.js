@@ -34,9 +34,10 @@ exports.handler = async function (event) {
   const avatarMessage = {
     username: "M4SUB",
     avatarURL: { url: avatarUrl },
-    Thumbnail: { url: avatarUrl },
+    thumbnail: { url: avatarUrl },
     embeds: [{
       title: `🧑‍🚀 Новий гравець вже тут`,
+      thumbnail: { url: avatarUrl },
       color: 0x3498db,
       fields: [
         { name: '🎮 Minecraft', value: minecaftInput, inline: false },
