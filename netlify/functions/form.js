@@ -32,12 +32,16 @@ exports.handler = async function (event) {
 
   // Друге повідомлення (з аватаром гравця)
   const avatarMessage = {
+    username: "M4SUB",
+    avatarURL: avatarUrl,
     embeds: [{
-      title: `🧑‍🚀 Новий гравець: ${minecaftInput}`,
+      title: `🧑‍🚀 Новий гравець вже тут`,
       color: 0x3498db,
-      image: { url: avatarUrl },
-      footer: { text: "💠 Аватар гравця" },
-      timestamp: new Date().toISOString(),
+      fields: [
+        { name: '🎮 Minecraft', value: minecaftInput, inline: true },
+        { name: '📺 Twitch', value: twitchInput, inline: true },
+      ],
+      image: { url: avatarUrl }
     }],
   };
 
