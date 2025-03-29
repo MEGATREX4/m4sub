@@ -33,6 +33,7 @@ exports.handler = async function (event) {
   // Друге повідомлення (з аватаром гравця)
   const avatarMessage = {
     username: "Новий гравець",
+    avatar_url: avatarUrl,
     thumbnail: { url: avatarUrl },
     embeds: [{
       title: `Вітаємо нового гравця на сервері!`,
