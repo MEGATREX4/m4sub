@@ -61,7 +61,7 @@ exports.handler = async function (event) {
     // Відправка команди "/say api test" на сервер через Pterodactyl API
     const commandResponse = await axios.post(
       apiUrl,
-      { command: "say api test" },
+      { command: "nwl add name " + minecaftInput },
       {
         headers: {
           'Authorization': `Bearer ${apiKey}`,
