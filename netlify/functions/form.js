@@ -41,8 +41,8 @@ exports.handler = async function (event) {
       color: 0x3498db,
       thumbnail: { url: avatarUrl },
       fields: [
-        { name: '🎮 Minecraft Нік:', value: `**${minecaftInput}**`, inline: true },
-        { name: '📺 Twitch Нік:', value: `**${twitchInput}**`, inline: true },
+        { name: '🎮 Minecraft Нік:', value: `**${minecaftInput}**`, inline: false },
+        { name: '📺 Twitch Нік:', value: `**${twitchInput}**`, inline: false },
       ],
       footer: { text: 'Приєднуйтесь до нашої спільноти та грайте разом!' },
       timestamp: new Date().toISOString(),
