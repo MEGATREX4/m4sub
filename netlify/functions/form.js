@@ -38,8 +38,8 @@ exports.handler = async function (event) {
       title: `🧑‍🚀 Новий гравець вже тут`,
       color: 0x3498db,
       fields: [
-        { name: '🎮 Minecraft', value: minecaftInput, inline: true },
-        { name: '📺 Twitch', value: twitchInput, inline: true },
+        { name: '🎮 Minecraft', value: minecaftInput, inline: false },
+        { name: '📺 Twitch', value: twitchInput, inline: false },
       ],
       Thumbnail: { url: avatarUrl }
     }],
