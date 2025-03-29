@@ -41,7 +41,6 @@ exports.handler = async function (event) {
       color: 0x3498db,
       fields: [
         { name: '🎮 Minecraft', value: minecaftInput, inline: true },
-        { name: ' ', value: ' ', inline: false },
         { name: '📺 Twitch', value: twitchInput, inline: true },
       ],
     }],
