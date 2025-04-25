@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <style>
+    section, img.pixelcut {
+    margin-top: 10px!important;
+    padding: 10px!important;
+    clip-path: polygon(0px calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0px, 16px 0px, 16px 8px, 8px 8px, 8px 16px, 0px 16px)!important;
+    }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M4SUB | Minecraft сервер</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-gray-300 font-sans overflow-y-scroll h-screen flex flex-col">
+
+<header class="bg-gray-900 py-4 shadow-lg">
+    <nav class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <ul class="flex space-x-4 uppercase font-bold">
+            <li><a href="/" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition">Головна</a></li>
+            <li><a href="/apply" class="px-4 py-2 hover:bg-gray-700 transition">Заявки</a></li>
+            <li><a href="https://wiki.m4sub.click" class="px-4 py-2 hover:bg-gray-700 transition">Вікі</a></li>
+        </ul>
+        <a href="https://discord.com" class="flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 transition">
+            Discord
+        </a>
+    </nav>
+</header>
+
+<main class="flex-grow max-w-7xl mx-auto px-4 py-12">
+    <section class="text-center">
+        <h1 class="text-4xl font-bold text-white mb-4">Ласкаво просимо на M4SUB</h1>
+        <p class="mb-8">Найкращий ванільний Minecraft сервер з унікальними можливостями.</p>
+        <img src="/hero.png" alt="Головне зображення" class="w-full shadow-lg">
+    </section>
+
+    <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <img src="/news.jpg" alt="Новини" class="shadow">
+        <div>
+            <h2 class="text-2xl font-bold text-white">Останні новини</h2>
+            <p class="mt-4">Слідкуйте за останніми подіями на нашому сервері. Регулярні оновлення та івенти!</p>
+            <a href="/blog" class="inline-block mt-4 px-6 py-2 bg-yellow-500 text-black font-bold hover:bg-yellow-600 transition">Переглянути блог</a>
+        </div>
+    </section>
+
+    <section class="mt-16 bg-gray-800 p-8">
+        <h2 class="text-2xl font-bold text-white">Наша команда</h2>
+        <p class="mt-4">Дізнайтеся більше про людей, що роблять цей сервер унікальним.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div class="text-center">
+                <img src="https://nmsr.nickac.dev/bust/59fd3a85-827e-49f7-91ee-00fd2ec6380a" class="mx-auto" alt="Учасник команди">
+                <p class="mt-2">Адмін</p>
+            </div>
+            <div class="text-center">
+                <img src="https://nmsr.nickac.dev/bust/59fd3a85-827e-49f7-91ee-00fd2ec6380a" class="mx-auto" alt="Учасник команди">
+                <p class="mt-2">Розробник</p>
+            </div>
+            <div class="text-center">
+                <img src="https://nmsr.nickac.dev/bust/59fd3a85-827e-49f7-91ee-00fd2ec6380a" class="mx-auto" alt="Учасник команди">
+                <p class="mt-2">Модератор</p>
+            </div>
+            <div class="text-center">
+                <img src="https://nmsr.nickac.dev/bust/59fd3a85-827e-49f7-91ee-00fd2ec6380a" class="mx-auto" alt="Учасник команди">
+                <p class="mt-2">Дизайнер</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-16 text-center">
+        <h2 class="text-2xl font-bold text-white">Приєднуйтесь до спільноти!</h2>
+        <p class="mt-4">Спілкуйтеся з іншими гравцями та адміністрацією на нашому Discord-сервері.</p>
+        <a href="https://discord.com" target="_blank" class="inline-block mt-4 px-6 py-2 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition">Перейти до Discord</a>
+    </section>
+</main>
+
+<footer class="bg-yellow-500 py-4">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <p class="text-black">© M4SUB - Minecraft сервер. Ми не пов'язані з Mojang AB.</p>
+        <a href="mailto:admin@m4sub.com" class="text-black underline">admin@m4sub.com</a>
+    </div>
+</footer>
+
+</body>
+</html>
