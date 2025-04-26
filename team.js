@@ -33,12 +33,12 @@ function renderSlide(index) {
     const member = teamData[index];
 
     slider.innerHTML = `
-        <div class="grid md:grid-cols-[2fr,1fr] items-center gap-8">
-            <div class="slide-text opacity-0 transition duration-500 md:ml-20">
-                <h3 class="minecraftFont text-4xl font-semibold text-white leading-relaxed flex items-center gap-2">
+        <div class="flex flex-col md:grid md:grid-cols-[2fr,1fr] items-center gap-8 text-center md:text-left">
+            <div class="slide-text opacity-0 transition duration-500 md:ml-20 flex flex-col items-center md:items-start">
+                <h3 class="text-3xl md:text-4xl font-semibold text-white leading-relaxed flex items-center gap-2">
                     <span>${member.name}</span>
                     <span class="cornerCutSmall ${member['role-color']} px-2 flex items-center gap-2">
-                        <i class="role-icon pixelated" style="background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png'); background-size: cover; width: 54px; height: 54px; display: inline-block; image-rendering: pixelated;"></i>
+                        <i class="role-icon" style="background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png'); background-size: cover; width: 24px; height: 24px; display: inline-block;"></i>
                         ${member.role}
                     </span>
                 </h3>
@@ -46,7 +46,7 @@ function renderSlide(index) {
             </div>
             <img 
                 src="https://nmsr.nickac.dev/bust/${member.username}"
-                class="slide-image w-auto h-45 justify-self-center opacity-0 translate-x-10 transition duration-500" 
+                class="slide-image w-48 h-48 justify-self-center opacity-0 translate-x-10 transition duration-500 md:w-auto md:h-45" 
                 alt="${member.name}">
         </div>
     `;
@@ -56,6 +56,7 @@ function renderSlide(index) {
         slider.querySelector('.slide-text').classList.remove('opacity-0');
     }, 50);
 }
+
 
 
 function highlightActiveButton() {
