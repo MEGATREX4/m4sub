@@ -37,7 +37,7 @@ function renderSlide(index) {
     slider.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
             <div class="slide-text opacity-0 transition duration-500 md:ml-20">
-                <h3 class="minecraftFont text-4xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+                <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
                     <span class="break-words">${member.name}</span>
                     <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
                         <i class="role-icon pixelated inline-block" style="

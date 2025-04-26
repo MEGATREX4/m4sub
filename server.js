@@ -1,5 +1,5 @@
 async function loadServerInfo() {
-    const serverDomain = 'm4sub.click'; // твій домен
+    const serverDomain = 'm4sub.click';
     try {
         const response = await fetch(`https://api.mcsrvstat.us/2/${serverDomain}`);
         const data = await response.json();
@@ -7,19 +7,23 @@ async function loadServerInfo() {
         if (data.online) {
             const playerCountElement = document.getElementById('player-count');
             const copyButton = document.getElementById('copy-ip');
+            const copyText = document.getElementById('copy-ip-text');
+            const copyIcon = document.getElementById('copy-icon');
 
             playerCountElement.textContent = `Онлайн: ${data.players.online}/${data.players.max}`;
             
-            // Зберігаємо IP у кнопку
             copyButton.dataset.ip = serverDomain;
 
-            // Додаємо обробник для копіювання
             copyButton.addEventListener('click', () => {
                 navigator.clipboard.writeText(copyButton.dataset.ip)
                     .then(() => {
-                        copyButton.textContent = 'Скопійовано!';
+                        // Зміна тексту і іконки
+                        copyText.textContent = 'Скопійовано!';
+                        copyIcon.src = '/icons/copied.png';
+
                         setTimeout(() => {
-                            copyButton.textContent = 'm4sub.click';
+                            copyText.textContent = 'm4sub.click';
+                            copyIcon.src = '/icons/copy.png';
                         }, 2000);
                     })
                     .catch(err => {
