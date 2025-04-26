@@ -22,3 +22,8 @@ h1, h2, h3, h4, h5, h6{
     font-family: "Minecraft", sans-serif;
     font-weight: normal!important;
 }
+
+section{
+    padding-top: 30px!important;
+    padding-bottom: 30px!important;
+}
