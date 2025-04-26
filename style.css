@@ -28,9 +28,7 @@ section{
     padding-bottom: 30px!important;
 }
 
-img{
-    image-rendering: pixelated!important;
-}
+
 
 #copy-ip{
     width: 180px;
