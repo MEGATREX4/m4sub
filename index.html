@@ -55,12 +55,14 @@
       <script type="module" src="menu.js"></script>      
 
 <main class="flex-grow max-w-7xl mx-auto px-4 py-12">
-    <section class="relative text-center cornerCut overflow-hidden">
-        <div class="relative ">
-          <img src="/hero.png" alt="Головне зображення" class="w-full shadow-lg pixelcut md:max-h-[calc(100vh-600px)] md:m-auto object-cover" style="filter: brightness(0.6);">
+    <section class="relative text-center cornerCut w-full max-w-[100vw] overflow-hidden">
+        <div class="relative w-full max-w-[100vw] overflow-hidden">
+          <img src="/hero.png" alt="Головне зображення" 
+               class="w-full shadow-lg pixelcut object-cover md:max-h-[calc(100vh-600px)]" 
+               style="filter: brightness(0.6);">
           <div class="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50">
             <h1 class="text-4xl font-bold text-white mb-4">Ласкаво просимо на M4SUB</h1>
-            <p class="mb-8 text-lg text-white">Найкращий ванільний Minecraft сервер з унікальними можливостями.</p>
+            <p class="text-lg text-white">Найкращий ванільний Minecraft сервер з унікальними можливостями.</p>
           </div>
         </div>
       </section>
@@ -76,20 +78,19 @@
     </section>
 
     <!-- Managers gallery -->
-    <section class="mt-16 bg-gray-800 p-8 relative px-6">
-        <div class="team-container md:p-4">
-            <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
-            <p class="mt-4">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
-
-            <script type="module" src="team.js"></script>
-            <div id="slider" class="relative overflow-hidden mt-8 ">
-                <!-- Dynamic content -->
-            </div>
-
-            <div id="navigation" class="flex gap-4 mt-8 ml-10"></div>
+    <section class="mt-16 bg-gray-800 p-8 relative w-full max-w-[100vw] overflow-hidden">
+        <div class="team-container md:p-4 w-full max-w-[100vw] overflow-hidden">
+          <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
+          <p class="mt-4">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
+    
+          <div id="slider" class="relative overflow-hidden mt-8 w-full max-w-[100vw]">
+            <!-- Dynamic content -->
+          </div>
+    
+          <div id="navigation" class="flex gap-4 mt-8 ml-10"></div>
         </div>
-    </section>
-
+      </section>
+<script type="module" src="team.js"></script>
 
     <section class="mt-16 text-center">
         <h2 class="text-2xl font-bold text-white">Приєднуйтесь до спільноти!</h2>

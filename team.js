@@ -1,3 +1,5 @@
+//team.js
+
 let currentIndex = 0;
 let teamData = [];
 
@@ -33,20 +35,28 @@ function renderSlide(index) {
     const member = teamData[index];
 
     slider.innerHTML = `
-        <div class="flex flex-col md:grid md:grid-cols-[2fr,1fr] items-center gap-8 text-center md:text-left">
-            <div class="slide-text opacity-0 transition duration-500 md:ml-20 flex flex-col items-center md:items-start">
-                <h3 class="text-3xl md:text-4xl font-semibold text-white leading-relaxed flex items-center gap-2">
-                    <span>${member.name}</span>
-                    <span class="cornerCutSmall ${member['role-color']} px-2 flex items-center gap-2">
-                        <i class="role-icon" style="background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png'); background-size: cover; width: 24px; height: 24px; display: inline-block;"></i>
-                        ${member.role}
+        <div class="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
+            <div class="slide-text opacity-0 transition duration-500 md:ml-20">
+                <h3 class="minecraftFont text-4xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+                    <span class="break-words">${member.name}</span>
+                    <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
+                        <i class="role-icon pixelated inline-block" style="
+                            background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png'); 
+                            background-size: cover; 
+                            width: 32px; 
+                            height: 32px; 
+                            display: inline-block; 
+                            image-rendering: pixelated;
+                            flex-shrink-0;
+                        "></i>
+                        <span class="break-words">${member.role}</span>
                     </span>
                 </h3>
                 <p class="mt-2 leading-relaxed text-white">${member.description}</p>
             </div>
             <img 
                 src="https://nmsr.nickac.dev/bust/${member.username}"
-                class="slide-image w-48 h-48 justify-self-center opacity-0 translate-x-10 transition duration-500 md:w-auto md:h-45" 
+                class="slide-image w-full md:w-auto h-45 justify-self-center opacity-0 translate-x-10 transition duration-500" 
                 alt="${member.name}">
         </div>
     `;
@@ -56,6 +66,7 @@ function renderSlide(index) {
         slider.querySelector('.slide-text').classList.remove('opacity-0');
     }, 50);
 }
+
 
 
 
