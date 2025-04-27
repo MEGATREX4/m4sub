@@ -38,9 +38,11 @@
           <ul id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-gray-900 md:bg-transparent shadow-md md:shadow-none z-50">
             <li><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 transition">Головна</a></li>
             <li><a href="/faq" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Часті питання</a></li>
+            <li><a href="https://discord.gg/2TxYxe7cbp" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Правила</a></li>
+            <li><a href="/team" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Мапа</a></li>
             <li><a href="https://wiki.m4sub.click" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Вікі</a></li>
             <li>
-                <a href="https://discord.com" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-indigo-600 hover:bg-indigo-700 transition flex items-center">
+                <a href="https://discord.gg/2TxYxe7cbp" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-indigo-600 hover:bg-indigo-700 transition flex items-center">
                     <img src="/icons/light-discord.png" alt="Discord Icon" class="w-6 h-6 mr-2">
                     Discord
                 </a>
@@ -72,16 +74,36 @@
         </div>
       </section>
 
+      <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="flex justify-center">
+          <img src="/news.png" alt="Новини" class="shadow w-64 h-64 md:w-80 md:h-80">
+      </div>
+      
+      <div class="flex flex-col justify-center">
+        <h2 class="text-2xl font-bold text-white">Переваги гри на M4SUB</h2>
+        <p class="mt-4">Тепла та дружня атмосфера без токсичності</p>
+        <p class="mt-4">Немає частих вайпів — ваші досягнення зберігаються</p>
+        <p class="mt-4">Додаткові унікальні крафти для цікавішого розвитку</p>
+    </div>
+      </section>
+      
+      
+      
+
       <section class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 bg-gray-800 px-10 md:px-4 py-4 rounded-lg shadow-md max-w-full text-center md:text-left">
-        
+        <img src="/search.png" alt="Server image" class="block md:hidden w-64 h-64 md:w-80 md:h-80">
         <div class="w-full md:w-1/2 text-white text-lg text-center">
-          <p>Вступай на наш сервер зараз!</p>
+          <h2 class="text-2xl font-bold text-white">Вступай зараз!</h2>
+          <div class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
+            <p><span class="bg-[#34455d] px-[15px] cornerCutSmall text-2xl">1.21.4</span> Vanilla+ сервер Minecraft.</p>
+            <p>Безкоштовний вступ.</p>
+          </div>
           <div id="server-info" class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
             <button id="copy-ip" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 cornerCutSmall font-bold">
                 <img id="copy-icon" src="/icons/copy.png" alt="Copy Icon" class="w-5 h-5">
                 <span id="copy-ip-text">m4sub.click</span>
             </button>
-            <p id="player-count" class="text-white">0</p>
+            <p id="player-count" class="text-white">Онлайн: 0/0</p>
           </div>
         </div>
 
@@ -98,22 +120,23 @@
         <div class="flex flex-col justify-center">
             <h2 class="text-2xl font-bold text-white">Останні новини</h2>
             <p class="mt-4">Слідкуйте за останніми подіями на нашому сервері.</p>
-            <p class="mt-4">Вступайте у Discord</p>
-            <a href="/discord" class="inline-block mt-4 w-[250px] px-6 py-2 bg-yellow-500 text-black font-bold hover:bg-yellow-600 transition">Переглянути блог</a>
+            <ul class="mb-4 list-none list-inside">
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Стріми</span></li>
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Івенти</span></li>
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Новини</span></li>
+            </ul>
+            <a href="/discord" class="text-center inline-block mt-4 w-[250px] px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition">Переглянути Discord</a>
         </div>
     </section>
 
-    <!-- Managers gallery -->
-    <section class="mt-16 bg-gray-800 p-8 relative w-full max-w-[100vw] overflow-hidden">
-        <div class="team-container md:p-4 w-full max-w-[100vw] overflow-hidden">
-          <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
-          <p class="mt-4">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
-    
+    <!-- Team gallery -->
+    <section id="team" class="mt-16 bg-gray-800 p-8 relative w-full max-w-100vw overflow-hidden">
+        <div class="team-container md:p-4 w-full max-w-[100vw] overflow-hidden">    
           <div id="slider" class="relative overflow-hidden mt-8 w-full max-w-[100vw]">
             <!-- Dynamic content -->
-          </div>
-    
+          </div> 
           <div id="navigation" class="flex gap-4 mt-8 ml-10"></div>
+          <div id="progress-bar-wrapper" class="mt-2"></div>
         </div>
       </section>
 <script type="module" src="team.js"></script>
@@ -121,21 +144,30 @@
     <section class="mt-16 text-center">
         <h2 class="text-2xl font-bold text-white">Приєднуйтесь до спільноти!</h2>
         <p class="mt-4">Спілкуйтеся з іншими гравцями та адміністрацією на нашому Discord-сервері.</p>
-        <a href="https://discord.com" target="_blank" class="inline-block mt-4 px-6 py-2 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition">Перейти до Discord</a>
+        <a href="https://discord.gg/2TxYxe7cbp" target="_blank" class="inline-block mt-4 px-6 py-2  text-white font-bold bg-indigo-600 hover:bg-indigo-700 transition">Перейти до Discord</a>
     </section>
 
 </main>
 
-<footer class="bg-yellow-500 py-4 md:flex md:justify-between md:items-center">
-    <p class="text-black text-center md:text-left">© M4SUB - Minecraft сервер.</p>
-    <div class="flex justify-center md:justify-end">
-        <a href="https://discord.com" target="_blank" class="mr-4 md:mr-6">
-            <img src="/icons/discord.png" alt="Discord" class="w-8 h-8 md:w-10 md:h-10">
-        </a>
-        <a href="https://github.com/M4SUB" target="_blank" class="mr-4 md:mr-6">
-            <img src="/icons/github.png" alt="GitHub" class="w-8 h-8 md:w-10 md:h-10">
-        </a>
-    </div>
+<footer class="bg-yellow-500 py-4 flex justify-between items-center px-8 text-black">
+    <ul>
+        <li class="text-center">© M4SUB - Minecraft  </li>
+        <li class="text-center">Іконки - HackerNoon</li>
+        <li class="text-center">Tailwind CSS</li>
+    </ul>
+    
+    <ul class="flex gap-4">
+        <li class="relative">
+            <a href="https://discord.gg/2TxYxe7cbp" target="_blank" class="group">
+                <img src="/icons/discord.png" alt="Discord" class="w-8 h-8 md:w-10 md:h-10 group-hover:filter group-hover:invert-[1]">
+            </a>
+        </li>
+        <li class="relative">
+            <a href="https://www.x.com/m4subclick" target="_blank" class="group">
+                <img src="/icons/x.png" alt="X" class="w-8 h-8 md:w-10 md:h-10 group-hover:filter group-hover:invert-[1]">
+            </a>
+        </li>
+    </ul>
 </footer>
 
 </body>

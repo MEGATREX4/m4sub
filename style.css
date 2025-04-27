@@ -28,9 +28,30 @@ section{
     padding-bottom: 30px!important;
 }
 
-
+#scroll-container{
+    min-height: calc(50px + 10px)!important;
+}
 
 #copy-ip{
     width: 180px;
     justify-content: center;
 }
+
+footer{
+    font-family: Minecraft, sans-serif;
+    font-size: 0.8rem;
+}
+
+
+p, section li{
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.625rem; /* 26px */
+  }
+  
+  @media (min-width: 768px) {
+    p, section li{
+      font-size: 1.125rem; /* 18px */
+      line-height: 1.75rem; /* 28px */
+    }
+  }
+
