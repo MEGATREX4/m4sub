@@ -35,19 +35,38 @@
           <a href="/" class="text-white font-bold text-lg mr-7">M4SUB</a>
       
           <!-- Меню -->
-          <ul id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-gray-900 md:bg-transparent shadow-md md:shadow-none z-50">
-            <li><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 transition">Головна</a></li>
-            <li><a href="/faq" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Часті питання</a></li>
-            <li><a href="/rules" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Правила</a></li>
-            <li><a href="/team" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Мапа</a></li>
-            <li><a href="https://wiki.m4sub.click" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Вікі</a></li>
-            <li>
-                <a href="https://discord.gg/2TxYxe7cbp" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-indigo-600 hover:bg-indigo-700 transition flex items-center">
-                    <img src="/icons/light-discord.png" alt="Discord Icon" class="w-6 h-6 mr-2">
-                    Discord
-                </a>
-            </li>
-          </ul>
+          <div id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-gray-900 md:bg-transparent shadow-md md:shadow-none z-50 transition-all duration-300">
+  
+            <div><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 transition">Головна</a></div>
+            
+            <div><a href="/faq" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Часті питання</a></div>
+            
+            <div><a href="/rules" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Правила</a></div>
+          
+            <!-- Кнопка Сервери -->
+            <div class="relative">
+              <button id="servers-toggle" class="relative menu-link w-full flex justify-between items-center px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">
+                Сервери
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+          
+              <!-- Підменю Серверів -->
+              <div id="servers-submenu" class="bg-gray-800 overflow-hidden max-h-0 md:transition-none transition-all duration-300 ease-in-out">
+                <div><a href="/dominion" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Домініон</a></div>
+                <div><a href="/subserver" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Сабсервер</a></div>
+              </div>
+            </div>
+          
+            <div>
+              <a href="https://discord.gg/2TxYxe7cbp" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-indigo-600 hover:bg-indigo-700 transition flex items-center">
+                <img src="/icons/light-discord.png" alt="Discord Icon" class="w-6 h-6 mr-2">
+                Discord
+              </a>
+            </div>
+          
+          </div>                 
       
           <!-- Кнопка бургер -->
           <button id="burger" class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1">
@@ -130,7 +149,7 @@
     </section>
 
     <!-- Team gallery -->
-    <section id="team" class="mt-16 bg-gray-800 p-8 relative w-full max-w-100vw overflow-hidden">
+    <section id="team" class="mt-16 bg-gray-800 p-8 relative w-100vw max-w-100vw overflow-hidden">
         <div class="team-container md:p-4 w-full max-w-[100vw] overflow-hidden">    
           <div id="slider" class="relative overflow-hidden mt-8 w-full max-w-[100vw]">
             <!-- Dynamic content -->

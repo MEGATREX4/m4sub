@@ -23,12 +23,11 @@ function preloadImages() {
 
         const roleIcon = new Image();
         roleIcon.src = `https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png`;
+        
+        const bustImage = new Image();
+        bustImage.src = `https://nmsr.nickac.dev/bust/${member.username}`;
     });
 }
-
-
-
-
 
 
 function renderProgressBar() {
@@ -158,11 +157,18 @@ function renderNavigation() {
 
 
 function highlightActiveButton() {
-    const scrollContainer = document.getElementById('scroll-container');
-    const allWrappers = scrollContainer.querySelectorAll('div'); // div'и навколо кнопок
+    let scrollContainer = document.getElementById('scroll-container');
+    
+    if (!scrollContainer) {
+        renderNavigation(); // якщо немає — генеруємо наново
+        scrollContainer = document.getElementById('scroll-container'); // і ще раз знаходимо!
+    }
+
+    const allWrappers = scrollContainer.querySelectorAll('div');
 
     allWrappers.forEach((wrapper, idx) => {
         const img = wrapper.querySelector('img');
+        if (!img) return; // безпечна перевірка
         img.classList.remove('absolute', '-translate-y-8');
         img.classList.add('relative');
 
@@ -185,6 +191,8 @@ function highlightActiveButton() {
         });
     }
 }
+
+
 
 
 
