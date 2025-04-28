@@ -48,6 +48,11 @@ function renderProgressBar() {
 
 function renderSlide(index) {
     const slider = document.getElementById('slider');
+    const skeleton = document.getElementById('slider-skeleton');
+    if (skeleton) {
+        skeleton.remove();
+    }
+    
     const member = teamData[index];
 
     slider.innerHTML = `
@@ -115,7 +120,7 @@ function renderNavigation() {
 
     const scrollContainer = document.createElement('div');
     scrollContainer.id = 'scroll-container';
-    scrollContainer.className = "flex items-center gap-4 overflow-x-auto overflow-y-hidden no-scrollbar";
+    scrollContainer.className = "flex flex-wrap items-center gap-4 overflow-x-auto overflow-y-hidden no-scrollbar";
     scrollContainer.style.maxWidth = 'calc(100% - 80px)';
 
     teamData.forEach((member, index) => {
