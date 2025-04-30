@@ -37,7 +37,7 @@ function renderProgressBar() {
 
     const progressDiv = document.createElement('div');
     progressDiv.id = 'progress-bar';
-    progressDiv.className = 'h-full bg-indigo-500 transition-all';
+    progressDiv.className = 'h-full bg-[#c5629a] transition-all';
     progressDiv.style.width = '0%';
 
     progressBarWrapper.appendChild(progressDiv);

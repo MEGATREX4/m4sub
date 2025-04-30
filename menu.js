@@ -56,7 +56,7 @@ window.addEventListener('resize', () => {
       const hrefNormalized = link.href.replace(/\/$/, '');
       const locationNormalized = window.location.href.replace(/\/$/, '');
       if (hrefNormalized === locationNormalized) {
-        link.classList.add('bg-indigo-400', 'pointer-events-none');
+        link.classList.add('bg-[#c5629a]', 'pointer-events-none');
       }
     }
   });
