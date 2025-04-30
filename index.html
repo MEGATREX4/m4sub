@@ -10,12 +10,12 @@
     <title>M4SUB | Minecraft сервер</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-gray-300 font-sans overflow-y-scroll h-screen flex flex-col">
+<body class="bg-[#0e0e10] text-gray-300 font-sans overflow-y-scroll h-screen flex flex-col">
 
     <header class="bg-gray-900 py-4 shadow-lg relative z-50">
         <nav class="max-w-7xl mx-auto px-4 flex justify-between items-center">
           
-          <a href="/" class="text-white font-bold text-lg mr-7">M4SUB</a>
+          <a href="/" class="text-gray-300 font-bold text-lg mr-7">M4SUB</a>
       
           <!-- Меню -->
           <div id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-gray-900 md:bg-transparent shadow-md md:shadow-none z-50 transition-all duration-300">
@@ -53,9 +53,9 @@
       
           <!-- Кнопка бургер -->
           <button id="burger" class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1">
-            <span class="w-6 h-0.5 bg-white"></span>
-            <span class="w-6 h-0.5 bg-white"></span>
-            <span class="w-6 h-0.5 bg-white"></span>
+            <span class="w-6 h-0.5 bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-300"></span>
           </button>
         </nav>
       </header>
@@ -69,9 +69,9 @@
           <img src="/hero.png" alt="Головне зображення" 
                class="w-full shadow-lg pixelcut object-cover md:max-h-[calc(100vh-600px)]" 
                style="filter: brightness(0.6);">
-          <div class="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50">
-            <h1 class="text-4xl font-bold text-white mb-4">Ласкаво просимо на M4SUB</h1>
-            <p class="text-lg text-white">Унікальний комплекс серверів</p>            
+          <div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50">
+            <h1 class="text-4xl font-bold text-gray-300 mb-4">Ласкаво просимо на M4SUB</h1>
+            <p class="text-lg text-gray-300">Унікальний комплекс серверів</p>            
           </div>
         </div>
       </section>
@@ -82,7 +82,7 @@
           </div>  
       
       <div class="flex flex-col justify-center">
-        <h2 class="text-2xl font-bold text-white">Переваги гри на M4SUB</h2>
+        <h2 class="text-2xl font-bold text-gray-300">Переваги гри на M4SUB</h2>
         <ul class="mb-4 list-none list-inside">
           <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Тепла та дружня атмосфера</span></li>
           <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Рідкісні вайпи</span></li>
@@ -98,8 +98,8 @@
 
       <section class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 bg-gray-800 px-10 md:px-4 py-4 rounded-lg shadow-md max-w-full text-center md:text-left">
         <img src="/search.png" alt="Server image" class="block md:hidden w-64 h-64 md:w-80 md:h-80">
-        <div class="w-full md:w-1/2 text-white text-lg text-center">
-          <h2 class="text-2xl font-bold text-white">Вступай зараз!</h2>
+        <div class="w-full md:w-1/2 text-gray-300 text-lg text-center">
+          <h2 class="text-2xl font-bold text-gray-300">Вступай зараз!</h2>
           <div class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
             <p><span class="bg-[#34455d] px-[15px] cornerCutSmall text-2xl">1.21.4</span> Vanilla+ сервер Minecraft</p>
             <p>Безкоштовний вступ</p>
@@ -109,7 +109,7 @@
                 <img id="copy-icon" src="/icons/copy.png" alt="Copy Icon" class="w-5 h-5">
                 <span id="copy-ip-text">m4sub.click</span>
             </button>
-            <p id="player-count" class="text-white">Онлайн: 0/0</p>
+            <p id="player-count" class="text-gray-300">Онлайн: 0/0</p>
           </div>
         </div>
 
@@ -124,14 +124,14 @@
             <img src="/news.png" alt="Новини" class="shadow w-64 h-64 md:w-80 md:h-80">
         </div>
         <div class="flex flex-col justify-center">
-            <h2 class="text-2xl font-bold text-white">Останні новини</h2>
+            <h2 class="text-2xl font-bold text-gray-300">Останні новини</h2>
             <p class="mt-4">Слідкуйте за останніми подіями на нашому сервері.</p>
             <ul class="mb-4 list-none list-inside">
                 <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Стріми</span></li>
                 <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Івенти</span></li>
                 <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Новини</span></li>
             </ul>
-            <a href="/discord" class="text-center inline-block mt-4 w-[250px] px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition">Переглянути Discord</a>
+            <a href="/discord" class="text-center inline-block mt-4 w-[250px] px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-gray-300 font-bold transition">Переглянути Discord</a>
         </div>
     </section>
 
@@ -148,9 +148,9 @@
     <script type="module" src="team.js"></script>
 
     <section class="mt-16 text-center">
-        <h2 class="text-2xl font-bold text-white">Приєднуйтесь до спільноти!</h2>
+        <h2 class="text-2xl font-bold text-gray-300">Приєднуйтесь до спільноти!</h2>
         <p class="mt-4">Спілкуйтеся з іншими гравцями та адміністрацією на нашому Discord-сервері.</p>
-        <a href="https://discord.gg/2TxYxe7cbp" target="_blank" class="inline-block mt-4 px-6 py-2  text-white font-bold bg-indigo-600 hover:bg-indigo-700 transition">Перейти до Discord</a>
+        <a href="https://discord.gg/2TxYxe7cbp" target="_blank" class="inline-block mt-4 px-6 py-2  text-gray-300 font-bold bg-indigo-600 hover:bg-indigo-700 transition">Перейти до Discord</a>
     </section>
 
 </main>
