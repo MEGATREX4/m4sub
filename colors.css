@@ -1,0 +1,16 @@
+:root {
+    /* Основна палітра */
+    --color-bg-main: #0f0f0f;
+    --color-bg-alt: #1f1f1f;
+    --color-bg-header: #111827;
+    --color-bg-panel: #1f2937;
+  
+    --color-text-main: #d1d5db;
+    --color-text-invert: #000;
+    --color-accent-indigo: #4f46e5;   /* bg-indigo-600 */
+    --color-accent-indigo-hover: #4338ca; /* bg-indigo-700 */
+    --color-yellow: #facc15;
+    --color-gray-dark: #374151;
+    --color-gray: #6b7280;
+}
+  

@@ -2,6 +2,9 @@
 <html lang="uk">
 <head> 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="colors.css">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M4SUB | Minecraft сервер</title>
@@ -17,7 +20,7 @@
           <!-- Меню -->
           <div id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-gray-900 md:bg-transparent shadow-md md:shadow-none z-50 transition-all duration-300">
   
-            <div><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-blue-600 hover:bg-blue-700 transition">Головна</a></div>
+            <div><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-indigo-600 hover:bg-indigo-700 transition">Головна</a></div>
             
             <div><a href="/faq" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Часті питання</a></div>
             
@@ -26,7 +29,7 @@
             <!-- Кнопка Сервери -->
             <div class="relative">
               <button id="servers-toggle" class="relative menu-link w-full flex justify-between items-center px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">
-                Сервери
+                СЕРЕРИ
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
@@ -75,14 +78,18 @@
 
       <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div class="flex justify-center">
-          <img src="/news.png" alt="Новини" class="shadow w-64 h-64 md:w-80 md:h-80">
-      </div>
+          <img src="/axo.png" alt="Новини" class="shadow w-64 h-64 md:w-80 md:h-80 mx-auto transform md:scale-x-[-1]">
+          </div>  
       
       <div class="flex flex-col justify-center">
         <h2 class="text-2xl font-bold text-white">Переваги гри на M4SUB</h2>
-        <p class="mt-4">Тепла та дружня атмосфера без токсичності</p>
-        <p class="mt-4">Немає частих вайпів — ваші досягнення зберігаються</p>
-        <p class="mt-4">Додаткові унікальні крафти для цікавішого розвитку</p>
+        <ul class="mb-4 list-none list-inside">
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Тепла та дружня атмосфера</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Рідкісні вайпи</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Унікальні сервери</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Івенти</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Власні плагіни</span></li>
+      </ul>
     </div>
       </section>
       
@@ -94,11 +101,11 @@
         <div class="w-full md:w-1/2 text-white text-lg text-center">
           <h2 class="text-2xl font-bold text-white">Вступай зараз!</h2>
           <div class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
-            <p><span class="bg-[#34455d] px-[15px] cornerCutSmall text-2xl">1.21.4</span> Vanilla+ сервер Minecraft.</p>
-            <p>Безкоштовний вступ.</p>
+            <p><span class="bg-[#34455d] px-[15px] cornerCutSmall text-2xl">1.21.4</span> Vanilla+ сервер Minecraft</p>
+            <p>Безкоштовний вступ</p>
           </div>
           <div id="server-info" class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
-            <button id="copy-ip" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 cornerCutSmall font-bold">
+            <button id="copy-ip" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 cornerCutSmall font-bold">
                 <img id="copy-icon" src="/icons/copy.png" alt="Copy Icon" class="w-5 h-5">
                 <span id="copy-ip-text">m4sub.click</span>
             </button>
