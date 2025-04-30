@@ -49,73 +49,74 @@ function renderProgressBar() {
 function renderSlide(index) {
     const slider = document.getElementById('slider');
     const skeleton = document.getElementById('slider-skeleton');
-    if (skeleton) {
-        skeleton.remove();
-    }
-    
+    if (skeleton) skeleton.remove();
+
     const member = teamData[index];
 
     slider.innerHTML = `
-  <div id="slider-content" class="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
-    
-    <div class="slide-text flex flex-col h-full justify-start md:ml-20 opacity-0 transition duration-500">
-      <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
-      <p class="mt-2 mb-10">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
+    <div id="slider-content" class="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
+      
+      <div class="flex flex-col h-full justify-start md:ml-20">
+        <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
+        <p class="mt-2 mb-10">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
 
-      <div>
-        <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
-          <span class="break-words">${member.name}</span>
-          <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
-            <i class="role-icon pixelated inline-block" style="
-              background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png');
-              background-size: cover;
-              width: 32px;
-              height: 32px;
-              display: inline-block;
-              image-rendering: pixelated;
-              flex-shrink: 0;"></i>
-            <span class="break-words">${member.role}</span>
-          </span>
-        </h3>
+        <div class="slide-text opacity-0 transition duration-500">
+          <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+            <span class="break-words">${member.name}</span>
+            <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
+              <i class="role-icon pixelated inline-block" style="
+                background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png');
+                background-size: cover;
+                width: 32px;
+                height: 32px;
+                display: inline-block;
+                image-rendering: pixelated;
+                flex-shrink: 0;"></i>
+              <span class="break-words">${member.role}</span>
+            </span>
+          </h3>
+
+          <div class="flex flex-grow items-center justify-center mt-8">
+            <p class="text-white leading-relaxed text-center max-w-lg">${member.description}</p>
+          </div>
+        </div>
       </div>
 
-      <div class="flex flex-grow items-center justify-center mt-8">
-        <p class="text-white leading-relaxed text-center max-w-lg">${member.description}</p>
+      <div class="relative flex justify-center items-center min-h-[250px]">
+        <div class="image-wrapper w-full max-w-[300px] aspect-[3/4] overflow-hidden relative">
+          <img 
+            src="/def.png"
+            data-src="https://nmsr.nickac.dev/bust/${member.username}"
+            class="slide-image absolute inset-0 w-full h-full object-contain opacity-0 translate-x-10 transition duration-500"
+            alt="${member.name}">
+        </div>
       </div>
     </div>
+    `;
 
-    <div class="relative flex justify-center items-center min-h-[250px]">
-      <div class="image-wrapper w-full max-w-[300px] aspect-[3/4] overflow-hidden relative">
-        <img 
-          src="/def.png"
-          data-src="https://nmsr.nickac.dev/bust/${member.username}"
-          class="slide-image absolute inset-0 w-full h-full object-contain opacity-0 transition duration-500"
-          alt="${member.name}">
-      </div>
-    </div>
-  </div>
-`;
+    const slideImg = slider.querySelector('.slide-image');
+    const realSrc = slideImg.dataset.src;
+    const preImg = new Image();
 
-const slideImg = slider.querySelector('.slide-image');
-const realSrc = slideImg.dataset.src;
-const preImg = new Image();
-preImg.onload = () => {
-  slideImg.src = realSrc;
-  slideImg.classList.remove('opacity-0');
-};
-preImg.src = realSrc;
+    preImg.onload = () => {
+        slideImg.src = realSrc;
+        requestAnimationFrame(() => {
+            slideImg.classList.remove('opacity-0', 'translate-x-10');
+            setTimeout(() => {
+                const slideText = slider.querySelector('.slide-text');
+                slideText.classList.remove('opacity-0');
+            }, 100);
+        });
+    };
 
-
-
-    setTimeout(() => {
-        slider.querySelector('.slide-image').classList.remove('opacity-0', 'translate-x-10');
-        slider.querySelector('.slide-text').classList.remove('opacity-0');
-    }, 50);
+    preImg.src = realSrc;
 
     const sliderContent = document.getElementById('team');
     sliderContent.addEventListener('mouseenter', () => isPaused = true);
     sliderContent.addEventListener('mouseleave', () => isPaused = false);
 }
+
+
 
 function renderNavigation() {
     const navigation = document.getElementById('navigation');
