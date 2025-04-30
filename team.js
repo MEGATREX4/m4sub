@@ -56,41 +56,56 @@ function renderSlide(index) {
     const member = teamData[index];
 
     slider.innerHTML = `
-    <div id="slider-content" class="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
-      <div class="slide-text flex flex-col h-full justify-start md:ml-20 opacity-0 transition duration-500">
-        <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
-        <p class="mt-2 mb-10">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
+  <div id="slider-content" class="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
+    
+    <div class="slide-text flex flex-col h-full justify-start md:ml-20 opacity-0 transition duration-500">
+      <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
+      <p class="mt-2 mb-10">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
 
-        <div>
-          <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
-            <span class="break-words">${member.name}</span>
-            <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
-              <i class="role-icon pixelated inline-block" style="
-                  background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png'); 
-                  background-size: cover; 
-                  width: 32px; 
-                  height: 32px; 
-                  display: inline-block; 
-                  image-rendering: pixelated;
-                  flex-shrink: 0;
-              "></i>
-              <span class="break-words">${member.role}</span>
-            </span>
-          </h3>
-        </div>
-        <div class="flex flex-grow items-center justify-center mt-8">
-          <p class="text-white leading-relaxed text-center max-w-lg">${member.description}</p>
-        </div>
+      <div>
+        <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+          <span class="break-words">${member.name}</span>
+          <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
+            <i class="role-icon pixelated inline-block" style="
+              background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${member['role-icon']}.png');
+              background-size: cover;
+              width: 32px;
+              height: 32px;
+              display: inline-block;
+              image-rendering: pixelated;
+              flex-shrink: 0;"></i>
+            <span class="break-words">${member.role}</span>
+          </span>
+        </h3>
       </div>
 
-      <div class="relative flex justify-center items-center">
+      <div class="flex flex-grow items-center justify-center mt-8">
+        <p class="text-white leading-relaxed text-center max-w-lg">${member.description}</p>
+      </div>
+    </div>
+
+    <div class="relative flex justify-center items-center min-h-[250px]">
+      <div class="image-wrapper w-full max-w-[300px] aspect-[3/4] overflow-hidden relative">
         <img 
-          src="https://nmsr.nickac.dev/bust/${member.username}"
-          class="slide-image w-full md:w-auto h-45 justify-self-center opacity-0 translate-x-10 transition duration-500" 
+          src="/def.png"
+          data-src="https://nmsr.nickac.dev/bust/${member.username}"
+          class="slide-image absolute inset-0 w-full h-full object-contain opacity-0 transition duration-500"
           alt="${member.name}">
       </div>
     </div>
-    `;
+  </div>
+`;
+
+const slideImg = slider.querySelector('.slide-image');
+const realSrc = slideImg.dataset.src;
+const preImg = new Image();
+preImg.onload = () => {
+  slideImg.src = realSrc;
+  slideImg.classList.remove('opacity-0');
+};
+preImg.src = realSrc;
+
+
 
     setTimeout(() => {
         slider.querySelector('.slide-image').classList.remove('opacity-0', 'translate-x-10');
