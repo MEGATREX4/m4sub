@@ -28,8 +28,7 @@ export default function Team() {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isPaused, currentIndex, nextSlide]);
-
+  }, [isPaused, currentIndex]);
 
   const nextSlide = () => {
     setCurrentIndex((currentIndex + 1) % teamData.length);
