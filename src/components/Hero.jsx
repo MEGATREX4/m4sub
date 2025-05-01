@@ -1,6 +1,8 @@
 export default function Hero({ title, subtitle }) {
   return (
-    <section className="relative text-center w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+    <section
+      className="relative text-center w-[calc(100vw-20px)] left-1/2 transform -translate-x-1/2"
+    >
       <div className="relative w-full max-w-[100vw] overflow-hidden">
         <img
           src="/hero.png"
