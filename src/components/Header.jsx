@@ -41,7 +41,7 @@ const Header = () => {
 
               <Menu as="div" className="relative">
                 <Menu.Button className="px-4 py-2 flex items-center hover:bg-gray-700 transition">
-                  Сервери
+                  СЕРВЕРИ
                   <ChevronDownIcon className="w-4 h-4 ml-2" />
                 </Menu.Button>
 
@@ -65,8 +65,7 @@ const Header = () => {
                 href="https://discord.gg/2TxYxe7cbp"
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center"
-              >
+                className="cornerCutSmall px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center">
                 <img src="/icons/light-discord.png" alt="Discord Icon" className="w-6 h-6 mr-2" />
                 Discord
               </a>
