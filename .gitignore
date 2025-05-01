@@ -2,9 +2,6 @@
 /m4sub_react/node_modules
 /m4sub_react/src/node_modules
 
-# production build
-/m4sub_react/build
-
 # misc
 .DS_Store
 .env.local
