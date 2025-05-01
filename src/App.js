@@ -11,6 +11,8 @@ import Page from "./components/Page";
 import Faq from "./components/Faq";
 import Subserver from "./components/Subserver";
 import Dominion from "./components/Dominion";
+import Discord from "./components/Discord";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Правила">
                     <Rules />
+                    <Discord />
                   </Page>
                 </div>
               </>
@@ -56,6 +59,7 @@ function App() {
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Часті питання">
                     <Faq />
+                    <Discord />
                   </Page>
                 </div>
               </>
@@ -93,6 +97,18 @@ function App() {
               </>
             }
           />
+          <Route
+            path="*"
+            element={
+              <>
+                <Hero title="Сторінка не знайдена" subtitle="Ця сторінка не існує або була видалена" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <NotFound />
+                </div>
+              </>
+            }
+          />
+
         </Routes>
 
         <Footer />
