@@ -28,11 +28,11 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: ./m4sub_react
+        working-directory: /
         run: npm ci
 
       - name: Build React project
-        working-directory: ./m4sub_react
+        working-directory: /
         run: npm run build
 
       - name: Upload artifact
