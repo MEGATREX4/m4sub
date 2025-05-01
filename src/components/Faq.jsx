@@ -12,7 +12,7 @@ const Faq = () => {
   }, [])
 
   return (
-    <div className="md-page pixelcut bg-green-900/10 px-10 max-w-3xl mx-auto py-12 prose prose-invert">
+    <div className="md-page pixelcut bg-green-900/20 px-10 max-w-3xl mx-auto py-12 prose prose-invert">
       <ReactMarkdown>
         {content}
       </ReactMarkdown>

@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import Rules from "./components/Rules";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
+import Subserver from "./components/Subserver";
+import Dominion from "./components/Dominion";
 
 function App() {
   return (
@@ -55,6 +57,38 @@ function App() {
                   <Page title="M4SUB — Часті питання">
                     <Faq />
                   </Page>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/subserver"
+            element={
+              <>
+                <Hero title="Сабсервер" subtitle="Виживання для тебе та твого друга" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Сабсервер">
+                    <Subserver />
+                    <News />
+                    <Join />
+                  </Page>
+                  
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/dominion"
+            element={
+              <>
+                <Hero title="Домініон" subtitle="Справдній RP MMO-RPG в майнкрафт" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Домініон">
+                    <Dominion />
+                    <News />
+                    <Join />
+                  </Page>
+                  
                 </div>
               </>
             }

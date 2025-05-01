@@ -47,7 +47,7 @@ export default function Team() {
     <section
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      className="mt-16 bg-green-900/10 p-8 w-full max-w-full overflow-hidden"
+      className="mt-16 bg-green-900/20 p-8 w-full max-w-full overflow-hidden"
     >
 
       <TeamSlide key={member.username} member={member} />

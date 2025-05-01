@@ -24,12 +24,12 @@ export default function Join() {
   };
 
   return (
-    <section className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 bg-green-900/10 px-10 md:px-4 py-4 rounded-lg shadow-md max-w-full text-center md:text-left">
+    <section className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 bg-green-900/20 px-10 md:px-4 py-4 rounded-lg shadow-md max-w-full text-center md:text-left">
       <img src="/search.png" alt="Server" className="block md:hidden w-64 h-64 md:w-80 md:h-80" />
       <div className="w-full md:w-1/2 text-gray-200 text-lg text-center">
         <h2 className="text-2xl font-bold text-gray-200">Вступай зараз!</h2>
         <div className="mt-4 flex flex-col items-center gap-4 justify-center text-center">
-          <p>1.21.4 Vanilla+ сервер Minecraft</p>
+          <p>Майнкрафт без модів 1.21.4</p>
           <p>Безкоштовний вступ</p>
         </div>
         <div className="mt-4 flex flex-col items-center gap-4 justify-center text-center">
