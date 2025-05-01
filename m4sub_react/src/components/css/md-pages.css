@@ -1,0 +1,64 @@
+/* md-pages.css */
+
+p, h1, li, ul, h2, h3, h4, h5, h6 {
+        color: #e5e7eb;
+    }
+
+.md-page {
+    font-family: 'Inter', sans-serif;
+    color: #e5e7eb;
+    line-height: 1.75;
+  }
+  
+  .md-page h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+  
+  .md-page h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  
+  .md-page p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .md-page ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+  
+  .md-page ul ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.25rem;
+    list-style-type: circle;
+  }
+  
+  .md-page ul ul ul {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1.25rem;
+    list-style-type: square;
+  }
+  
+  .md-page li {
+    margin-bottom: 0.3rem;
+  }
+  
+  .md-page a {
+    color: #c5629a;
+    transition: color 0.2s ease-in-out;
+    text-decoration: underline;
+  }
+  
+  .md-page a:hover {
+    color: #f390d0;
+  }
+  

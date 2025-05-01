@@ -1,142 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta property="og:description" content="​Це простий і атмосферний сервер українською для гри з друзями, або без них тут ти можеш робити все що захочеш(ну майже), можеш збудувати величезну споруду, або сходити й влаштувати RP стрілянину в місцевому барі чи може ти хочеш ще щось незвичне? То гайда грати разом">
-    <meta name="keywords" content=" Minecraft, Minecraft server, сервер Minecraft, сервер майнкрафт, Minecraft українською, Minecraft Ukraine, українізований Minecraft, український майнкрафт, український сервер Minecraft, сервер для українців, Minecraft з модами, Minecraft моди, сервер з модами, модований сервер Minecraft, Twitch, Twitch streamer, Twitch сервер, Twitch сервер Minecraft, Twitch Minecraft server, сабсервер, саб сервер, субсервер, MEGATREX4, MEGATREX4 сервер, MEGATREX сервер, сервер MEGATREX4, megatrex, megatrex4, megatrex сервер, megatrex sub server, m4sub, m4sub server, сервер для фоловерів, сервер для підписників, Twitch саби, сервер для сабів, сервер сабів MEGATREX, MEGATREX4 сабсервер, українська мова, україномовний сервер, майнкрафт українською мовою, Minecraft UA, Minecraft uk, Minecraft на українській, українські стрімери, стрімер Minecraft, український Twitch, україномовний стрімер, стрімер MEGATREX4, стріми Minecraft, моди українською, перекладені моди Minecraft, українізовані моди, сервер з українськими модами, модований Twitch сервер, survival Minecraft, survival сервер, кооператив майнкрафт, дружній сервер, сервер для друзів, приватний сервер, whitelist сервер, build сервер, креативний сервер, майнкрафт 1.20, сервер 1.20.1, Java Minecraft сервер, Java сервер українською, fun сервер Minecraft, сервер для фанів, Minecraft roleplay українською, Minecraft із сюжетами, мініігри Minecraft сервер, MEGATREX community, MEGATREX4 fans, megatrex twitch server, MEGATREX Україна, український Minecraft контент, minecraft twitch fans">
-
-    <meta name="description" content="​Це простий і атмосферний сервер українською для гри з друзями, або без них тут ти можеш робити все що захочеш(ну майже), можеш збудувати величезну споруду, або сходити й влаштувати RP стрілянину в місцевому барі чи може ти хочеш ще щось незвичне? То гайда грати разом">
-    
+<html lang="uk">
+<head> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="colors.css">
 
 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M4SUB Ванільний майнкрафт сервер</title>
+    <title>M4SUB | Minecraft сервер</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" href="https://i.imgur.com/GCakmSa.png" type="image/x-icon">
-    <script src="https://kit.fontawesome.com/a0ff110df7.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="main.css">
 </head>
-<body class="bg-[var(--background-color)] text-[var(--text-color)] flex flex-col min-h-screen"> <!-- Updated text color to light pink -->
+<body class="bg-[#0e0e10] text-gray-200 font-sans overflow-y-scroll h-screen flex flex-col">
 
-    <!-- HEADER (Visible only on large screens) -->
-    <header class="text-[var(--text-color)] py-4 px-6 flex items-center lg:flex hidden">
-        <h1 class="text-2xl font-bold">M4SUB</h1>
-        <nav class="space-x-1 ml-4">
-            <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> <span id="home-tab">Головна</span></a>
-            <a href="apply.html" class="nav-link"><i class="fas fa-user-plus"></i> <span id="apply-tab">Заявка</span></a>
-            <a href="rules.html" class="nav-link"><i class="fas fa-book"></i> <span id="rules-tab">Правила</span></a>
-            <a href="map" class="nav-link"><i class="fas fa-map"></i> <span  id="map-tab">Мапа сервера</span></a>
-            <a href="faq.html" class="nav-link"><i class="fas fa-info-circle"></i> <span id="faq-tab">Часті питання</span></a>
-            <a href="https://discord.gg/2TxYxe7cbp" class="nav-link"><i class="fab fa-discord"></i> <span id="discord-tab">Discord</span></a>
+    <header class="bg-green-900/10 py-4 relative z-50">
+        <nav class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+          <a href="/" class="text-gray-200 font-bold text-lg mr-7">M4SUB</a>
+      
+          <!-- Меню -->
+          <div id="main-menu" class="hidden md:flex flex-col md:flex-row md:space-x-4 uppercase font-bold absolute md:static top-full left-0 w-full bg-green-900/10 md:bg-transparent shadow-md md:shadow-none z-50 transition-all duration-300">
+  
+            <div><a href="/" class="menu-link block px-6 py-4 md:px-4 md:py-2 bg-[#c5629a] text-gray-900 transition">Головна</a></div>
+            
+            <div><a href="/faq" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Часті питання</a></div>
+            
+            <div><a href="/rules" class="menu-link block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Правила</a></div>
+          
+            <!-- Кнопка Сервери -->
+            <div class="relative group">
+              <button class="menu-link block px-6 py-4 md:px-4 md:py-2 flex justify-between items-center hover:bg-gray-700 transition">
+                СЕРВЕРИ
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            
+              <!-- Підменю -->
+              <div class="absolute top-full left-0 hidden group-hover:block md:bg-green-900/90 bg-green-900/90 z-[9999] w-full">
+                <a href="/dominion" class="block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Домініон</a>
+                <a href="/subserver" class="block px-6 py-4 md:px-4 md:py-2 hover:bg-gray-700 transition">Сабсервер</a>
+              </div>
+            </div>
+            
+          
+            <div>
+              <a href="https://discord.gg/2TxYxe7cbp" class="cornerCutSmall menu-link block px-6 py-4 md:px-4 md:py-2 bg-[#5865f2] hover:bg-[#f390d0] transition flex items-center">
+                <img src="/icons/light-discord.png" alt="Discord Icon" class="w-6 h-6 mr-2">
+                Discord
+              </a>
+            </div>
+          
+          </div>                 
+      
+          <!-- Кнопка бургер -->
+          <button id="burger" class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1">
+            <span class="w-6 h-0.5 bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-300"></span>
+            <span class="w-6 h-0.5 bg-gray-300"></span>
+          </button>
         </nav>
-    </header>
-    
+      </header>
+      
+      
+      <script type="module" src="menu.js"></script>      
 
-<!-- MAIN CONTENT -->
-<main class="flex-grow flex flex-col items-center justify-center p-6 text-center relative">
-    <!-- Основний Контейнер -->
-    <div class="bg-[var(--secondary-background-color)] p-8 rounded-lg min-w-5xl max-w-5xl drop-shadow-[0_0_15px_#00000060] relative z-10">
+<main class="flex-grow max-w-7xl mx-auto px-4 py-12">
+    <section class="z-[-1] relative text-center cornerCut w-full max-w-[100vw] overflow-hidden">
+        <div class="relative w-full max-w-[100vw] overflow-hidden">
+          <img src="/hero.png" alt="Головне зображення"
+               class="w-full pixelcut object-cover md:max-h-[calc(100vh-600px)] md:min-h-[201px]" 
+               style="filter: brightness(0.3);">
+          <div class="absolute inset-0 flex flex-col justify-center items-center bg-opacity-50">
+            <h1 class="text-4xl font-bold text-gray-200 mb-4">Ласкаво просимо на M4SUB</h1>
+            <p class="text-lg text-gray-200">Сервери Minecraft для тебе та твого друга</p>            
+          </div>
+        </div>
+    </section>
 
-        
+      <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="flex justify-center">
+          <img src="/axo.png" alt="Новини" class="w-64 h-64 md:w-80 md:h-80 mx-auto transform md:scale-x-[-1]">
+          </div>  
+      
+      <div class="flex flex-col justify-center">
+        <h2 class="text-2xl font-bold text-gray-200">Переваги гри на M4SUB</h2>
+        <ul class="mb-4 list-none list-inside">
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Рідкі вайпи</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Унікальні сервери</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Івенти</span></li>
+          <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Власні плагіни</span></li>
+      </ul>
+    </div>
+      </section>
+      
+      
 
 
-        <h2 class="text-4xl font-bold mb-4 var(--text-color)">ЦЕ M4SUB! <span id="m4sub-text" class="text-[var(--primary-color)]"></span></h2>    
-        <p class="text-xl mb-4 var(--text-color)">M4SUB - ЛІЦЕНЗІЙНИЙ VANILLA+ Майнкрафт сервер для підписників MEGATREX4!</p>
-        <p class="text-lg mb-6 var(--text-color)">Приєднуйтесь до нас і отримуйте задоволення від гри в нашій унікальній спільноті!</p>
-
-        <!-- Блоки можливостей -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-            <div class="card bg-[var(--accent-color-2)] p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-                <h3 class="text-xl font-semibold mb-3 text-white">Різноманітні плагіни</h3>
-                <p class="var(--text-color)">Отримайте нові можливості з нашими унікальними плагінами, що покращують досвід гри.</p>
-            </div>
-            <div class="card bg-[var(--accent-color-2)] p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-                <h3 class="text-xl font-semibold mb-3 text-white">Спільнота</h3>
-                <p class="var(--text-color)">Знайомтесь з новими людьми та грайте разом з друзями завдяки синхронізованому чату між Discord, Twitch та Minecraft.</p>
-            </div>
-            <div class="card bg-[var(--accent-color-2)] p-6 rounded-lg shadow-md hover:shadow-lg transition-all">
-                <h3 class="text-xl font-semibold mb-3 text-white">Власний контент</h3>
-                <p class="var(--text-color)">Насолоджуйтеся контентом, розробленим спеціально для вас, щоб ви отримали новий досвід.</p>
-            </div>
+      <section class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 bg-green-900/10 px-10 md:px-4 py-4 rounded-lg shadow-md max-w-full text-center md:text-left">
+        <img src="/search.png" alt="Server image" class="block md:hidden w-64 h-64 md:w-80 md:h-80">
+        <div class="w-full md:w-1/2 text-gray-200 text-lg text-center">
+          <h2 class="text-2xl font-bold text-gray-200">Вступай зараз!</h2>
+          <div class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
+            <p>1.21.4 Vanilla+ сервер Minecraft</p>
+            <p>Безкоштовний вступ</p>
+          </div>
+          <div id="server-info" class="mt-4 flex flex-col items-center gap-4 justify-center text-center">
+            <button id="copy-ip" class="flex items-center gap-2 bg-[#c5629a] hover:bg-[#f390d0] px-4 py-2 cornerCutSmall font-bold">
+                <img id="copy-icon" src="/icons/copy.png" alt="Copy Icon" class="w-5 h-5">
+                <span id="copy-ip-text">m4sub.click</span>
+            </button>
+            <p id="player-count" class="text-gray-200">Онлайн: 0/0</p>
+          </div>
         </div>
 
-        <!-- Інформація про сервер -->
-        <p class="text-lg mb-6 var(--text-color)">
-            Ми – сервер, створений спільнотою, орієнтований на створення веселого та дружнього середовища для всіх гравців.
-            На нашому сервері є різноманітні плагіни та власний контент, щоб покращити ваш досвід гри в Minecraft. 
-            Більше ви можете прочитати в <a href="faq.html" class="text-[var(--secondary-color)] hover:text-[#EABDE6] transition">FAQ</a>.
-        </p>
+        <img src="/search.png" alt="Server image" class="hidden md:block w-64 h-64 md:w-70 md:h-70">
+      </section>
+      
 
+    <script type="module" src="server.js"></script>
 
-        <!-- Кнопка дії -->
-        <div class="cta   p-8 rounded-md text-center mt-12">
-            <h3 class="text-3xl font-bold mb-4">Не чекайте, приєднуйтесь до нас зараз!</h3><br>
-            <a href="apply.html" class="bg-[var(--accent-color-2)] px-8 py-3 rounded-lg text-lg font-semibold hover:bg-[var(--accent-color-3)] transition">Подати заявку</a>
-        </div>        
-    </div>
+    <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="flex justify-center">
+            <img src="/news.png" alt="Новини" class="shadow w-64 h-64 md:w-80 md:h-80">
+        </div>
+        <div class="flex flex-col justify-center">
+            <h2 class="text-2xl font-bold text-gray-200">Останні новини</h2>
+            <p class="mt-4">Слідкуйте за останніми подіями на нашому сервері в Discord</p>
+            <ul class="mb-4 list-none list-inside">
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Стріми</span></li>
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Івенти</span></li>
+                <li class="mt-3 flex items-center"><img src="/icons/point.png" alt="Point icon" class="invert-[1] w-4 h-4 mr-2"><span>Новини</span></li>
+            </ul>
+            <a href="/discord" class="text-center inline-block mt-4 w-[250px] px-6 py-2 bg-[#c5629a] hover:bg-[#f390d0] text-gray-200 font-bold cornerCutSmall transition">Переглянути Discord</a>
+        </div>
+    </section>
+
+    <!-- Team gallery -->
+    <section id="team" class="mt-16 bg-green-900/10 p-8 relative w-full max-w-full overflow-hidden">
+      <div class="team-container md:p-4 w-full overflow-hidden">
+        <div id="slider" class="relative overflow-hidden mt-8 w-full">
+          <!-- Dynamic content -->
+        </div>
+        <div id="navigation" class="flex gap-4 mt-8 md-ml-10"></div>
+        <div id="progress-bar-wrapper" class="mt-2"></div>
+      </div>
+    </section>
+    <script type="module" src="team.js"></script>
 </main>
 
+<footer class="bg-green-900/10 py-4 flex justify-between items-center px-8 text-gray-200">
+    <ul>
+        <li class="text-center">© M4SUB - Minecraft  </li>
+        <li class="text-center">Іконки - HackerNoon</li>
+        <li class="text-center">Tailwind CSS</li>
+    </ul>
+    
+    <ul class="flex gap-4">
+        <li class="relative">
+            <a href="https://discord.gg/2TxYxe7cbp" target="_blank" class="group">
+                <img src="/icons/light-discord.png" alt="Discord" class="w-8 h-8 md:w-10 md:h-10 group-hover:filter group-hover:invert-[0.1]">
+            </a>
+        </li>
+        <li class="relative">
+            <a href="https://www.x.com/m4subclick" target="_blank" class="group">
+                <img src="/icons/x.png" alt="X" class="w-8 h-8 md:w-10 md:h-10 group-hover:filter group-hover:invert-[0.1]">
+            </a>
+        </li>
+    </ul>
+</footer>
 
-
-<script>
-    const texts = [
-        '1000 безкоштовних обійм',
-        'Прокладаємо тропинки',
-        'Тут спільнота',
-        'Розваги всім',
-        'Феєрверк емоцій',
-        'Місце для нових знайомств',
-        'Ваш другий дім',
-        'Щастя в кожному куточку',
-        'Теплі обійми для всіх',
-        'Приєднуйтесь до нас сьогодні'
-    ];
-    let textIndex = Math.floor(Math.random() * texts.length); // Randomly choose a text from the array
-    let charIndex = 0;
-
-    function displayText() {
-        let intervalId = setInterval(() => {
-            const text = texts[textIndex];
-            const char = text[charIndex];
-            document.getElementById('m4sub-text').textContent += char;
-            charIndex++;
-            if (charIndex >= text.length) {
-                clearInterval(intervalId); // Stop typing after finishing the current text
-            }
-        }, 50); // Typing speed
-    }
-
-    displayText(); // Start displaying the first random text
-</script>
-
-
-    <!-- FOOTER -->
-    <footer class="bg-[var(--accent-color-2)] text-center py-4 mt-auto"> <!-- Updated footer bg color -->
-        <p>&copy; 2025 Сервер M4SUB. Всі права захищені кимсь.</p>
-        <p style="font-size: 0.8rem; opacity: 0.6;">NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
-    </footer>
-
-    <!-- BOTTOM NAVBAR (Visible only on small screens) -->
-        <nav class="z-20 lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--navbar-background-color)] text-[var(--text-color)] py-2 flex justify-around shadow-md drop-shadow-[0_0_10px_#00000040]" style="position: sticky;">
-
-        <a id="home-tab" href="index.html" class="nav-link active text-center flex items-center justify-center h-12 w-12">
-            <i class="fas fa-home text-2xl"></i>
-        </a>
-        <a id="apply-tab" href="apply.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
-            <i class="fas fa-user-plus text-2xl"></i>
-        </a>
-        <a id="rules-tab" href="rules.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
-            <i class="fas fa-book text-2xl"></i>
-        </a>
-        <a id="map-tab" href="map" class="nav-link text-center flex items-center justify-center h-12 w-12">
-            <i class="fas fa-map text-2xl"></i>
-        </a>
-        <a id="faq-tab" href="faq.html" class="nav-link text-center flex items-center justify-center h-12 w-12">
-            <i class="fas fa-info-circle text-2xl"></i>
-        </a>
-        <a id="discord-tab" href="https://discord.gg/2TxYxe7cbp" class="nav-link text-center flex items-center justify-center h-12 w-12">
-            <i class="fab fa-discord text-2xl"></i>
-        </a>
-    </nav>
 </body>
 </html>
