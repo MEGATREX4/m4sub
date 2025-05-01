@@ -8,6 +8,7 @@ import Team from "./components/Team";
 import Footer from "./components/Footer";
 import Rules from "./components/Rules";
 import Page from "./components/Page";
+import Faq from "./components/Faq";
 
 function App() {
   return (
@@ -34,6 +35,15 @@ function App() {
                 <Page title="M4SUB — Правила">
                   <Hero title="Правила серверу" subtitle="Тут буде багато всього цікавого" />
                   <Rules />
+                </Page>
+              }
+            />
+            <Route
+              path="/faq"
+              element={
+                <Page title="M4SUB — Часті питання">
+                  <Hero title="Часті питання" subtitle="Відповіді на популярні питання" />
+                  <Faq />
                 </Page>
               }
             />
