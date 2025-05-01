@@ -76,7 +76,8 @@ const Header = () => {
             </Disclosure.Button>
           </div>
 
-          <Disclosure.Panel className="md:hidden bg-green-900/90 space-y-1 px-2 py-4 uppercase font-bold">
+          <Disclosure.Panel className="absolute top-full left-0 w-full md:hidden bg-[#202c28] space-y-1 px-2 py-4 uppercase font-bold shadow-lg z-50">
+
             {navigation.map((item) => (
               <a
                 key={item.name}
@@ -87,26 +88,24 @@ const Header = () => {
               </a>
             ))}
 
-            <Menu as="div" className="relative">
-              <Menu.Button className="w-full text-left px-4 py-2 hover:bg-gray-700 transition flex items-center">
-                Сервери
-                <ChevronDownIcon className="w-4 h-4 ml-2" />
-              </Menu.Button>
-              <Menu.Items className="w-full bg-green-900/90 mt-1">
-                {servers.map((server) => (
-                  <Menu.Item key={server.name}>
-                    {({ active }) => (
-                      <a
-                        href={server.href}
-                        className={`block px-4 py-2 ${active ? 'bg-gray-700' : ''} ${isActive(server.href) ? 'bg-[#c5629a] pointer-events-none' : ''}`}
-                      >
-                        {server.name}
-                      </a>
-                    )}
-                  </Menu.Item>
-                ))}
-              </Menu.Items>
-            </Menu>
+            <div className="w-full">
+              <details className="w-full">
+                <summary className="px-4 py-2 cursor-pointer hover:bg-gray-700 transition">СЕРВЕРИ</summary>
+                <div className="w-full bg-green-900/20 mt-1">
+                  {servers.map((server) => (
+                    <a
+                      key={server.name}
+                      href={server.href}
+                      className={`block px-4 py-2 hover:bg-gray-700 transition`}
+                    >
+                      {server.name}
+                    </a>
+                  ))}
+                </div>
+              </details>
+            </div>
+
+
 
             <a
               href="https://discord.gg/2TxYxe7cbp"
