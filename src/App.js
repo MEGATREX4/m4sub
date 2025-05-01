@@ -15,40 +15,52 @@ function App() {
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow max-w-7xl mx-auto px-4 py-12">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Page title="M4SUB — Головна">
-                  <Hero title="Ласкаво просимо на M4SUB" subtitle="Сервери Minecraft для тебе та твого друга" />
-                  <Features />
-                  <Join />
-                  <News />
-                  <Team />
-                </Page>
-              }
-            />
-            <Route
-              path="/rules"
-              element={
-                <Page title="M4SUB — Правила">
-                  <Hero title="Правила серверу" subtitle="Тут буде багато всього цікавого" />
-                  <Rules />
-                </Page>
-              }
-            />
-            <Route
-              path="/faq"
-              element={
-                <Page title="M4SUB — Часті питання">
-                  <Hero title="Часті питання" subtitle="Відповіді на популярні питання" />
-                  <Faq />
-                </Page>
-              }
-            />
-          </Routes>
-        </main>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero title="Ласкаво просимо на M4SUB" subtitle="Сервери Minecraft для тебе та твого друга" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Головна">
+                    <Features />
+                    <Join />
+                    <News />
+                    <Team />
+                  </Page>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/rules"
+            element={
+              <>
+                <Hero title="Правила серверу" subtitle="Тут буде багато всього цікавого" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Правила">
+                    <Rules />
+                  </Page>
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <>
+                <Hero title="Часті питання" subtitle="Відповіді на популярні питання" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Часті питання">
+                    <Faq />
+                  </Page>
+                </div>
+              </>
+            }
+          />
+        </Routes>
+
         <Footer />
       </div>
     </BrowserRouter>
