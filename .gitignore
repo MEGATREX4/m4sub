@@ -1,9 +1,9 @@
 # dependencies
-/m4sub_react/node_modules
-/m4sub_react/src/node_modules
+node_modules
+src/node_modules
 
 # production build
-/m4sub_react/build
+/build
 
 # misc
 .DS_Store
