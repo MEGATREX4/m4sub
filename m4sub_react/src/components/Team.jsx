@@ -104,11 +104,11 @@ function TeamSlide({ member }) {
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
       <div className="flex flex-col h-full justify-start md:ml-20">
-        <h2 className="text-2xl font-bold text-white">Познайомтеся з командою</h2>
-        <p className="mt-2 mb-10 text-white">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
+        <h2 className="text-2xl font-bold text-gray-200">Познайомтеся з командою</h2>
+        <p className="mt-2 mb-10 text-gray-200">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
 
         <div className={`slide-text transition duration-500 ${visible ? "opacity-100" : "opacity-0"}`}>
-          <h3 className="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+          <h3 className="minecraftFont text-3xl font-semibold text-gray-200 leading-relaxed flex flex-wrap items-center gap-2">
             <span className="break-words">{member.name}</span>
             <span
               className={`cornerCutSmall px-2 flex flex-wrap items-center gap-2`}
@@ -130,7 +130,7 @@ function TeamSlide({ member }) {
           </h3>
 
           <div className="flex flex-grow items-center justify-center mt-8">
-            <p className="text-white leading-relaxed text-center max-w-lg">
+            <p className="text-gray-200 leading-relaxed text-center max-w-lg">
               {member.description}
             </p>
           </div>

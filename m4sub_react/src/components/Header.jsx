@@ -23,7 +23,10 @@ const Header = () => {
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
-            <a href="/" className="text-gray-200 font-bold text-lg">M4SUB</a>
+            <a href="/" className="flex items-center text-gray-200 font-bold text-lg">
+              <img src="/logo512.png" alt="M4SUB" className="w-8 h-8 mr-2" />
+              M4SUB
+            </a>
 
             <div className="hidden md:flex space-x-4 items-center uppercase font-bold">
               {navigation.map((item) => (
@@ -62,7 +65,7 @@ const Header = () => {
                 href="https://discord.gg/2TxYxe7cbp"
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-white transition flex items-center"
+                className="px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center"
               >
                 <img src="/icons/light-discord.png" alt="Discord Icon" className="w-6 h-6 mr-2" />
                 Discord
@@ -110,7 +113,7 @@ const Header = () => {
               href="https://discord.gg/2TxYxe7cbp"
               target="_blank"
               rel="noreferrer"
-              className="block px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-white transition flex items-center"
+              className="block px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center"
             >
               <img src="/icons/light-discord.png" alt="Discord Icon" className="w-6 h-6 mr-2" />
               Discord

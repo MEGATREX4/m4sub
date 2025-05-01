@@ -57,11 +57,11 @@ function renderSlide(index) {
     <div id="slider-content" class="relative grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-8 w-full max-w-[100vw] overflow-hidden">
       
       <div class="flex flex-col h-full justify-start md:ml-20">
-        <h2 class="text-2xl font-bold text-white">Познайомтеся з командою</h2>
+        <h2 class="text-2xl font-bold text-gray-200">Познайомтеся з командою</h2>
         <p class="mt-2 mb-10">Дізнайтеся про людей, які роблять сервер дивовожним!</p>
 
         <div class="slide-text opacity-0 transition duration-500">
-          <h3 class="minecraftFont text-3xl font-semibold text-white leading-relaxed flex flex-wrap items-center gap-2">
+          <h3 class="minecraftFont text-3xl font-semibold text-gray-200 leading-relaxed flex flex-wrap items-center gap-2">
             <span class="break-words">${member.name}</span>
             <span class="cornerCutSmall ${member['role-color']} px-2 flex flex-wrap items-center gap-2">
               <i class="role-icon pixelated inline-block" style="
@@ -77,7 +77,7 @@ function renderSlide(index) {
           </h3>
 
           <div class="flex flex-grow items-center justify-center mt-8">
-            <p class="text-white leading-relaxed text-center max-w-lg">${member.description}</p>
+            <p class="text-gray-200 leading-relaxed text-center max-w-lg">${member.description}</p>
           </div>
         </div>
       </div>
@@ -127,7 +127,7 @@ function renderNavigation() {
 
     const prevButton = document.createElement('button');
     prevButton.id = 'prev-btn';
-    prevButton.className = 'bg-no-repeat bg-center bg-contain bg-[url("/icons/left.svg")] text-white filter invert-[1] font-bold p-2 rounded-full w-10 h-10 flex-shrink-0';
+    prevButton.className = 'bg-no-repeat bg-center bg-contain bg-[url("/icons/left.svg")] text-gray-200 filter invert-[1] font-bold p-2 rounded-full w-10 h-10 flex-shrink-0';
     prevButton.onclick = () => {
         prevSlide();
         resetAutoSlide();
@@ -163,7 +163,7 @@ function renderNavigation() {
 
     const nextButton = document.createElement('button');
     nextButton.id = 'next-btn';
-    nextButton.className = 'bg-no-repeat bg-center bg-contain bg-[url("/icons/right.svg")] text-white filter invert-[1] font-bold p-2 rounded-full w-10 h-10 flex-shrink-0';
+    nextButton.className = 'bg-no-repeat bg-center bg-contain bg-[url("/icons/right.svg")] text-gray-200 filter invert-[1] font-bold p-2 rounded-full w-10 h-10 flex-shrink-0';
     nextButton.onclick = () => {
         nextSlide();
         resetAutoSlide();
