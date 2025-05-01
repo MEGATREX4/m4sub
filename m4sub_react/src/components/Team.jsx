@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import pointLeft from "../icons/point-left.png";
 import pointRight from "../icons/point-right.png";
+
 
 export default function Team() {
   const [teamData, setTeamData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % teamData.length);
+  }, [teamData.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + teamData.length) % teamData.length);
+  }, [teamData.length]);
 
   useEffect(() => {
     fetch("/team.json")
@@ -28,15 +37,7 @@ export default function Team() {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isPaused, currentIndex]);
-
-  const nextSlide = () => {
-    setCurrentIndex((currentIndex + 1) % teamData.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((currentIndex - 1 + teamData.length) % teamData.length);
-  };
+  }, [isPaused, nextSlide]);
 
   const member = teamData[currentIndex];
 
