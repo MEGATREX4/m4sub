@@ -29,8 +29,9 @@ export default function Join() {
       <div className="w-full md:w-1/2 text-gray-200 text-lg text-center">
         <h2 className="text-2xl font-bold text-gray-200">Вступай зараз!</h2>
         <div className="mt-4 flex flex-col items-center gap-4 justify-center text-center">
-          <p>Майнкрафт без модів 1.21.4</p>
-          <p>Безкоштовний вступ</p>
+          <p style={{ lineHeight: '0.6rem' }}>Майнкрафт без модів</p>
+          <p style={{ lineHeight: '0.6rem' }}>Ліцензія 1.21.4</p>
+          <p style={{ lineHeight: '0.6rem' }}>Безкоштовний вступ</p>
         </div>
         <div className="mt-4 flex flex-col items-center gap-4 justify-center text-center">
           <button onClick={copyIP} className="flex items-center gap-2 bg-[#c5629a] hover:bg-[#f390d0] px-4 py-2 cornerCutSmall font-bold">

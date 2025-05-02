@@ -14,6 +14,10 @@ body {
   font-style: normal;
 }
 
+.icon{
+  image-rendering: pixelated;
+}
+
 .pixelcut{
   clip-path: polygon(0px calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0px, 16px 0px, 16px 8px, 8px 8px, 8px 16px, 0px 16px)!important;
 }
