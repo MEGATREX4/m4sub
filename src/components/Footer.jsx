@@ -14,7 +14,7 @@ export default function Footer() {
 
         {/* Права колонка */}
         <div className="flex justify-center md:justify-end items-center gap-4">
-          <a href="https://discord.gg/2TxYxe7cbp" target="_blank" rel="noreferrer" className="group">
+          <a href="https://discord.gg/fxqnU9by3M" target="_blank" rel="noreferrer" className="group">
             <img src="/icons/discord.png" alt="Discord icon" className="w-8 h-8 group-hover:invert-[0.5] transition" />
           </a>
           <a href="https://www.x.com/m4subclick" target="_blank" rel="noreferrer" className="group">

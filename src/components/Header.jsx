@@ -62,7 +62,7 @@ const Header = () => {
               </Menu>
 
               <a
-                href="https://discord.gg/2TxYxe7cbp"
+                href="https://discord.gg/fxqnU9by3M"
                 target="_blank"
                 rel="noreferrer"
                 className="cornerCutSmall px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center">
@@ -108,7 +108,7 @@ const Header = () => {
 
 
             <a
-              href="https://discord.gg/2TxYxe7cbp"
+              href="https://discord.gg/fxqnU9by3M"
               target="_blank"
               rel="noreferrer"
               className="block px-4 py-2 bg-[#5865f2] hover:bg-[#f390d0] text-gray-200 transition flex items-center"
