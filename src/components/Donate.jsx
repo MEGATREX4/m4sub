@@ -9,6 +9,10 @@ export default function Donate() {
     { label: "100 Монет", price: 50 },
     { label: "200 Монет", price: 100 },
     { label: "300 Монет", price: 150 },
+    { label: "500 Монет", price: 250 },
+    { label: "1000 Монет", price: 500 },
+    { label: "2000 Монет", price: 1000 },
+    { label: "3000 Монет", price: 1500 },
   ];
 
   const generateShortId = () => {
