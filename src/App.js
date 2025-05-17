@@ -9,10 +9,16 @@ import Footer from "./components/Footer";
 import Rules from "./components/Rules";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
+
+import Donate from "./components/Donate";
+
+import Anarchy from "./components/Anarchy";
 import Subserver from "./components/Subserver";
 import Dominion from "./components/Dominion";
-import Discord from "./components/Discord";
+
 import NotFound from "./components/NotFound";
+
+import Discord from "./components/Discord";
 
 function App() {
   return (
@@ -21,6 +27,20 @@ function App() {
         <Header />
 
         <Routes>
+                    <Route
+            path="/donate"
+            element={
+              <>
+                <Hero title="Підтримати сервер" subtitle="Обери свій пак донату" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Донат">
+                    <Donate />
+                  </Page>
+                </div>
+              </>
+            }
+          />
+
           <Route
             path="/"
             element={
@@ -89,6 +109,22 @@ function App() {
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Домініон">
                     <Dominion />
+                    <News />
+                    <Join />
+                  </Page>
+                  
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/anarchy"
+            element={
+              <>
+                <Hero title="Анархія" subtitle="Повна анархія і безлад" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Анархія">
+                    <Anarchy />
                     <News />
                     <Join />
                   </Page>

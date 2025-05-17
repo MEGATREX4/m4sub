@@ -66,15 +66,25 @@ footer{
 }
 
 
-p, section li{
+a, p, section li{
   font-size: 1.0625rem; /* 17px */
   line-height: 1.625rem; /* 26px */
 }
 
 @media (min-width: 768px) {
-  p, section li{
+  a, p, section li{
     font-size: 1.125rem; /* 18px */
     line-height: 1.75rem; /* 28px */
   }
+}
+
+.tooltip {
+  font-size: 13px;
+  background-color: #130217;
+  border: 6px double #220559;
+  color: #fff;
+  line-height: 1.4;
+  padding: 4px;
+  font-size: 1.125rem !important;
 }
 

@@ -6,11 +6,13 @@ const navigation = [
   { name: 'Головна', href: '/' },
   { name: 'Правила', href: '/rules' },
   { name: 'Часті питання', href: '/faq' },
+  { name: 'Донат', href: '/donate' },
 ]
 
 const servers = [
   { name: 'Сабсервер', href: '/subserver' },
   { name: 'Домініон', href: '/dominion' },
+  { name: 'Анархія', href: '/anarchy' },
 ]
 
 const Header = () => {
