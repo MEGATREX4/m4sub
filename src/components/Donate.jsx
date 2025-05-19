@@ -32,11 +32,11 @@ export default function Donate() {
     <div className="max-w-2xl mx-auto bg-green-900/30 p-8 text-white text-center cornerCutSmall">
       <h2 className="text-3xl font-bold mb-2 text-gray-200 minecraftFont">Підтримати сервер</h2>
       <p className="text-gray-300 mb-6 ">
-        Підтримай сервер і отримай ігрову валюту у подарунок!
+        Підтримай сервер та отримай ігрову валюту в подарунок!
       </p>
       <p className="text-gray-300 mb-6">
         Донати на сервер допомагають нам утримувати його в робочому стані та покращувати
-        його для вас. Кожен донат йде на оплату серверів, доменів та інших витрат.
+        його для вас. Кожен донат іде на оплату серверів, доменів та інших витрат.
       </p>
       <p className="text-gray-300 mb-6">
         Введіть свій нік на сервері, щоб ми могли зарахувати вашу оплату.
