@@ -1,14 +1,14 @@
-// src/components/Rules.jsx
+// src/components/anarchy/AnarchyRules.jsx
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import "./css/md-pages.css";
 
-const Rules = () => {
+export default function AnarchyRules() {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    fetch("/rules.md")
+    fetch("/anarchy-rules.md")
       .then((res) => res.text())
       .then((text) => setContent(text));
   }, []);
@@ -18,20 +18,11 @@ const Rules = () => {
       <ReactMarkdown
         rehypePlugins={[rehypeRaw]}
         components={{
-          // Лінки без змін
           a({ node, ...props }) {
-            if (!props.href) return <span {...props} />;
+            if (!props.href) {
+              return <span {...props} />;
+            }
             return <a {...props} />;
-          },
-          // Рендеримо власний <PS>…</PS> як окремий <p><span>…</span></p>
-          PS({ node, ...props }) {
-            return (
-              <p>
-                <span className="block text-xs text-gray-400 mt-2">
-                  {props.children}
-                </span>
-              </p>
-            );
           },
         }}
       >
@@ -39,6 +30,4 @@ const Rules = () => {
       </ReactMarkdown>
     </div>
   );
-};
-
-export default Rules;
+}

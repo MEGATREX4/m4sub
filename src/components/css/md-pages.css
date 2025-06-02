@@ -70,3 +70,17 @@ line-height: 1.75rem;
 .num-md-page h2{
 margin-top: 1rem;
 }
+
+ps{
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+  font-size: 0.75rem;
+  line-height: 0.5rem!important;
+}
+
+ps a{
+  color: #c5629a;
+  font-size: 0.75rem;
+  line-height: 0.5rem!important;
+  text-decoration: underline;
+}

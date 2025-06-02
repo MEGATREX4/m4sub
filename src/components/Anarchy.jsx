@@ -1,24 +1,25 @@
 // src/components/Anarchy.jsx
 import Detailed from "./Detailed";
+import AnarchyRules from "./AnarchyRules";
 
 export default function Anarchy() {
   const anarchyItems = [
     {
       title: "Мапа",
       description: "Перегляньте мапу анархії.",
-      image: "/map.png",
-      link: "#map",
+      image: "/map.webp",
+      link: "./anarchy/map",
     },
     {
       title: "Правила анархії",
       description: "Дізнайтесь більше про правила.",
-      image: "/images/anarchy/rules.png",
-      link: "#rules",
+      image: "/rules.webp",
+      link: "/anarchy/rules",
     },
     {
       title: "Донат",
       description: "Не P2W: підтримай розвиток сервера.",
-      image: "/images/anarchy/donate.png",
+      image: "/donate.webp",
       link: "/donate",
     },
   ];
@@ -27,6 +28,9 @@ export default function Anarchy() {
     <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
       {/* картки */}
       <Detailed items={anarchyItems} />
+
+      <AnarchyRules />
+
     </div>
   );
 }

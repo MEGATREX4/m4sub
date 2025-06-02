@@ -5,19 +5,19 @@ export default function Subserver() {
     {
       title: "Вікі",
       description: "Дізнайтесь більше про особливості нашого сабсервера.",
-      image: "/news.png",
+      image: "/wiki.webp",
       link: "http://wiki.m4sub.click/",
     },
     {
       title: "Мапа",
       description: "Перегляньте мапу нашого сабсервера.",
-      image: "/news.png",
+      image: "/map.webp",
       link: "/subserver/map",
     },
     {
-      title: "Додаткові правила сабсервера",
+      title: "Правила сабсервера",
       description: "Дізнайтесь більше про правила нашого сабсервера.",
-      image: "/news.png",
+      image: "/rules.webp",
       link: "/subserver/faq",
     },
   ];

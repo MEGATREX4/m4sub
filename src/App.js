@@ -1,3 +1,4 @@
+// src/App.js
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -7,13 +8,19 @@ import News from "./components/News";
 import Team from "./components/Team";
 import Footer from "./components/Footer";
 import Rules from "./components/Rules";
+import RulesMenu from "./components/RulesMenu";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
 
 import Donate from "./components/Donate";
 
 import Anarchy from "./components/Anarchy";
+import AnarchyRules from "./components/AnarchyRules";
+
+
 import Subserver from "./components/Subserver";
+import SubserverMap from "./components/SubserverMap";
+
 import Dominion from "./components/Dominion";
 
 import NotFound from "./components/NotFound";
@@ -64,7 +71,7 @@ function App() {
                 <Hero title="Правила серверу" subtitle="Тут буде багато всього цікавого" />
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Правила">
-                    <Rules />
+                    <RulesMenu />
                     <Discord />
                   </Page>
                 </div>
@@ -102,6 +109,19 @@ function App() {
             }
           />
           <Route
+            path="/subserver/map"
+            element={
+              <>
+                <Hero title="Мапа" subtitle="Перегляньте мапу нашого сабсервера" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Мапа">
+                    <SubserverMap />
+                  </Page>
+                </div>
+              </>
+            }
+          />
+          <Route
             path="/dominion"
             element={
               <>
@@ -129,6 +149,20 @@ function App() {
                     <Join />
                   </Page>
                   
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/anarchy/rules"
+            element={
+              <>
+                <Hero title="Правила анархії" subtitle="Усе, що дозволено та заборонено" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Правила Анархії">
+                    <AnarchyRules />
+                    <Discord />
+                  </Page>
                 </div>
               </>
             }
