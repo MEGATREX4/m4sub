@@ -4,6 +4,7 @@ import Features from "./Features";
 import FeatureCard from "./FeatureCard";
 
 const anarchyFeatures = [
+  "Вайп кожного 14-го числа",
   "Мапа 10.000×10.000 блоків",
   "Власна система економіки",
   "Стильне меню",
@@ -37,7 +38,24 @@ export default function Anarchy() {
     <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
       
       <Detailed items={anarchyItems} />
+
+      <FeatureCard 
+        title="Меню" 
+        image="/menu_render.webp" 
+        description="У стилізованому меню ви побачите велике й зрозуміле іконографічне оформлення: кожна кнопка відзначена чітким символом, щоб ви миттєво знаходили потрібний розділ."
+        buttonText="Переглянути Discord"
+        buttonLink="/discord"
+        textPosition="left"
+        hideImageOnMobile={false}
+        mirrorImage={false}
+        showAsPoints={false}
+        showButton={false}
+        showBackground={true}
+      />
+
       <Features items={anarchyFeatures} title="Переваги анархії" />
+
+
 
       <FeatureCard 
         title="Економіка" 

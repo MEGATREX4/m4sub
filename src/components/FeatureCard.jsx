@@ -56,7 +56,7 @@ export default function FeatureCard({
             <img 
                 src={image} 
                 alt={title} 
-                className={`shadow w-64 h-64 md:w-80 md:h-80 ${mirrorImage ? 'md:scale-x-[-1]' : ''}`}
+                className={`fshadow-lg w-64 h-64 md:w-80 md:h-80 ${mirrorImage ? 'md:scale-x-[-1]' : ''}`}
             />
         </div>
     );
