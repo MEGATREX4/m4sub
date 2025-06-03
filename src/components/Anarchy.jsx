@@ -35,7 +35,7 @@ export default function Anarchy() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
+    <div>
       
       <Detailed items={anarchyItems} />
 
