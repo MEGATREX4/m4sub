@@ -55,7 +55,7 @@ function App() {
                 <Hero title="Ласкаво просимо на M4SUB" subtitle="Сервери Minecraft для тебе та твого друга" />
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Головна">
-                    <Features />
+                    <Features items={[{title: "Унікальні сервери"}, {title: "Івенти"}, {title: "Власні плагіни"}]} />
                     <Join />
                     <News />
                     <Team />
@@ -141,7 +141,7 @@ function App() {
             path="/anarchy"
             element={
               <>
-                <Hero title="Анархія" subtitle="Повна анархія і безлад" />
+                <Hero title="Анархія" subtitle="У світі анархії ви зустріните всесвіт без правил, справжня анархія!" />
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Анархія">
                     <Anarchy />

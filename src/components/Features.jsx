@@ -1,5 +1,8 @@
-export default function Features() {
-    const features = ["Рідкі вайпи", "Унікальні сервери", "Івенти", "Власні плагіни"];
+export default function Features({ items, title = "Переваги гри на M4SUB" }) {
+    if (!items) return null;
+    
+    // Handle both string array and object array
+    const features = items.map(item => typeof item === 'string' ? item : item.title);
   
     return (
       <section className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -7,7 +10,7 @@ export default function Features() {
           <img src="/axo.png" alt="Переваги" className="w-64 h-64 md:w-80 md:h-80 mx-auto transform md:scale-x-[-1]" />
         </div>
         <div className="flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-gray-200">Переваги гри на M4SUB</h2>
+          <h2 className="text-2xl font-bold text-gray-200">{title}</h2>
           <ul className="mb-4 list-none list-inside">
             {features.map((feature, index) => (
               <li key={index} className="mt-3 flex items-center">
