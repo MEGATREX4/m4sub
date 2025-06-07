@@ -15,12 +15,6 @@ const anarchyFeatures = [
 export default function Anarchy() {
   const anarchyItems = [
     {
-      title: "Мапа",
-      description: "Перегляньте мапу анархії.",
-      image: "/map.webp",
-      link: "./anarchy/map",
-    },
-    {
       title: "Правила анархії",
       description: "Дізнайтесь більше про правила.",
       image: "/rules.webp",

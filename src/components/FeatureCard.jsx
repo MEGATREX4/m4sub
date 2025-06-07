@@ -62,14 +62,14 @@ export default function FeatureCard({
     );
 
     return (
-        <section className={`mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-items-center ${showBackground ? 'bg-green-900/20 px-6 py-6 rounded-lg shadow-md' : ''}`}>
-            {textPosition === 'left' ? [
-                textBlock,
-                imageBlock
-            ] : [
-                imageBlock,
-                textBlock
-            ]}
-        </section>
-    );
+    <section className={`mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-items-center ${showBackground ? 'bg-green-900/20 px-6 py-6 rounded-lg shadow-md' : ''}`}>
+        {/* On mobile: always textBlock first, imageBlock second */}
+        <div className={textPosition === 'left' ? 'order-1 md:order-1' : 'order-1 md:order-2'}>
+            {textBlock}
+        </div>
+        <div className={textPosition === 'left' ? 'order-2 md:order-2' : 'order-2 md:order-1'}>
+            {imageBlock}
+        </div>
+    </section>
+);
 }

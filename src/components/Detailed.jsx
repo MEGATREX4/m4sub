@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 
 export default function Detailed({ items }) {
   return (
-    <section className="grid gap-2 justify-center justify-items-center" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(320px, 320px))", width: "calc(100% - 20px)" }}>
+    <section
+      className="grid gap-2 justify-items-center"
+      style={{
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 320px))",
+        width: "calc(100% - 20px)",
+        justifyContent: "center" // This centers the grid items horizontally
+      }}
+    >
       {items.map((item, index) => (
         <Link
           to={item.link}

@@ -6,11 +6,15 @@ export default function Donate() {
 
   const options = [
     { label: "30 Монет", price: 15 },
+    { label: "50 Монет", price: 25 },
     { label: "100 Монет", price: 50 },
+    { label: "150 Монет", price: 75 },
     { label: "200 Монет", price: 100 },
     { label: "300 Монет", price: 150 },
     { label: "500 Монет", price: 250 },
+    { label: "700 Монет", price: 350 },
     { label: "1000 Монет", price: 500 },
+    { label: "1500 Монет", price: 750 },
     { label: "2000 Монет", price: 1000 },
     { label: "3000 Монет", price: 1500 },
   ];
@@ -59,25 +63,31 @@ export default function Donate() {
         />
       </div>
 
-      <div className="grid gap-4 mb-8 md:grid-cols-2">
-        {options.map((option, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelected(idx)}
-            className={`minecraftFont tooltip text-left px-4 py-3 transition pixelated ${
-              selected === idx ? "border-[#c5629a]" : "border-gray-700"
-            } border-4 bg-[#130217] text-white hover:border-[#c5629a]`}
-            style={{
-              fontSize: "13px",
-              lineHeight: 1.4,
-              borderStyle: "double",
-              backgroundColor: "#130217",
-            }}
-          >
-            <span className="block font-bold">{option.label}</span>
-            <span className=" text-gray-300">за {option.price} грн</span>
-          </button>
-        ))}
+      <div className="mb-8">
+        <label htmlFor="donate-option" className="block text-left mb-1 text-gray-300">
+          Виберіть кількість монет
+        </label>
+        <select
+          id="donate-option"
+          value={selected !== null ? selected : ''}
+          onChange={e => setSelected(e.target.value === '' ? null : Number(e.target.value))}
+          className="minecraftFont pixelated w-56 mx-auto block px-4 py-3 border-4 border-double bg-[#130217] text-white border-gray-700 focus:border-[#c5629a] focus:outline-none transition text-left"
+          style={{
+            fontSize: '13px',
+            lineHeight: 1.4,
+            backgroundColor: '#130217',
+            minWidth: '100%',
+            maxWidth: '100%',
+            boxShadow: '1px 1px 0 #b59d3b, 2px 2px 0 #000',
+          }}
+        >
+          <option value="" disabled>Оберіть пакет монет...</option>
+          {options.map((option, idx) => (
+            <option key={idx} value={idx} className="bg-[#130217] text-white minecraftFont">
+              {option.label} — за {option.price} грн
+            </option>
+          ))}
+        </select>
       </div>
 
       {selected !== null && (
