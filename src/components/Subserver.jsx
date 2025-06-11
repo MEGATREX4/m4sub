@@ -18,7 +18,7 @@ export default function Subserver() {
       title: "Правила сабсервера",
       description: "Дізнайтесь більше про правила нашого сабсервера.",
       image: "/rules.webp",
-      link: "/subserver/faq",
+      link: "/subserver/rules",
     },
   ];
 
