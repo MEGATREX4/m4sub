@@ -20,6 +20,7 @@ import AnarchyRules from "./components/AnarchyRules";
 
 import Subserver from "./components/Subserver";
 import SubserverMap from "./components/SubserverMap";
+import SubserverRules from "./components/SubserverRules";
 
 import Dominion from "./components/Dominion";
 
@@ -104,6 +105,20 @@ function App() {
                     <Join />
                   </Page>
                   
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/subserver/rules"
+            element={
+              <>
+                <Hero title="Правила сабсервера" subtitle="Усе, що дозволено та заборонено" />
+                <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <Page title="M4SUB — Правила Сабсервера">
+                    <SubserverRules />
+                    <Discord />
+                  </Page>
                 </div>
               </>
             }
