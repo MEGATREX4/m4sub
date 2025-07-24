@@ -37,6 +37,102 @@ export default function Donate() {
 
   return (
     <section>
+      {/* Important message about supporting Ukrainian army first */}
+      <div className="max-w-2xl mx-auto bg-blue-900/40 p-6 text-white text-center mb-6 border-2 border-yellow-400">
+        <h2 className="text-2xl font-bold mb-3 text-yellow-300 minecraftFont">НАЙВАЖЛИВІШЕ!</h2>
+        <p className="text-yellow-100 mb-4 leading-relaxed">
+          Перш ніж донатити на розваги, будь ласка, підтримайте українське військо! 
+          Це набагато важливіше за будь-які ігри.
+        </p>
+        <p className="text-yellow-100 mb-6">
+          Оберіть один з перевірених благодійних фондів:
+        </p>
+
+        {/* Charity funds grid */}
+        <div className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
+          <a 
+            href="https://savelife.in.ua" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="minecraftFont bg-[#130217] border-4 border-double border-yellow-400 p-4 flex flex-col items-center justify-center transition hover:bg-[#1a0420] hover:border-yellow-300 flex-1 min-w-[140px] max-w-[180px]"
+            style={{
+              boxShadow: '2px 2px 0 #b59d3b, 4px 4px 0 #000',
+            }}
+          >
+            <div className="bg-white rounded-lg p-2 mb-2">
+              <img 
+                src="https://savelife.in.ua/wp-content/themes/savelife/assets/images/new-logo-black-ua.svg" 
+                alt="Save Life" 
+                title="Save Life" 
+                className="h-12 w-12 object-contain"
+              />
+            </div>
+            <p className="text-yellow-200 text-center font-bold text-sm">Повернись живим</p>
+          </a>
+
+          <a 
+            href="https://prytulafoundation.org/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="minecraftFont bg-[#130217] border-4 border-double border-yellow-400 p-4 flex flex-col items-center justify-center transition hover:bg-[#1a0420] hover:border-yellow-300 flex-1 min-w-[140px] max-w-[180px]"
+            style={{
+              boxShadow: '2px 2px 0 #b59d3b, 4px 4px 0 #000',
+            }}
+          >
+            <div className="bg-white rounded-lg p-2 mb-2">
+              <img 
+                src="https://ds7zgdsyui79p.cloudfront.net/logonew_f2314490c6.svg" 
+                alt="Сергій Притула фонд" 
+                title="Сергій Притула фонд" 
+                className="h-12 w-12 object-contain"
+              />
+            </div>
+            <p className="text-yellow-200 text-center font-bold text-sm">Фонд Сергія Притули</p>
+          </a>
+
+          <a 
+            href="https://www.sternenkofund.org/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="minecraftFont bg-[#130217] border-4 border-double border-yellow-400 p-4 flex flex-col items-center justify-center transition hover:bg-[#1a0420] hover:border-yellow-300 flex-1 min-w-[140px] max-w-[180px]"
+            style={{
+              boxShadow: '2px 2px 0 #b59d3b, 4px 4px 0 #000',
+            }}
+          >
+            <div className="bg-gray-800 rounded-lg p-2 mb-2">
+              <img 
+                src="https://cdn.prod.website-files.com/6797b46110ec22b94bac2ef8/6797f9d57664bf21b2f2b300_SSF%20Drone%20Icon%20White.svg" 
+                alt="Drone Army" 
+                title="Drone Army" 
+                className="h-12 w-12 object-contain"
+              />
+            </div>
+            <p className="text-yellow-200 text-center font-bold text-sm">Спільнота Стерненка</p>
+          </a>
+
+          <a 
+            href="https://united24.gov.ua" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="minecraftFont bg-[#130217] border-4 border-double border-yellow-400 p-4 flex flex-col items-center justify-center transition hover:bg-[#1a0420] hover:border-yellow-300 flex-1 min-w-[140px] max-w-[180px]"
+            style={{
+              boxShadow: '2px 2px 0 #b59d3b, 4px 4px 0 #000',
+            }}
+          >
+            <div className="bg-blue-600 rounded-lg p-2 mb-2">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/4/42/UNITED24_logo.svg" 
+                alt="United24" 
+                title="United24" 
+                className="h-12 w-12 object-contain"
+                style={{filter: 'invert(100%)'}}
+              />
+            </div>
+            <p className="text-yellow-200 text-center font-bold text-sm">United24</p>
+          </a>
+        </div>
+      </div>
+
       <div className="max-w-2xl mx-auto bg-green-900/30 p-8 text-white text-center cornerCutSmall">
         <h2 className="text-3xl font-bold mb-2 text-gray-200 minecraftFont">Підтримати сервер</h2>
         <p className="text-gray-300 mb-6 ">
@@ -104,8 +200,7 @@ export default function Donate() {
             Донатити {options[selected].price} грн
           </a>
         )}
-<br/>
-        <p className="text-gray-300 mb-6 bg-[#130217] cornerCutSmall p-5 minecraftFont border-double border-white">
+        <p className="text-gray-300 mb-6 bg-[#130217] cornerCutSmall p-5 minecraftFont border-double border-white mt-6">
           Щомісячно на утримання сервера витрачається {MONTHLY_SERVER_COSTS} грн. 
           Ваша підтримка дуже важлива для нас!
         </p>
