@@ -3,6 +3,9 @@ import { useState } from "react";
 export default function Donate() {
   const [selected, setSelected] = useState(null);
   const [nickname, setNickname] = useState("");
+  
+  // Щомісячні витрати на сервер
+  const MONTHLY_SERVER_COSTS = 860; // грн
 
   const options = [
     { label: "30 Монет", price: 15 },
@@ -41,6 +44,10 @@ export default function Donate() {
       <p className="text-gray-300 mb-6">
         Донати на сервер допомагають нам утримувати його в робочому стані та покращувати
         його для вас. Кожен донат іде на оплату серверів, доменів та інших витрат.
+      </p>
+      <p className="text-gray-300 mb-6">
+        Щомісячно на утримання сервера витрачається {MONTHLY_SERVER_COSTS} грн. 
+        Ваша підтримка дуже важлива для нас!
       </p>
       <p className="text-gray-300 mb-6">
         Введіть свій нік на сервері, щоб ми могли зарахувати вашу оплату.
@@ -100,6 +107,23 @@ export default function Donate() {
           Донатити {options[selected].price} грн
         </a>
       )}
+
+      {/* Monobank Widget */}
+      <div className="mt-8 pt-6 border-t border-gray-600">
+        <h3 className="text-xl font-bold mb-4 text-gray-200 minecraftFont">
+          Альтернативний спосіб донату
+        </h3>
+        <div className="flex justify-center">
+          <iframe
+            src="https://send.monobank.ua/widget.html?jar=pb2BxUAnZmAq4Koj1K4eXHZoTGmKw9k&sendId=85Ui7vsyCD&type=qrp&colorScheme=black"
+            width="300"
+            height="400"
+            style={{ border: 'none' }}
+            title="Monobank Donation Widget"
+            className="pixelated"
+          />
+        </div>
+      </div>
     </div>
   );
 }
