@@ -5,6 +5,8 @@ import Hero from "./components/Hero";
 import Features from "./components/Features";
 import Join from "./components/Join";
 import News from "./components/News";
+import NewsList from "./components/NewsList";
+import NewsArticle from "./components/NewsArticle";
 import Team from "./components/Team";
 import Footer from "./components/Footer";
 import Rules from "./components/Rules";
@@ -94,6 +96,25 @@ function App() {
             }
           />
           <Route
+            path="/news"
+            element={
+              <>
+                <Hero title="Новини" subtitle="Останні новини та оновлення сервера" />
+                <div className="cornerCut flex-grow max-w-7xl mx-auto px-4 py-12">
+                  <NewsList />
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="/news/:slug"
+            element={
+              <div className="cornerCut flex-grow max-w-7xl mx-auto px-4 py-12">
+                <NewsArticle />
+              </div>
+            }
+          />
+          <Route
             path="/subserver"
             element={
               <>
@@ -140,7 +161,7 @@ function App() {
             path="/dominion"
             element={
               <>
-                <Hero title="Домініон" subtitle="Справдній RP MMO-RPG в майнкрафт" />
+                <Hero title="Домініон" subtitle="Справжній RP MMO-RPG в майнкрафт" />
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                   <Page title="M4SUB — Домініон">
                     <Dominion />

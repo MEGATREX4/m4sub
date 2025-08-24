@@ -1,0 +1,65 @@
+.news-content {
+  /* Base styles */
+  @apply text-base leading-relaxed;
+}
+
+/* Table styles */
+.news-content table {
+  @apply w-full my-6 border-collapse;
+}
+
+.news-content table th {
+  @apply bg-green-900/20 text-gray-200 font-bold p-3 text-left border border-green-900/40;
+}
+
+.news-content table td {
+  @apply p-3 border border-green-900/40 text-gray-300;
+}
+
+/* Code block styles */
+.news-content pre {
+  @apply p-4 my-4 overflow-x-auto;
+}
+
+.news-content pre code {
+  @apply bg-transparent p-0 text-gray-300;
+}
+
+/* Blockquote styles */
+.news-content blockquote {
+  @apply my-6 bg-green-900/10;
+}
+
+/* List styles */
+.news-content ul,
+.news-content ol {
+  @apply my-4;
+}
+
+/* Special elements */
+.news-content hr {
+  @apply my-8 border-green-900/40;
+}
+
+.news-content img {
+  @apply my-6 mx-auto;
+}
+
+/* Link hover effect */
+.news-content a {
+  @apply relative;
+}
+
+.news-content a::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-[#c5629a] transition-all duration-300;
+}
+
+.news-content a:hover::after {
+  @apply w-full;
+}
+
+/* Code inline highlight */
+.news-content :not(pre) > code {
+  @apply font-mono text-sm;
+}
