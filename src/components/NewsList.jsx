@@ -9,15 +9,6 @@ export default function NewsList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Fetches all news articles and sets the state accordingly.
-   * 
-   * @async
-   * @function
-   * @returns {Promise<void>}
-   */
-/*******  68ad5107-484e-4a30-84a4-60537770b18c  *******/
     const fetchArticles = async () => {
       try {
         setLoading(true);
