@@ -3,7 +3,7 @@ author: MEGATREX4
 author-img: https://avatars.githubusercontent.com/u/59817721?v=4
 date: 2025-08-24
 preview: https://i.postimg.cc/8CtJVqPF/2025-05-15-22-33-10.png
-page-link: independence-day-2025
+page-link: independence_day_2025
 title: З Днем Незалежності України!
 description: Вітаємо спільноту з Днем Державного Прапора та Днем Незалежності України!
 ---

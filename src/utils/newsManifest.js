@@ -1,5 +1,15 @@
 // This file is auto-generated. Do not edit it manually.
 export const newsManifest = [
-  "september-update.md",
-  "іndependence-day.md"
+  {
+    "filename": "independence_day_2025.md",
+    "pageLink": "independence_day_2025"
+  },
+  {
+    "filename": "september_update_2025.md",
+    "pageLink": "september_update"
+  },
+  {
+    "filename": "september_wipe_2025.md",
+    "pageLink": "september_wipe"
+  }
 ];
