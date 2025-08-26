@@ -29,7 +29,9 @@ export default function Footer() {
           <a href="https://www.instagram.com/m4sub.click/" target="_blank" rel="noreferrer" className="group">
             <img src="/icons/instagram.png" alt="Instagram icon" className="w-8 h-8 group-hover:invert-[0.5] transition" />
           </a>
-          
+          <a href="https://www.threads.com/@m4sub.click" target="_blank" rel="noreferrer" className="group">
+            <img src="/icons/threads.png" alt="Threads icon" className="w-8 h-8 group-hover:invert-[0.5] transition" />
+          </a>
         </div>
       </div>
 
