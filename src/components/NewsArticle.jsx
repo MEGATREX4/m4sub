@@ -78,16 +78,16 @@ export default function NewsArticle() {
             <img
               src={article.frontmatter.preview}
               alt={article.frontmatter.title}
-              className="w-full h-48 object-cover cornerCut mb-4"
+              className="w-full h-72 object-cover mb-4 cornerCut"
             />
           )}
           <h1 className="text-3xl font-bold mb-2">{article.frontmatter.title}</h1>
           <div className="flex items-center gap-4 text-gray-400">
             {article.frontmatter['author-img'] && (
               <img
-                src={article.frontmatter['author-img']}
+                src={`https://www.mc-heads.net/avatar/${article.frontmatter['author-img']}`}
                 alt={article.frontmatter.author}
-                className="w-6 h-6 rounded-full"
+                className="w-6 h-6"
               />
             )}
             <span>{article.frontmatter.author}</span>

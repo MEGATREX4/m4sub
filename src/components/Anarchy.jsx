@@ -30,6 +30,14 @@ export default function Anarchy() {
 
   return (
     <div>
+
+      <div className="bg-orange-600/50 text-white p-6 md:p-12 mb-8 rounded-lg text-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4">Увага!</h2>
+        <p className="text-base md:text-lg">
+          Наразі сервер <b>Анархія</b> знаходиться на етапі <b>концепційної переробки</b> і тимчасово буде недоступний. <br className="hidden md:inline" />
+          Слідкуйте за новинами на нашому Discord-каналі, щоб дізнатися про дату повернення сервера.
+        </p>
+      </div>
       
       <Detailed items={anarchyItems} />
 

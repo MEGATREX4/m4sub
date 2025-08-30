@@ -3,9 +3,9 @@ import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outli
 import { useLocation } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Головна', href: '/' },
+  { name: 'Новини', href: '/news' },
   { name: 'Правила', href: '/rules' },
-  { name: 'Часті питання', href: '/faq' },
+  { name: 'FAQ', href: '/faq' },
   { name: 'Донат', href: '/donate' },
 ]
 
@@ -44,7 +44,7 @@ const Header = () => {
               <Menu as="div" className="relative">
                 <Menu.Button className="px-4 py-2 flex items-center hover:bg-gray-700 transition">
                   СЕРВЕРИ
-                  <ChevronDownIcon className="w-4 h-4 ml-2" />
+                  <ChevronDownIcon className="w-4 h-4 ml-2 stroke-[3px]" />
                 </Menu.Button>
 
                 <Menu.Items className="absolute left-0 mt-2 w-40 bg-[#452136] shadow-lg">
@@ -74,7 +74,7 @@ const Header = () => {
             </div>
 
             <Disclosure.Button className="md:hidden flex items-center justify-center w-8 h-8 text-gray-200">
-              {open ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+              {open ? <XMarkIcon className="w-6 h-6 stroke-[3px]" /> : <Bars3Icon className="w-6 h-6 stroke-[3px]" />}
             </Disclosure.Button>
           </div>
 

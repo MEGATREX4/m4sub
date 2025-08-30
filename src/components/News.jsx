@@ -38,6 +38,7 @@ export default function News() {
 
   return (
     <section className="mt-16">
+      {/* Шапка блоку */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
         <div className="flex justify-center">
           <img src="/news.png" alt="Новини" className="shadow w-64 h-64 md:w-80 md:h-80" />
@@ -62,14 +63,16 @@ export default function News() {
         </div>
       </div>
 
+      {/* Список карток */}
       {articles.length > 0 && (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {articles.map((article) => (
             <Link
               key={article['page-link']}
               to={`/news/${article['page-link']}`}
-              className="bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition"
+              className="bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition grid grid-rows-[auto_1fr_auto]"
             >
+              {/* прев’ю зображення */}
               {article.preview && (
                 <img
                   src={article.preview}
@@ -77,15 +80,19 @@ export default function News() {
                   className="cornerCut w-full h-48 object-cover"
                 />
               )}
-              <div className="p-4">
+              
+              {/* контент */}
+              <div className="p-[1.5rem] flex flex-col">
                 <h3 className="text-xl font-bold text-gray-200 mb-2">{article.title}</h3>
                 <p className="text-gray-400 text-sm mb-4">{article.description}</p>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
+                
+                {/* автор */}
+                <div className="flex items-center gap-2 text-sm text-gray-400 mt-auto">
                   {article['author-img'] && (
                     <img
-                      src={article['author-img']}
+                      src={`https://www.mc-heads.net/avatar/${article['author-img']}`}
                       alt={article.author}
-                      className="w-6 h-6 rounded-full"
+                      className="w-6 h-6"
                     />
                   )}
                   <span>{article.author}</span>
@@ -102,4 +109,3 @@ export default function News() {
     </section>
   );
 }
-  

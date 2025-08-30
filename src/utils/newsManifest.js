@@ -5,6 +5,10 @@ export const newsManifest = [
     "pageLink": "independence_day_2025"
   },
   {
+    "filename": "season5_archive_midseason.md",
+    "pageLink": "season5_archive_midseason"
+  },
+  {
     "filename": "september_update_2025.md",
     "pageLink": "september_update"
   },

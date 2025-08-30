@@ -1,6 +1,6 @@
 ---
 author: MEGATREX4
-author-img: https://avatars.githubusercontent.com/u/59817721?v=4
+author-img: Yevhen4
 date: 2025-08-24
 preview: https://i.postimg.cc/8CtJVqPF/2025-05-15-22-33-10.png
 page-link: independence_day_2025

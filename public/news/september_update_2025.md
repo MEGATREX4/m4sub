@@ -1,6 +1,6 @@
 ---
 author: MEGATREX4
-author-img: https://avatars.githubusercontent.com/u/59817721?v=4
+author-img: Yevhen4
 date: 2025-08-25
 preview: /news.png
 page-link: september_update
