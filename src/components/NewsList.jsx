@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { getAllNews } from '../utils/frontmatter';
 import Page from './Page';
 
+import ArticleMeta from './ArticleMeta'
+
 export default function NewsList() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,20 +62,16 @@ export default function NewsList() {
             <div className="p-[1.5rem] flex flex-col">
               <h3 className="text-xl font-bold text-gray-200 mb-2">{article.title}</h3>
               <p className="text-gray-400 text-sm mb-4">{article.description}</p>
-              <div className="flex items-center gap-2 text-sm text-gray-400 mt-auto">
-                {article['author-img'] && (
-                  <img
-                    src={`https://www.mc-heads.net/avatar/${article['author-img']}`}
-                    alt={article.author}
-                    className="w-6 h-6"
-                  />
-                )}
-                <span>{article.author}</span>
-                <span>•</span>
-                <time dateTime={article.date}>
-                  {new Date(article.date).toLocaleDateString()}
-                </time>
-              </div>
+
+              
+              <ArticleMeta
+                authors={article.authors}
+                author={article.author}
+                authorImg={article['author-img']}
+                date={article.date}
+              />
+
+
             </div>
           </Link>
 

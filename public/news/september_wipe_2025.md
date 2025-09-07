@@ -1,6 +1,7 @@
 ---
-author: MEGATREX4
-author-img: Yevhen4
+authors:
+  - name: MEGATREX4
+    mc: Yevhen4
 date: 2025-08-27
 preview: https://res.cloudinary.com/kutok/image/fetch/s--8GInILuy--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1000/https://kutok.s3.amazonaws.com/uploads/articles/ja9sn64qji8kcatg1wmg.png
 page-link: september_wipe

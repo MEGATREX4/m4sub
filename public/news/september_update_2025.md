@@ -1,6 +1,7 @@
 ---
-author: MEGATREX4
-author-img: Yevhen4
+authors:
+  - name: MEGATREX4
+    mc: Yevhen4
 date: 2025-08-25
 preview: /news.png
 page-link: september_update

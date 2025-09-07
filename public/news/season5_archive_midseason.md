@@ -1,6 +1,7 @@
 ---
-author: kork0za
-author-img: kork0za
+authors:
+  - name: kork0za
+    mc: kork0za
 date: 2025-08-30
 preview: https://i.ibb.co/Tqrd9RTF/2025-08-29-19-21-49.png
 page-link: season5_archive_midseason

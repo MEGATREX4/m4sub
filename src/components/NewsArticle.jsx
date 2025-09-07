@@ -6,6 +6,8 @@ import { parseFrontmatter, getAllNews } from '../utils/frontmatter';
 import { newsManifest } from '../utils/newsManifest';
 import Page from './Page';
 
+import ArticleMeta from './ArticleMeta';
+
 export default function NewsArticle() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -82,24 +84,15 @@ export default function NewsArticle() {
             />
           )}
           <h1 className="text-3xl font-bold mb-2">{article.frontmatter.title}</h1>
-          <div className="flex items-center gap-4 text-gray-400">
-            {article.frontmatter['author-img'] && (
-              <img
-                src={`https://www.mc-heads.net/avatar/${article.frontmatter['author-img']}`}
-                alt={article.frontmatter.author}
-                className="w-6 h-6"
-              />
-            )}
-            <span>{article.frontmatter.author}</span>
-            <span>•</span>
-            <time dateTime={article.frontmatter.date}>{formatDate(article.frontmatter.date)}</time>
-            {article.frontmatter.edited && article.frontmatter.edited !== article.frontmatter.date && (
-              <>
-                <span>•</span>
-                <span className="text-sm">Оновлено: {formatDate(article.frontmatter.edited)}</span>
-              </>
-            )}
-          </div>
+          <ArticleMeta
+  authors={article.frontmatter.authors}
+  author={article.frontmatter.author}
+  authorImg={article.frontmatter["author-img"]}
+  date={article.frontmatter.date}
+  formatDateStyle="long" // тут ми отримуємо "11 вересня 2025"
+ />
+
+
         </header>
 
         <div className="prose prose-invert max-w-none ...">

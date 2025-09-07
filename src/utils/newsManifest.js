@@ -9,6 +9,10 @@ export const newsManifest = [
     "pageLink": "season5_archive_midseason"
   },
   {
+    "filename": "season5_stats.md",
+    "pageLink": "season5_stats"
+  },
+  {
     "filename": "september_update_2025.md",
     "pageLink": "september_update"
   },
