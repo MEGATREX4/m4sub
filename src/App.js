@@ -214,6 +214,15 @@ function App() {
               </>
             }
           />
+          <Route
+            path="/2025-stats"
+            element={
+              <>
+                <Hero title="Статистика 2025" subtitle="Перегляньте статистику" />
+                <StatsPage />
+              </>
+            }
+          />
 
         </Routes>
 
