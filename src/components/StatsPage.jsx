@@ -1,7 +1,7 @@
 // src/components/StatsPage.js
 export default function StatsPage() {
   return (
-    <div className="w-full h-[100vh] relative">
+    <div className="w-full h-[calc(100vh-300px)] relative">
       <iframe
         src="/2025-stat.html"
         title="Статистика 2025"
