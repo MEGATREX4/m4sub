@@ -14,6 +14,8 @@ import RulesMenu from "./components/RulesMenu";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
 
+import StatsPage from "./components/StatsPage";
+
 import Donate from "./components/Donate";
 
 import Anarchy from "./components/Anarchy";
