@@ -19,7 +19,7 @@ description: Оголошуємо моди та дата-паки, з якими
 
 Попри те, що версія збірки – **1.20.1**, завдяки моду *Vanilla Backport: Chase the Skies, The Garden Awakens* ми зберегли всі функції оновлень *Chase the Skies* та *Garden Awakens*, включаючи щасливих ґастів та скрипень.
 
-[![1123123123.png](https://i.postimg.cc/kgP6sBXC/1123123123.png)](https://postimg.cc/7fXZYP2t)
+[![Візуалізація модів у вигляді зображення](https://i.postimg.cc/kgP6sBXC/1123123123.png)](https://postimg.cc/7fXZYP2t)
 
 ### Ось моди та дата-паки, які будуть на сервері:
 
