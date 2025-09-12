@@ -3,7 +3,7 @@ authors:
   - name: kork0za
     mc: kork0za
 date: 2025-09-12
-preview: https://i.postimg.cc/8CtJVqPF/2025-05-15-22-33-10.png
+preview: https://i.postimg.cc/vHtbRBtb/2025-08-29-15-42-49.png
 page-link: season-off_2025
 title: Повний список модів та дата-паків Міжсезоння
 description: Оголошуємо моди та дата-паки, з якими стартує Міжсезоння!
