@@ -3,7 +3,7 @@ authors:
   - name: kork0za
     mc: kork0za
 date: 2025-09-12
-preview: https://i.postimg.cc/kgP6sBXC/1123123123.png
+preview: https://i.postimg.cc/vHtbRBtb/2025-08-29-15-42-49.png
 page-link: season-off_2025
 title: Повний список модів та дата-паків Міжсезоння
 description: Оголошуємо моди та дата-паки, з якими стартує Міжсезоння!
@@ -18,6 +18,8 @@ description: Оголошуємо моди та дата-паки, з якими
 ## Моди сервера
 
 Попри те, що версія збірки – **1.20.1**, завдяки моду *Vanilla Backport: Chase the Skies, The Garden Awakens* ми зберегли всі функції оновлень *Chase the Skies* та *Garden Awakens*, включаючи щасливих ґастів та скрипень.
+
+[![1123123123.png](https://i.postimg.cc/kgP6sBXC/1123123123.png)](https://postimg.cc/7fXZYP2t)
 
 ### Ось моди та дата-паки, які будуть на сервері:
 
