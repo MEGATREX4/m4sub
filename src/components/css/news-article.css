@@ -63,3 +63,11 @@
 .news-content :not(pre) > code {
   @apply font-mono text-sm;
 }
+
+blockquote, blockquote p {
+  border-left: 4px solid #c5629a!important;
+  padding-left: 1rem!important;
+  margin-left: 0!important;
+  color: #ddd!important;
+  font-style: italic!important;
+}

@@ -99,6 +99,7 @@ export default function NewsArticle() {
           <ReactMarkdown
             rehypePlugins={[rehypeRaw]}
             components={{
+              blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
               a: ({ node, ...props }) => <Link {...props} className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" />,
               ul: ({ node, ...props }) => <ul {...props} className="space-y-3 my-6 list-none pl-4">{props.children}</ul>,
               ol: ({ node, ...props }) => <ol {...props} className="space-y-3 my-6 list-decimal list-inside">{props.children}</ol>,
