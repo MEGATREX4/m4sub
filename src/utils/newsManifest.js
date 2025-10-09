@@ -9,6 +9,10 @@ export const newsManifest = [
     "pageLink": "photography_2025"
   },
   {
+    "filename": "result_photography_2025.md",
+    "pageLink": "result_photography_2025"
+  },
+  {
     "filename": "season-off_2025.md",
     "pageLink": "season-off_2025"
   },

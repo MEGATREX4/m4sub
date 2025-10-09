@@ -5,12 +5,15 @@ import rehypeRaw from 'rehype-raw';
 import { parseFrontmatter, getAllNews } from '../utils/frontmatter';
 import { newsManifest } from '../utils/newsManifest';
 import Page from './Page';
-
 import ArticleMeta from './ArticleMeta';
+
+// Import the new component
+import ImageGallery from './ImageGallery'; // Make sure the path is correct
 
 export default function NewsArticle() {
   const { slug } = useParams();
   const navigate = useNavigate();
+  // ... (rest of your state and useEffect hook remains the same)
   const [article, setArticle] = useState({ frontmatter: {}, content: '' });
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +31,6 @@ export default function NewsArticle() {
           return;
         }
 
-        // Тепер шукаємо filename у newsManifest по pageLink
         const manifestItem = newsManifest.find(item => item.pageLink === matchingArticle['page-link']);
         if (!manifestItem) {
           setLoading(false);
@@ -49,13 +51,8 @@ export default function NewsArticle() {
     fetchArticle();
   }, [slug, navigate]);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
-    return date.toLocaleDateString('uk-UA', options);
-  };
-
-  if (loading) return (
+  // ... (formatDate and loading/error states remain the same)
+   if (loading) return (
     <Page title="Завантаження...">
       <div className="flex justify-center items-center min-h-[50vh]">
         <div className="text-gray-400">Завантаження статті...</div>
@@ -68,6 +65,7 @@ export default function NewsArticle() {
   return (
     <Page
       title={article.frontmatter.title || 'Новини — M4SUB'}
+      // ... (rest of Page props)
       description={article.frontmatter.description}
       image={article.frontmatter.preview}
       type="article"
@@ -76,7 +74,8 @@ export default function NewsArticle() {
     >
       <article className="prose prose-invert max-w-3xl mx-auto py-8 px-4">
         <header className="mb-8">
-          {article.frontmatter.preview && (
+            {/* ... (header content remains the same) */}
+            {article.frontmatter.preview && (
             <img
               src={article.frontmatter.preview}
               alt={article.frontmatter.title}
@@ -85,20 +84,22 @@ export default function NewsArticle() {
           )}
           <h1 className="text-3xl font-bold mb-2">{article.frontmatter.title}</h1>
           <ArticleMeta
-  authors={article.frontmatter.authors}
-  author={article.frontmatter.author}
-  authorImg={article.frontmatter["author-img"]}
-  date={article.frontmatter.date}
-  formatDateStyle="long" // тут ми отримуємо "11 вересня 2025"
- />
-
-
+            authors={article.frontmatter.authors}
+            author={article.frontmatter.author}
+            authorImg={article.frontmatter["author-img"]}
+            date={article.frontmatter.date}
+            formatDateStyle="long"
+          />
         </header>
 
         <div className="prose prose-invert max-w-none ...">
           <ReactMarkdown
             rehypePlugins={[rehypeRaw]}
             components={{
+              // Add our new component mapping here
+              // It will replace any <gallery> tag in Markdown with our React component
+              gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
+
               blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
               a: ({ node, ...props }) => <Link {...props} className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" />,
               ul: ({ node, ...props }) => <ul {...props} className="space-y-3 my-6 list-none pl-4">{props.children}</ul>,
