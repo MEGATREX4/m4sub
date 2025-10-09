@@ -5,7 +5,7 @@ authors:
 date: 2025-10-10
 preview: https://kutok.s3.amazonaws.com/uploads/articles/xwssd7mt33k12sofry8i.png
 page-link: result_photography_2025
-title: Творча виставка фотографії на Міжсезонні
+title: Творча виставка фотографії на Міжсезонні M4SUB
 description: Ця виставка стала також чудовою нагодою для відкриття першого корпусу музейного комплексу «Стоунгендж».
 ---
 
