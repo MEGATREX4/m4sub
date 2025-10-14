@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Новини', href: '/news' },
-  { name: 'Правила', href: '/rules' },
+  { name: 'Правила', href: '/subserver/rules' },
   { name: 'FAQ', href: '/faq' },
   { name: 'Донат', href: '/donate' },
 ]
@@ -41,28 +41,6 @@ const Header = () => {
                 </a>
               ))}
 
-              <Menu as="div" className="relative">
-                <Menu.Button className="px-4 py-2 flex items-center hover:bg-gray-700 transition">
-                  СЕРВЕРИ
-                  <ChevronDownIcon className="w-4 h-4 ml-2 stroke-[3px]" />
-                </Menu.Button>
-
-                <Menu.Items className="absolute left-0 mt-2 w-40 bg-[#452136] shadow-lg">
-                  {servers.map((server) => (
-                    <Menu.Item key={server.name}>
-                      {({ active }) => (
-                        <a
-                          href={server.href}
-                          className={`block px-4 py-2 ${active ? 'bg-gray-700' : ''} ${isActive(server.href) ? 'bg-[#c5629a] pointer-events-none' : ''}`}
-                        >
-                          {server.name}
-                        </a>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </Menu.Items>
-              </Menu>
-
               <a
                 href="https://discord.gg/fxqnU9by3M"
                 target="_blank"
@@ -90,22 +68,7 @@ const Header = () => {
               </a>
             ))}
 
-            <div className="w-full">
-              <details className="w-full">
-                <summary className="px-4 py-2 cursor-pointer hover:bg-gray-700 transition">СЕРВЕРИ</summary>
-                <div className="w-full bg-green-900/40 mt-1">
-                  {servers.map((server) => (
-                    <a
-                      key={server.name}
-                      href={server.href}
-                      className={`block px-4 py-2 hover:bg-gray-700 transition`}
-                    >
-                      {server.name}
-                    </a>
-                  ))}
-                </div>
-              </details>
-            </div>
+
 
 
 

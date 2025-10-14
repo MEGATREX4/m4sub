@@ -13,6 +13,7 @@ import Rules from "./components/Rules";
 import RulesMenu from "./components/RulesMenu";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
+import Home from "./components/Home";
 
 import StatsPage from "./components/StatsPage";
 
@@ -56,14 +57,12 @@ function App() {
           <Route
             path="/"
             element={
-              <>
-                <Hero title="Ласкаво просимо на M4SUB" subtitle="Сервери Minecraft для тебе та твого друга" />
+                            <>
+                {/* Змінюємо заголовок на більш конкретний */}
+                <Hero title="Ласкаво просимо на M4SUB" subtitle="Виживання для тебе та твого друга" />
                 <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
-                  <Page title="M4SUB — Головна">
-                    <Features items={[{title: "Унікальні сервери"}, {title: "Івенти"}, {title: "Власні плагіни"}]} />
-                    <Join />
-                    <News />
-                    <Team />
+                  <Page title="M4SUB — Minecraft Сервер">
+                    <Home />
                   </Page>
                 </div>
               </>

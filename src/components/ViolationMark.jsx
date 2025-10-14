@@ -1,16 +1,17 @@
 import React from "react";
 
-/**
- * ViolationMark component
- * @param {Object} props
- * @param {"major"|"minor"} props.type - Severity type
- */
-export default function ViolationMark({ type }) {
-  const color = type === "major" ? "#ef4444" : "#facc15"; // red or yellow
-  const label =
-    type === "major"
-      ? "Тяжке порушення (суворе покарання)"
-      : "Легке порушення (м'яке покарання)";
+export default function ViolationMark({ type, className = '' }) {
+  // --- Нова палітра, інтегрована в стиль сайту ---
+  const isMajor = type === "major";
+  
+  // Основний колір
+  const baseColor = isMajor ? "#c5629a" : "#0891b2"; // Рожевий або бірюзовий
+  
+  // Колір для першого шару тіні (трохи темніший)
+  const shadowColor = isMajor ? "#8e406e" : "#0e7490";
+  
+  const label = isMajor ? "Тяжке порушення" : "Легке порушення";
+      
   return (
     <span
       title={label}
@@ -18,13 +19,14 @@ export default function ViolationMark({ type }) {
         display: "inline-block",
         width: 14,
         height: 14,
-        borderRadius: "50%",
-        background: color,
-        marginRight: 4,
+        background: baseColor,
+        borderRadius: 0, // Залишаємо квадратним
+        marginRight: 6, // Збільшимо відступ для тіні
         verticalAlign: "middle",
-        border: "1.5px solid #fff",
-        boxShadow: "0 0 0 1px #8882"
+        // Використовуємо об'ємну тінь, як на інших елементах сайту
+        boxShadow: `1px 1px 0 ${shadowColor}, 2px 2px 0 #111`,
       }}
+      className={className}
       aria-label={label}
     />
   );

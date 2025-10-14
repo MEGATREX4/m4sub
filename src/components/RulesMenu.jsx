@@ -4,12 +4,6 @@ import { Link } from "react-router-dom";
 export default function RulesMenu() {
   const ruleCards = [
     {
-      title: "Анархія",
-      description: "Правила режиму «Анархія» на сервері\nСервер без правил та приватів",
-      image: "/servers/anarchy.webp",
-      link: "/anarchy/rules",
-    },
-    {
       title: "Сабсервер",
       description: "Правила режиму «Сабсервер» на сервері\nКласичний SMP без приватів",
       image: "/servers/sub.webp",

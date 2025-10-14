@@ -1,0 +1,24 @@
+/* src/components/css/TeamIcons.css */
+
+/* Базовий клас для всіх іконок ролей */
+.role-icon {
+  display: inline-block;
+  /* --- ЗМІНА: Збільшуємо розмір іконок --- */
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Класи для конкретних іконок */
+.icon-admin {
+  background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/admin.png');
+}
+
+.icon-moderation {
+  background-image: url('https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/moderation.png');
+}
