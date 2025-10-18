@@ -1,4 +1,5 @@
 // src/App.js
+import React, { useRef } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -33,7 +34,12 @@ import NotFound from "./components/NotFound";
 
 import Discord from "./components/Discord";
 
+import ScrollToTopButton from './components/ScrollToTopButton';
+
 function App() {
+
+  const footerRef = useRef(null);
+
   return (
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
@@ -227,7 +233,9 @@ function App() {
 
         </Routes>
 
-        <Footer />
+        <Footer ref={footerRef} />
+
+        <ScrollToTopButton footerRef={footerRef} />
       </div>
     </BrowserRouter>
   );

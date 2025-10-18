@@ -31,5 +31,9 @@ export const newsManifest = [
   {
     "filename": "september_wipe_2025.md",
     "pageLink": "september_wipe"
+  },
+  {
+    "filename": "sub_2025.md",
+    "pageLink": "sub_2025"
   }
 ];

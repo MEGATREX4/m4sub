@@ -84,3 +84,32 @@ ps a{
   line-height: 0.5rem!important;
   text-decoration: underline;
 }
+
+.player-avatar {
+  display: inline-block;
+  height: 1.3em;
+  width: 1.3em;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+a, p, h1, h2, h3, h4, h5, h6, section li {
+  /* 
+    Це головна властивість. Дозволяє браузеру розривати довгі слова/URL,
+    які не вміщаються в контейнер, не чіпаючи короткі слова.
+  */
+  overflow-wrap: break-word;
+  word-wrap: break-word; /* Для сумісності зі старими браузерами */
+
+  /* 
+    'word-break: break-word' - це менш агресивна альтернатива 'break-all'.
+    Вона також намагається не розривати слова без потреби.
+    Додаємо її для кращої кросбраузерності.
+  */
+  word-break: break-word;
+  
+
+}

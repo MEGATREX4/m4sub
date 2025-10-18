@@ -1,6 +1,10 @@
-export default function Footer() {
+import React from 'react'; // Імпортуємо React
+
+// Обгортаємо компонент у React.forwardRef
+const Footer = React.forwardRef((props, ref) => {
   return (
-    <footer className="bg-green-900/20 py-8 px-8 text-gray-200 space-y-6">
+    // Передаємо ref нашому головному елементу footer
+    <footer ref={ref} className="bg-green-900/20 py-8 px-8 text-gray-200 space-y-6">
       {/* Верхній блок з двома колонками */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Ліва колонка */}
@@ -41,4 +45,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

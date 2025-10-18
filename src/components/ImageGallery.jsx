@@ -11,7 +11,6 @@ export default function ImageGallery({ path }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // useMemo hook ensures this logic only runs when the 'path' prop changes.
   const galleryImages = useMemo(() => {
     const imageFiles = manifest[path];
 
@@ -20,8 +19,16 @@ export default function ImageGallery({ path }) {
     }
 
     return imageFiles.map(filename => {
-      const lastUnderscoreIndex = filename.lastIndexOf('_');
-      const nickname = filename.substring(0, lastUnderscoreIndex);
+      let nickname;
+      const firstUnderscoreIndex = filename.indexOf('_');
+      const dotIndex = filename.lastIndexOf('.');
+
+      if (firstUnderscoreIndex !== -1) {
+        nickname = filename.substring(0, firstUnderscoreIndex);
+      } else {
+        nickname = filename.substring(0, dotIndex);
+      }
+      
       const url = `/news/images/${path}/${filename}`;
 
       return {
@@ -44,11 +51,17 @@ export default function ImageGallery({ path }) {
 
   return (
     <div className="my-6">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* --- АДАПТИВНА СІТКА --- */}
+      {/* grid-cols-2: дві колонки на найменших екранах (за замовчуванням) */}
+      {/* sm:grid-cols-3: три колонки на екранах від 640px і ширше */}
+      {/* lg:grid-cols-4: чотири колонки на екранах від 1024px і ширше */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {galleryImages.map((img, index) => (
           <div
             key={index}
-            className="group relative cursor-pointer overflow-hidden cornerCutSmall h-40"
+            // --- АДАПТИВНА ВИСОТА ---
+            // aspect-square робить блок квадратним, а h-40 видалено
+            className="group relative cursor-pointer overflow-hidden cornerCutSmall aspect-square"
             onClick={() => openLightbox(index)}
           >
             <img
@@ -63,10 +76,11 @@ export default function ImageGallery({ path }) {
               className="absolute bottom-0 left-0 right-0 p-2 flex items-center gap-2 bg-gradient-to-t from-black/70 to-transparent minecraftFont"
             >
               <img
-                src={`https://www.mc-heads.net/avatar/${img.mc}`}
+                src={`https://nmsr.nickac.dev/face/${img.mc}`}
                 alt={img.name}
                 className="w-5 h-5 object-cover flex-shrink-0"
                 style={{ imageRendering: 'pixelated' }}
+                onError={(e) => { e.target.style.display = 'none'; }}
               />
               <span className="text-sm font-medium text-white drop-shadow-md truncate">
                 {img.name}

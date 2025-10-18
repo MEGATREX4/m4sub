@@ -1,3 +1,4 @@
+//Team.jsx
 import { useState, useEffect, useCallback } from "react";
 import pointLeft from "../icons/point-left.png";
 import pointRight from "../icons/point-right.png";

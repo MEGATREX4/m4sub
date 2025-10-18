@@ -71,3 +71,57 @@ blockquote, blockquote p {
   color: #ddd!important;
   font-style: italic!important;
 }
+
+/* Стилізація контейнера для Table of Contents */
+.toc-container {
+  background-color: #374151; /* колір bg-gray-700 */
+  padding: 1px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  clip-path: polygon(0px calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0px, 16px 0px, 16px 8px, 8px 8px, 8px 16px, 0px 16px);
+}
+
+/* Внутрішній контент всередині рамки */
+/* remark-toc генерує div > nav > ul */
+.toc-container > nav {
+   background-color: rgba(31, 41, 55, 0.5); /* колір bg-gray-800/50 */
+   padding: 1.5rem; /* p-6 */
+   height: 100%;
+   width: 100%;
+   clip-path: polygon(0px calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0px, 16px 0px, 16px 8px, 8px 8px, 8px 16px, 0px 16px);
+}
+
+/* Стилізація самого списку */
+.toc-container ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem; /* Відступ після заголовка "Зміст" */
+}
+
+.toc-container li {
+    margin-bottom: 0.5rem;
+}
+
+.toc-container a {
+    color: #d1d5db; /* text-gray-300 */
+    transition: color 0.2s;
+    text-decoration: none;
+}
+.toc-container a:hover {
+    color: #ffffff; /* hover:text-white */
+}
+
+/* Відступи для підпунктів */
+.toc-container ul ul {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+
+
+
+
+
+
+
+

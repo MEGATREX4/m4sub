@@ -34,7 +34,7 @@ export default function ArticleMeta({
           >
             {a.mc && (
               <img
-                src={`https://www.mc-heads.net/avatar/${a.mc}`}
+                src={`https://nmsr.nickac.dev/face/${a.mc}`}
                 alt={a.name}
                 className="w-8 h-8 object-cover"
               />
