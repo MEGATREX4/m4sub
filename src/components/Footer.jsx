@@ -10,7 +10,7 @@ const Footer = React.forwardRef((props, ref) => {
         {/* Ліва колонка */}
         <div className="flex flex-col gap-2">
           <ul>
-            <li>© M4SUB - Minecraft</li>
+            <li>© M4SUB - Minecraft Сервер</li>
             <li>Іконки - Pixel Icon Library</li>
             <li>Tailwind CSS</li>
           </ul>

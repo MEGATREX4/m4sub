@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllNews } from '../utils/frontmatter';
 import Page from './Page';
-
-import ArticleMeta from './ArticleMeta'
+import ArticleMeta from './ArticleMeta';
 
 export default function NewsList() {
   const [articles, setArticles] = useState([]);
@@ -19,7 +18,7 @@ export default function NewsList() {
         setError(null);
       } catch (err) {
         console.error('Error fetching articles:', err);
-        setError('Failed to load articles');
+        setError('Не вдалося завантажити статті');
       } finally {
         setLoading(false);
       }
@@ -34,47 +33,58 @@ export default function NewsList() {
         <h1 className="text-4xl font-bold text-gray-200 mb-8">Останні новини</h1>
         
         {loading && (
-          <div className="text-gray-400 text-center">Завантаження статей...</div>
+          <div className="text-gray-400 text-center py-10">Завантаження статей...</div>
         )}
         
         {error && (
-          <div className="text-red-400 text-center">{error}</div>
+          <div className="text-red-400 text-center py-10">{error}</div>
         )}
         
         {!loading && !error && articles.length === 0 && (
-          <div className="text-gray-400 text-center">Статей не знайдено.</div>
+          <div className="text-gray-400 text-center py-10">Статей не знайдено.</div>
         )}
         
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {/* --- ГОЛОВНА БАТЬКІВСЬКА СІТКА --- */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 grid-rows-[auto_auto_1fr_auto]">
           {articles.map((article) => (
-          <Link
-            key={article['page-link']}
-            to={`/news/${article['page-link']}`}
-            className="bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition grid grid-rows-[auto_1fr_auto]"
-          >
-            {article.preview && (
-              <img
-                src={article.preview}
-                alt={article.title}
-                className="cornerCut w-full h-48 object-cover"
-              />
-            )}
-            <div className="p-[1.5rem] flex flex-col">
-              <h3 className="text-xl font-bold text-gray-200 mb-2">{article.title}</h3>
-              <p className="text-gray-400 text-sm mb-4">{article.description}</p>
-
+            // --- КАРТКА ЯК SUBGRID ---
+            <Link
+              key={article['page-link']}
+              to={`/news/${article['page-link']}`}
+              className="grid grid-rows-subgrid row-span-4 bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition"
+            >
+              {/* Рядок 1: Зображення */}
+              {article.preview ? (
+                <img
+                  src={article.preview}
+                  alt={article.title}
+                  className="cornerCut w-full h-48 object-cover"
+                />
+              ) : (
+                <div className="cornerCut w-full h-48 bg-gray-800" /> // Плейсхолдер
+              )}
               
-              <ArticleMeta
-                authors={article.authors}
-                author={article.author}
-                authorImg={article['author-img']}
-                date={article.date}
-              />
+              {/* Рядок 2: Заголовок */}
+              <h3 className="text-xl font-bold text-gray-200 pl-6 pr-6 pb-0">
+                {article.title}
+              </h3>
+              
+              {/* Рядок 3: Опис */}
+              <p className="text-gray-400 text-sm pl-6 pr-6 pb-0">
+                {article.description}
+              </p>
 
-
-            </div>
-          </Link>
-
+              {/* Рядок 4: Мета-інформація */}
+              <div className="pl-6 pr-6 pt-0 pb-6 mt-auto">
+                <ArticleMeta
+                  authors={article.authors}
+                  author={article.author}
+                  authorImg={article['author-img']}
+                  editors={article.editors}
+                  date={article.date}
+                />
+              </div>
+            </Link>
           ))}
         </div>
       </div>

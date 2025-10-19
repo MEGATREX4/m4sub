@@ -132,7 +132,15 @@ export default function NewsArticle() {
             <img src={article.frontmatter.preview} alt={article.frontmatter.title} className="w-full h-72 object-cover mb-4 cornerCut"/>
           )}
           <h1 className="text-3xl font-bold mb-2">{article.frontmatter.title}</h1>
-          <ArticleMeta authors={article.frontmatter.authors} author={article.frontmatter.author} authorImg={article.frontmatter["author-img"]} date={article.frontmatter.date} formatDateStyle="long"/>
+          <ArticleMeta 
+            authors={article.frontmatter.authors} 
+            author={article.frontmatter.author} 
+            authorImg={article.frontmatter["author-img"]} 
+            editors={article.frontmatter.editors}
+            date={article.frontmatter.date} 
+            formatDateStyle="long"
+            variant="full"
+          />
         </header>
 
         <ReadingTime totalSeconds={readingTimeInSeconds} />

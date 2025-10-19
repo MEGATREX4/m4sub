@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllNews } from '../utils/frontmatter';
-
 import ArticleMeta from './ArticleMeta';
 
 export default function News() {
@@ -55,7 +54,9 @@ export default function News() {
               Усі новини
             </Link>
             <a 
-              href="/discord" 
+              href="https://discord.gg/fxqnU9by3M"
+              target="_blank" 
+              rel="noopener noreferrer"
               className="text-center inline-block px-6 py-2 bg-[#c5629a] hover:bg-[#f390d0] text-gray-200 font-bold cornerCutSmall transition"
             >
               Discord
@@ -66,32 +67,43 @@ export default function News() {
 
       {/* Список карток */}
       {articles.length > 0 && (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 grid-rows-[auto_auto_1fr_auto]">
           {articles.map((article) => (
             <Link
               key={article['page-link']}
               to={`/news/${article['page-link']}`}
-              className="bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition grid grid-rows-[auto_1fr_auto]"
+              className="grid grid-rows-subgrid row-span-4 bg-green-900/20 cornerCut overflow-hidden hover:bg-green-900/40 transition"
             >
-              {article.preview && (
+              {/* Рядок 1: Зображення */}
+              {article.preview ? (
                 <img
                   src={article.preview}
                   alt={article.title}
                   className="cornerCut w-full h-48 object-cover"
                 />
+              ) : (
+                <div className="cornerCut w-full h-48 bg-gray-800" /> // Плейсхолдер
               )}
               
-              <div className="p-[1.5rem] flex flex-col">
-                <h3 className="text-xl font-bold text-gray-200 mb-2">{article.title}</h3>
-                <p className="text-gray-400 text-sm mb-4">{article.description}</p>
-                
+              {/* Рядок 2: Заголовок */}
+              <h3 className="text-xl font-bold text-gray-200 pl-6 pr-6 pb-0">
+                {article.title}
+              </h3>
+              
+              {/* Рядок 3: Опис */}
+              <p className="text-gray-400 text-sm pl-6 pr-6">
+                {article.description}
+              </p>
+
+              {/* Рядок 4: Мета-інформація */}
+              <div className="pl-6 pr-6 pb-6 mt-auto">
                 <ArticleMeta
                   authors={article.authors}
                   author={article.author}
                   authorImg={article['author-img']}
+                  editors={article.editors}
                   date={article.date}
                 />
-
               </div>
             </Link>
           ))}
