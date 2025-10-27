@@ -11,30 +11,90 @@ export default function ImageGallery({ path }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const galleryImages = useMemo(() => {
-    const imageFiles = manifest[path];
+  // Function to detect if filename should show a nickname
+  const extractNickname = (filename) => {
+    // Remove file extension
+    const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.'));
+    
+    // Remove thumbnail suffixes if present (including (Custom))
+    const cleanName = nameWithoutExt
+      .replace(/_thumb$|_thumbnail$|-thumb$/i, '')
+      .replace(/\s*\(Custom\)$/i, '');
+    
+    // Check if it's a date format (YYYY-MM-DD_HH.MM.SS or similar)
+    const datePattern = /^\d{4}-\d{2}-\d{2}_\d{2}\.\d{2}\.\d{2}$/;
+    if (datePattern.test(cleanName)) {
+      return null;
+    }
+    
+    // Check if it's a generic image name (image1, image2, etc.)
+    const genericPattern = /^image\d+$/i;
+    if (genericPattern.test(cleanName)) {
+      return null;
+    }
+    
+    // Check if it has underscore (player nickname pattern)
+    const firstUnderscoreIndex = cleanName.indexOf('_');
+    if (firstUnderscoreIndex !== -1) {
+      const potentialNickname = cleanName.substring(0, firstUnderscoreIndex);
+      
+      // Additional checks
+      if (potentialNickname.includes('.') || potentialNickname.includes('-')) {
+        return null;
+      }
+      
+      if (/^\d+$/.test(potentialNickname)) {
+        return null;
+      }
+      
+      // Check if it's a valid Minecraft-like nickname (alphanumeric with possible underscores)
+      if (/^[a-zA-Z][a-zA-Z0-9_]*$/.test(potentialNickname)) {
+        return potentialNickname;
+      }
+      
+      return null;
+    }
+    
+    // No underscore - check if the whole name looks like a nickname
+    if (cleanName.length > 2 && cleanName.length <= 16 && /^[a-zA-Z][a-zA-Z0-9_]*$/.test(cleanName)) {
+      return cleanName;
+    }
+    
+    return null;
+  };
 
-    if (!imageFiles || imageFiles.length === 0) {
+  const galleryImages = useMemo(() => {
+    const imageData = manifest[path];
+
+    if (!imageData || imageData.length === 0) {
       return [];
     }
 
-    return imageFiles.map(filename => {
-      let nickname;
-      const firstUnderscoreIndex = filename.indexOf('_');
-      const dotIndex = filename.lastIndexOf('.');
-
-      if (firstUnderscoreIndex !== -1) {
-        nickname = filename.substring(0, firstUnderscoreIndex);
+    // Handle both old format (array of strings) and new format (array of objects)
+    return imageData.map(item => {
+      let filename, thumbnail;
+      
+      if (typeof item === 'string') {
+        // Old format compatibility
+        filename = item;
+        thumbnail = null;
       } else {
-        nickname = filename.substring(0, dotIndex);
+        // New format with thumbnail support
+        filename = item.filename;
+        thumbnail = item.thumbnail;
       }
       
-      const url = `/news/images/${path}/${filename}`;
+      const nickname = extractNickname(filename);
+      const fullUrl = `/news/images/${path}/${filename}`;
+      const thumbUrl = thumbnail ? `/news/images/${path}/${thumbnail}` : fullUrl;
 
       return {
-        src: url,
-        mc: nickname,
-        name: nickname
+        src: fullUrl,           // Full image for lightbox
+        thumb: thumbUrl,        // Thumbnail for grid (falls back to full if no thumbnail)
+        mc: nickname || '',
+        name: nickname || '',
+        hasNickname: !!nickname,
+        hasThumbnail: !!thumbnail
       };
     });
   }, [path]);
@@ -51,41 +111,52 @@ export default function ImageGallery({ path }) {
 
   return (
     <div className="my-6">
-      {/* --- АДАПТИВНА СІТКА --- */}
-      {/* grid-cols-2: дві колонки на найменших екранах (за замовчуванням) */}
-      {/* sm:grid-cols-3: три колонки на екранах від 640px і ширше */}
-      {/* lg:grid-cols-4: чотири колонки на екранах від 1024px і ширше */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {galleryImages.map((img, index) => (
           <div
             key={index}
-            // --- АДАПТИВНА ВИСОТА ---
-            // aspect-square робить блок квадратним, а h-40 видалено
             className="group relative cursor-pointer overflow-hidden cornerCutSmall aspect-square"
             onClick={() => openLightbox(index)}
           >
+            {/* Use thumbnail for grid view if available */}
             <img
-              src={img.src}
-              alt={`Гравець ${img.name}`}
+              src={img.thumb}
+              alt={img.hasNickname ? `Гравець ${img.name}` : 'Зображення галереї'}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               style={{ imageRendering: 'pixelated' }}
               loading="lazy"
             />
+            
+            {/* Small indicator if using thumbnail - improved style */}
+            {img.hasThumbnail && (
+              <div className="absolute top-2 right-2">
+                {/* Outer div acts as border */}
+                <div className="cornerCutSmall bg-white/30 p-[2px]">
+                  {/* Inner div with content */}
+                  <div className="cornerCutSmall bg-black/40 px-2 py-0.5 flex items-center justify-center w-10 h-10">
+                    <span className="text-xs text-white font-bold">HD</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
-            <div
-              className="absolute bottom-0 left-0 right-0 p-2 flex items-center gap-2 bg-gradient-to-t from-black/70 to-transparent minecraftFont"
-            >
-              <img
-                src={`https://nmsr.nickac.dev/face/${img.mc}`}
-                alt={img.name}
-                className="w-5 h-5 object-cover flex-shrink-0"
-                style={{ imageRendering: 'pixelated' }}
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
-              <span className="text-sm font-medium text-white drop-shadow-md truncate">
-                {img.name}
-              </span>
-            </div>
+            {/* Nickname overlay */}
+            {img.hasNickname && (
+              <div
+                className="absolute bottom-0 left-0 right-0 p-2 flex items-center gap-2 bg-gradient-to-t from-black/70 to-transparent minecraftFont"
+              >
+                <img
+                  src={`https://nmsr.nickac.dev/face/${img.mc}`}
+                  alt={img.name}
+                  className="w-5 h-5 object-cover flex-shrink-0"
+                  style={{ imageRendering: 'pixelated' }}
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+                <span className="text-sm font-medium text-white drop-shadow-md truncate">
+                  {img.name}
+                </span>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -170,7 +241,6 @@ export default function ImageGallery({ path }) {
           min-height: 44px !important;
           padding: 10px !important;
           image-rendering: pixelated !important;
-
         }
 
         /* Hover state: "pop out" effect */
@@ -186,7 +256,7 @@ export default function ImageGallery({ path }) {
         /* Navigation buttons (larger) */
         .yarl__navigation_prev,
         .yarl__navigation_next {
-        margin: 0 10px !important;
+          margin: 0 10px !important;
           padding: 20px !important;
           background: linear-gradient(180deg, #c5629a 0%, #a34e7e 100%) !important;
         }
@@ -207,23 +277,10 @@ export default function ImageGallery({ path }) {
         .yarl__slide_counter {
           background: #202c28 !important;
           color: #e5e7eb !important;
-          font-family: 'Minecraft', monospace !important; /* Use Minecraft font */
+          font-family: 'Minecraft', monospace !important;
           font-weight: bold !important;
           padding: 8px 16px !important;
           border-radius: 0 !important;
-        }
-
-        /* Main frame border */
-        .yarl__portal::after {
-          content: '';
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          pointer-events: none;
-          z-index: 9999;
-          image-rendering: pixelated;
         }
 
         /* Loading spinner color */
