@@ -78,25 +78,7 @@ try {
   console.log('✅ Successfully generated gallery manifest at src/galleryManifest.json');
   
   // Log summary with more details
-  Object.entries(manifest).forEach(([folder, images]) => {
-    const thumbCount = images.filter(img => img.thumbnail).length;
-    console.log(`  📁 ${folder}: ${images.length} images (${thumbCount} with thumbnails)`);
-    
-    // Log thumbnail patterns found (for debugging)
-    const thumbPatterns = new Set();
-    images.forEach(img => {
-      if (img.thumbnail) {
-        if (img.thumbnail.includes('(Custom)')) thumbPatterns.add('(Custom)');
-        if (img.thumbnail.includes('_thumb')) thumbPatterns.add('_thumb');
-        if (img.thumbnail.includes('_thumbnail')) thumbPatterns.add('_thumbnail');
-        if (img.thumbnail.includes('-thumb')) thumbPatterns.add('-thumb');
-      }
-    });
-    
-    if (thumbPatterns.size > 0) {
-      console.log(`     Thumbnail patterns: ${Array.from(thumbPatterns).join(', ')}`);
-    }
-  });
+  console.log(`Summary: ${Object.entries(manifest).reduce((acc, [folder, images]) => acc + images.length, 0)} images (${Object.entries(manifest).reduce((acc, [folder, images]) => acc + images.filter(img => img.thumbnail).length, 0)} with thumbnails)`);
 
 } catch (error) {
   console.error('❌ Error generating gallery manifest:', error);
