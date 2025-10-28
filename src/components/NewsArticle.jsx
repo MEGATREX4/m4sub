@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -21,6 +21,7 @@ import ImageGallery from './ImageGallery';
 import YouTubePlayer from './YouTubePlayer';
 import PlayerAvatar from './PlayerAvatar'; 
 import TableOfContents from './TableOfContents';
+import ArticleMetaSection from './ArticleMetaSection';
 
 import { CustomList, CustomListItem } from './CustomList';
 
@@ -30,6 +31,7 @@ export default function NewsArticle() {
   const [article, setArticle] = useState({ frontmatter: {}, content: '' });
   const [headings, setHeadings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const articleUrl = window.location.href;
 
   const [readingTimeInSeconds, setReadingTimeInSeconds] = useState(0);
 
@@ -145,8 +147,12 @@ export default function NewsArticle() {
 
         <ReadingTime totalSeconds={readingTimeInSeconds} />
 
+
+
         {article.frontmatter.generateTOC && headings.length > 0 && (
-          <TableOfContents headings={headings} />
+          <TableOfContents
+          headings={headings}
+        />
         )}
 
         <div className="max-w-none">
@@ -170,7 +176,7 @@ export default function NewsArticle() {
                   {...props}
                 >
                   {children}
-                  <i className="hn hn-external-link-solid text-sm align-middle"></i>
+                  <i className="hn hn-arrow-alt-circle-up text-sm align-middle"></i>
                 </a>
               );
             }
@@ -244,10 +250,19 @@ export default function NewsArticle() {
         </ReactMarkdown>
         </div>
 
+        <ArticleMetaSection
+          alsoOn={article.frontmatter['also-on']}
+          shareInfo={{
+            title: article.frontmatter.title,
+            url: articleUrl,
+          }}
+        />
+
         <ArticleNavigation 
           prevArticle={navigation.prev} 
           nextArticle={navigation.next} 
         />
+
       </article>
     </Page>
   );
