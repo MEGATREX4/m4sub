@@ -151,104 +151,97 @@ export default function NewsArticle() {
 
         <div className="max-w-none">
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              
-              a: ({ node, href, children, ...props }) => {
-                // Перевіряємо, чи є посилання зовнішнім
-                const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
-
-                // Якщо посилання зовнішнє, рендеримо звичайний тег <a> з іконкою
-                if (isExternal) {
-                  return (
-                    <a 
-                      href={href} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
-                      {...props}
-                    >
-                      {children}
-                      <i className="hn hn-external-link-solid text-sm align-middle"></i>
-                    </a>
-                  );
-                }
-
-                // Якщо посилання внутрішнє, використовуємо Link з react-router-dom
-                return (
-                  <Link 
-                    to={href || '#'} 
-                    className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
-                    {...props}
-                  >
-                    {children}
-                  </Link>
-                );
-              },
-
-              ul: CustomList,
-              ol: CustomList,
-              li: CustomListItem,
-
-              h1: ({ node, children, ...props }) => {
-                const text = toString(node);
-                const id = slugify(text, { lower: true, strict: true });
-                return <h1 id={id} {...props} className="text-3xl font-bold mb-4">{children}</h1>;
-              },
-
-              h2: ({ node, children, ...props }) => {
-                const text = toString(node);
-                const id = slugify(text, { lower: true, strict: true });
-                return <h2 id={id} {...props} className="text-2xl font-bold mb-4">{children}</h2>;
-              },
-              h3: ({ node, children, ...props }) => {
-                const text = toString(node);
-                const id = slugify(text, { lower: true, strict: true });
-                return <h3 id={id} {...props} className="text-xl font-bold mb-4">{children}</h3>;
-              },
-              playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
-              p: ({ node, children }) => {
-                if (node.children[0]?.tagName === "img" && node.children[0]?.properties?.src?.includes("youtube")) {
-                  return <>{children}</>;
-                }
-                return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
-              },
-              
-              // --- ЗМІНА №2: Адаптивність для img ---
-              img: ({ node, src, alt, ...props }) => {
-                const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
-                if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
-                return <img src={src} alt={alt || ''} {...props} className="cornerCut shadow-lg my-6 mx-auto max-w-full h-auto" loading="lazy" />;
-              },
-              
-              // --- ЗМІНА №3: Адаптивність для таблиць ---
-              table: ({ node, ...props }) => (
-                <div className="overflow-x-auto my-6">
-                  <table {...props} className="w-full" />
-                </div>
-              ),
-
-              // --- ЗМІНА №4: Адаптивність для блоків коду ---
-              preformat: ({ node, ...props }) => (
-                <pre 
-                  {...props} 
-                  className="bg-gray-800/50 border border-gray-700 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words" 
-                />
-              ),
-              code: ({ node, inline, ...props }) => inline 
-                ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 cornerCut text-[#f390d0]" /> 
-                : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /></pre>,
-              
-              // ...решта компонентів
-              gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
-              blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
-              a: ({ node, ...props }) => <Link {...props} className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" />,
-              h1: ({ node, ...props }) => <h1 {...props} className="text-4xl font-bold mb-4" />,
-            }}
-          >
-            {processedContent}
-          </ReactMarkdown>
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          // This is the ONLY `a` definition needed. It handles all cases.
+          a: ({ node, href, children, ...props }) => {
+            // Check if the link is external
+            const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+          
+            // If it's external, render a standard <a> tag that opens in a new tab
+            if (isExternal) {
+              return (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
+                  {...props}
+                >
+                  {children}
+                  <i className="hn hn-external-link-solid text-sm align-middle"></i>
+                </a>
+              );
+            }
+          
+            // If it's internal, use React Router's Link for client-side navigation
+            return (
+              <Link
+                to={href || '#'} // Fallback to '#' if href is missing
+                className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
+                {...props}
+              >
+                {children}
+              </Link>
+            );
+          },
+        
+          // Your custom list components
+          ul: CustomList,
+          ol: CustomList,
+          li: CustomListItem,
+        
+          // Your custom heading components with slugs
+          h1: ({ node, children, ...props }) => {
+            const text = toString(node);
+            const id = slugify(text, { lower: true, strict: true });
+            return <h1 id={id} {...props} className="text-4xl font-bold mb-4">{children}</h1>;
+          },
+          h2: ({ node, children, ...props }) => {
+            const text = toString(node);
+            const id = slugify(text, { lower: true, strict: true });
+            return <h2 id={id} {...props} className="text-2xl font-bold mb-4">{children}</h2>;
+          },
+          h3: ({ node, children, ...props }) => {
+            const text = toString(node);
+            const id = slugify(text, { lower: true, strict: true });
+            return <h3 id={id} {...props} className="text-xl font-bold mb-4">{children}</h3>;
+          },
+        
+          // Your other custom components
+          playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
+          p: ({ node, children }) => {
+            if (node.children[0]?.tagName === "img" && node.children[0]?.properties?.src?.includes("youtube")) {
+              return <>{children}</>;
+            }
+            return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
+          },
+          img: ({ node, src, alt, ...props }) => {
+            const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
+            if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
+            return <img src={src} alt={alt || ''} {...props} className="cornerCut shadow-lg my-6 mx-auto max-w-full h-auto" loading="lazy" />;
+          },
+          table: ({ node, ...props }) => (
+            <div className="overflow-x-auto my-6">
+              <table {...props} className="w-full" />
+            </div>
+          ),
+          pre: ({ node, ...props }) => ( // Corrected from `preformat`
+            <pre
+              {...props}
+              className="bg-gray-800/50 border border-gray-700 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words"
+            />
+          ),
+          code: ({ node, inline, ...props }) => inline
+            ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 cornerCut text-[#f390d0]" />
+            : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /> </pre>,
+          gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
+          blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
+                }}
+        >     
+          {processedContent}
+        </ReactMarkdown>
         </div>
 
         <ArticleNavigation 
