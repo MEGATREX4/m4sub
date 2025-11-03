@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const TAG_COLORS = {
   'оновлення': 'bg-blue-900/60',
