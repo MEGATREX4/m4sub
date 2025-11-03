@@ -1,5 +1,6 @@
-// components/ArticleMeta.jsx
+// src/components/ArticleMeta.jsx
 import React from 'react';
+import ArticleTags from './ArticleTags'; // 1. Імпортуємо новий компонент
 
 // Допоміжна функція для нормалізації даних
 const normalizeContributors = (data, singleProp, singleMcProp) => {
@@ -33,6 +34,7 @@ export default function ArticleMeta({
   authorImg,
   editors,
   date,
+  tags, // 2. Додаємо новий пропс 'tags'
   variant = "compact", // 'compact' або 'full'
 }) {
   // Нормалізуємо дані
@@ -54,14 +56,14 @@ export default function ArticleMeta({
   // --- Повний вигляд для сторінки статті ---
   if (variant === 'full') {
     return (
-        <div className="flex flex-col gap-3 text-sm text-gray-400 minecraftFont">
+        <div className="flex flex-col gap-4 text-sm text-gray-400 minecraftFont">
       <div className="flex items-center gap-3 text-sm text-gray-400 mt-4 flex-wrap">
         {/* 1. Блок з аватарами */}
         {uniqueContributors.length > 0 && (
           <div className="flex flex-shrink-0">
             {uniqueContributors.map((person, idx) => (
               <div key={person.mc || idx} className="relative" style={{ marginLeft: idx === 0 ? 0 : -8, zIndex: uniqueContributors.length - idx }} title={person.name}>
-                {person.mc && <img src={`https://nmsr.nickac.dev/face/${person.mc}`} alt={person.name} className="w-8 h-8 object-cover cornerCutSmall"/>}
+                {person.mc && <img src={`https://nmsr.nickac.dev/face/${person.mc}`} alt={person.name} className="w-8 h-8 object-cover"/>}
               </div>
             ))}
           </div>
@@ -73,13 +75,15 @@ export default function ArticleMeta({
           <ContributorList label={normalizedEditors.length > 1 ? "Редактори" : "Редактор"} contributors={normalizedEditors} />
         </div>
       </div>
-      <div>
+      {/* 3. Блок для дати та тегів */}
+      <div className="flex flex-col gap-3">
         {date && (
             <div className="flex items-center gap-2">
               <i className="hn hn-calendar-days-solid"></i>
               <time dateTime={date}>{formatDate(date)}</time>
             </div>
           )}
+        <ArticleTags tags={tags} />
       </div>
       </div>
     );
@@ -87,7 +91,7 @@ export default function ArticleMeta({
 
   // --- Компактний вигляд для карток новин ---
   return (
-    <div className="flex flex-col gap-4 text-sm text-gray-400 mt-auto minecraftFont">
+    <div className="flex flex-col gap-3 text-sm text-gray-400 mt-auto minecraftFont">
     <div className="flex items-center gap-2 text-sm text-gray-400 mt-auto flex-wrap">
       {/* Аватари */}
       {uniqueContributors.length > 0 && (
@@ -109,10 +113,11 @@ export default function ArticleMeta({
           </span>
         ))}
       </span>
-      
-      
     </div>
 
+    {/* 4. Теги для компактного вигляду */}
+    <ArticleTags tags={tags} />
+    
     {/* Дата */}
       {date && (
         <>

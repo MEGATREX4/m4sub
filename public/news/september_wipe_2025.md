@@ -7,6 +7,7 @@ preview: https://res.cloudinary.com/kutok/image/fetch/s--8GInILuy--/c_limit,f_au
 page-link: september_wipe
 title: Вайп та кінець сезону
 description: Інформація про вайп, архів мапи та початок міжсезоння.
+tags: ["Вайп", "Оголошення", "Саб"]
 ---
 
 ### Шановні гравці!

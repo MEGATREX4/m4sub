@@ -117,3 +117,6 @@ blockquote, blockquote p {
   padding-left: 1rem;
 }
 
+pre code{
+  display: inline-block!important;
+}

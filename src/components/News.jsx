@@ -103,6 +103,7 @@ export default function News() {
                   authorImg={article['author-img']}
                   editors={article.editors}
                   date={article.date}
+                  tags={article.tags}
                 />
               </div>
             </Link>

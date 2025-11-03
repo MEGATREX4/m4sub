@@ -140,6 +140,7 @@ export default function NewsArticle() {
             authorImg={article.frontmatter["author-img"]} 
             editors={article.frontmatter.editors}
             date={article.frontmatter.date} 
+            tags={article.frontmatter.tags}
             formatDateStyle="long"
             variant="full"
           />
@@ -214,6 +215,12 @@ export default function NewsArticle() {
             const id = slugify(text, { lower: true, strict: true });
             return <h3 id={id} {...props} className="text-xl font-bold mb-4">{children}</h3>;
           },
+          h4: ({ node, children, ...props }) => {
+            const text = toString(node);
+            const id = slugify(text, { lower: true, strict: true });
+            return <h4 id={id} {...props} className="text-lg font-bold mb-4">{children}</h4>;
+          },
+          hr: ({ node, ...props }) => <hr className="my-8 border-gray-700" {...props} />,
         
           // Your other custom components
           playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,

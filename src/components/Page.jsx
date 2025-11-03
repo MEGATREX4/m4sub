@@ -27,14 +27,6 @@ export default function Page({
     document.querySelector('meta[property="twitter:description"]')?.setAttribute("content", description || "");
     document.querySelector('meta[property="twitter:image"]')?.setAttribute("content", image || "/logo192.png");
 
-    let telegramTag = document.querySelector('meta[property="telegram:channel"]');
-    if (!telegramTag) {
-        telegramTag = document.createElement('meta');
-        telegramTag.setAttribute('property', 'telegram:channel');
-        document.head.appendChild(telegramTag);
-    }
-    telegramTag.setAttribute('content', '@modCheck');
-
   }, [title, description, image, type, author, keywords]);
 
   return <>{children}</>;

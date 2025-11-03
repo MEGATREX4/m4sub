@@ -1,6 +1,10 @@
 // This file is auto-generated. Do not edit it manually.
 export const newsManifest = [
   {
+    "filename": "cape_2025.md",
+    "pageLink": "cape_2025"
+  },
+  {
     "filename": "independence_day_2025.md",
     "pageLink": "independence_day_2025"
   },

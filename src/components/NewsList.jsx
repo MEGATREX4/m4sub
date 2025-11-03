@@ -82,6 +82,7 @@ export default function NewsList() {
                   authorImg={article['author-img']}
                   editors={article.editors}
                   date={article.date}
+                  tags={article.tags}
                 />
               </div>
             </Link>

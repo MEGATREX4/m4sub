@@ -7,6 +7,7 @@ preview: /news.png
 page-link: september_update
 title: Важливі новини!
 description: Важлива інформація про наш сервер Minecraft та спільноту.
+tags: ["Оновлення", "Оголошення"]
 ---
 
 ### Шановні гравці!
