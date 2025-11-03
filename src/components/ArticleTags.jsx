@@ -10,10 +10,10 @@ const TAG_COLORS = {
 };
 
 const RANDOM_COLORS = [
-  'bg-pink-900/60',
-  'bg-teal-900/60',
-  'bg-indigo-900/60',
-  'bg-rose-900/60',
+    'bg-pink-900/60',
+    'bg-teal-900/60',
+    'bg-indigo-900/60',
+    'bg-rose-900/60',
     'bg-lime-900/60',
     'bg-cyan-900/60',
     'bg-violet-900/60',
