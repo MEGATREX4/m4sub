@@ -31,6 +31,11 @@
   --color-btn-primary-disabled-bg: rgba(197, 98, 154, 0.5) !important;
 }
 
+
+#__next .border{
+    border-width: 0px!important;
+}
+
 /* Apply Minecraft font globally */
 .gsc-main {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
@@ -362,6 +367,7 @@
   border-color: var(--color-accent-emphasis) !important;
 }
 
+
 /* Pagination */
 .gsc-pagination {
   display: flex !important;
@@ -529,3 +535,4 @@
     padding: 0.75rem !important;
   }
 }
+
