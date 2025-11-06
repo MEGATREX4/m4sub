@@ -120,3 +120,30 @@ blockquote, blockquote p {
 pre code{
   display: inline-block!important;
 }
+
+/* src/styles/giscus-custom.css */
+
+/* Container and iframe adjustments */
+.giscus {
+  padding: 0 !important;
+}
+
+.giscus-frame {
+  border: none !important;
+  color-scheme: dark !important;
+}
+
+/* Override iframe styles via CSS variables */
+iframe.giscus-frame {
+  border: 1px solid #374151 !important;
+  background: #1a0f15 !important;
+  padding: 1rem !important;
+  clip-path: polygon(
+    0 8px,
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%
+  ) !important;
+}

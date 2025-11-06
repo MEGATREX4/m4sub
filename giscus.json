@@ -1,0 +1,11 @@
+{
+  "origins": [
+    "https://m4sub.com",
+    "https://www.m4sub.com"
+  ],
+  "originsRegex": [
+    "http://localhost:[0-9]+",
+    "https://.*\\.netlify\\.app"
+  ],
+  "defaultCommentOrder": "oldest"
+}

@@ -23,6 +23,8 @@ import PlayerAvatar from './PlayerAvatar';
 import TableOfContents from './TableOfContents';
 import ArticleMetaSection from './ArticleMetaSection';
 
+import Comments from './Comments';
+
 import { CustomList, CustomListItem } from './CustomList';
 
 export default function NewsArticle() {
@@ -270,6 +272,8 @@ export default function NewsArticle() {
           nextArticle={navigation.next} 
         />
 
+
+          <Comments title={article.frontmatter.title} />
       </article>
     </Page>
   );
