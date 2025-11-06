@@ -47,7 +47,7 @@ export default function Comments({ title, slug }) {
     script.setAttribute('data-input-position', 'top');
     
     // Use custom theme
-    const themeUrl = `${window.location.origin}/giscus-m4sub-theme.css`;
+    const themeUrl = `../../../../../giscus-m4sub-theme.css`;
     script.setAttribute('data-theme', themeUrl);
     
     script.setAttribute('data-lang', 'uk');
