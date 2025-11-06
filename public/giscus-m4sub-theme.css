@@ -57,28 +57,7 @@
   background: var(--color-canvas-default) !important;
   border: 0px solid var(--color-border-default) !important;
   padding: 1.5rem !important;
-    clip-path: polygon(
-    0px calc(100% - 16px), 
-    8px calc(100% - 16px), 
-    8px calc(100% - 8px), 
-    16px calc(100% - 8px), 
-    16px 100%, 
-    calc(100% - 16px) 100%, 
-    calc(100% - 16px) calc(100% - 8px), 
-    calc(100% - 8px) calc(100% - 8px), 
-    calc(100% - 8px) calc(100% - 16px), 
-    100% calc(100% - 16px), 
-    100% 16px, 
-    calc(100% - 8px) 16px, 
-    calc(100% - 8px) 8px, 
-    calc(100% - 16px) 8px, 
-    calc(100% - 16px) 0px, 
-    16px 0px, 
-    16px 8px, 
-    8px 8px, 
-    8px 16px, 
-    0px 16px
-  ) !important;
+  
 }
 
 /* Header section */
@@ -101,28 +80,7 @@
   border: 0px solid var(--color-border-default) !important;
   padding: 1rem !important;
   margin-bottom: 1.5rem !important;
-  clip-path: polygon(
-    0px calc(100% - 8px), 
-    4px calc(100% - 8px), 
-    4px calc(100% - 4px), 
-    8px calc(100% - 4px), 
-    8px 100%, 
-    calc(100% - 8px) 100%, 
-    calc(100% - 8px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 8px), 
-    100% calc(100% - 8px), 
-    100% 8px, 
-    calc(100% - 4px) 8px, 
-    calc(100% - 4px) 4px, 
-    calc(100% - 8px) 4px, 
-    calc(100% - 8px) 0px, 
-    8px 0px, 
-    8px 4px, 
-    4px 4px, 
-    4px 8px, 
-    0px 8px
-  ) !important;
+
 }
 
 /* Textarea styling */

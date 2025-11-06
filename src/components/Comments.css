@@ -27,14 +27,6 @@
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
   margin-left: 0.75rem;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  );
 }
 
 .comments-divider {
@@ -52,28 +44,6 @@
   justify-content: center;
   gap: 2rem;
   background: rgba(31, 20, 25, 0.5);
-  clip-path: polygon(
-    0px calc(100% - 16px), 
-    8px calc(100% - 16px), 
-    8px calc(100% - 8px), 
-    16px calc(100% - 8px), 
-    16px 100%, 
-    calc(100% - 16px) 100%, 
-    calc(100% - 16px) calc(100% - 8px), 
-    calc(100% - 8px) calc(100% - 8px), 
-    calc(100% - 8px) calc(100% - 16px), 
-    100% calc(100% - 16px), 
-    100% 16px, 
-    calc(100% - 8px) 16px, 
-    calc(100% - 8px) 8px, 
-    calc(100% - 16px) 8px, 
-    calc(100% - 16px) 0px, 
-    16px 0px, 
-    16px 8px, 
-    8px 8px, 
-    8px 16px, 
-    0px 16px
-  );
 }
 
 .comments-loading-placeholder {
@@ -94,28 +64,6 @@
   font-weight: normal;
   transition: all 0.2s;
   margin-top: 2rem;
-  clip-path: polygon(
-    0px calc(100% - 8px), 
-    4px calc(100% - 8px), 
-    4px calc(100% - 4px), 
-    8px calc(100% - 4px), 
-    8px 100%, 
-    calc(100% - 8px) 100%, 
-    calc(100% - 8px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 8px), 
-    100% calc(100% - 8px), 
-    100% 8px, 
-    calc(100% - 4px) 8px, 
-    calc(100% - 4px) 4px, 
-    calc(100% - 8px) 4px, 
-    calc(100% - 8px) 0px, 
-    8px 0px, 
-    8px 4px, 
-    4px 4px, 
-    4px 8px, 
-    0px 8px
-  );
 }
 
 .load-comments-btn:hover {
@@ -149,29 +97,6 @@
 .comment-login-prompt {
   margin-top: 1.5rem;
   padding: 1rem;
-  background: rgba(197, 98, 154, 0.1);
-  clip-path: polygon(
-    0px calc(100% - 8px), 
-    4px calc(100% - 8px), 
-    4px calc(100% - 4px), 
-    8px calc(100% - 4px), 
-    8px 100%, 
-    calc(100% - 8px) 100%, 
-    calc(100% - 8px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 4px), 
-    calc(100% - 4px) calc(100% - 8px), 
-    100% calc(100% - 8px), 
-    100% 8px, 
-    calc(100% - 4px) 8px, 
-    calc(100% - 4px) 4px, 
-    calc(100% - 8px) 4px, 
-    calc(100% - 8px) 0px, 
-    8px 0px, 
-    8px 4px, 
-    4px 4px, 
-    4px 8px, 
-    0px 8px
-  );
 }
 
 .comment-login-prompt p {
