@@ -465,14 +465,6 @@
 .Popover-message {
   background: var(--color-canvas-inset) !important;
   border: 0px solid var(--color-border-default) !important;
-  clip-path: polygon(
-    0 8px,
-    8px 0,
-    100% 0,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    0 100%
-  ) !important;
 }
 
 /* Mobile responsiveness */
