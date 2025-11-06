@@ -78,7 +78,7 @@
 
 /* Header section */
 .gsc-header {
-  border-bottom: 2px solid var(--color-accent-emphasis) !important;
+  border-bottom: 0px solid var(--color-accent-emphasis) !important;
   padding-bottom: 1rem !important;
   margin-bottom: 1.5rem !important;
 }
@@ -142,8 +142,8 @@
 
 /* Tab buttons */
 .gsc-comment-box-tabs {
-  border-bottom: 1px solid var(--color-border-default) !important;
-  margin-bottom: 1rem !important;
+  border-bottom: 0px solid var(--color-border-default) !important;
+  margin-bottom: 0rem !important;
 }
 
 .gsc-comment-box-tabs button {
@@ -281,15 +281,8 @@
 /* Avatar styling */
 .gsc-comment-author-avatar img,
 .gsc-reply-author-avatar img {
-  border: 2px solid var(--color-border-default) !important;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  ) !important;
+  border: 0px solid var(--color-border-default) !important;
+  
 }
 
 /* Author links */
@@ -319,7 +312,7 @@
 /* Reactions container */
 .gsc-reactions {
   padding: 0.75rem 1rem !important;
-  border-top: 1px solid var(--color-border-default) !important;
+  border-top: 0px solid var(--color-border-default) !important;
   display: flex !important;
   gap: 0.5rem !important;
   flex-wrap: wrap !important;
@@ -335,14 +328,7 @@
   display: flex !important;
   align-items: center !important;
   gap: 0.25rem !important;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  ) !important;
+  
 }
 
 .gsc-reactions-button:hover {
@@ -368,14 +354,7 @@
   align-items: center !important;
   gap: 0.25rem !important;
   margin: 0 0.25rem 0.25rem 0 !important;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  ) !important;
+  
 }
 
 .gsc-social-reaction-summary-item:hover {
@@ -390,7 +369,7 @@
   justify-content: center !important;
   margin-top: 2rem !important;
   padding-top: 1rem !important;
-  border-top: 1px solid var(--color-border-default) !important;
+  border-top: 0px solid var(--color-border-default) !important;
 }
 
 .gsc-pagination button {
@@ -400,14 +379,7 @@
   padding: 0.5rem 1rem !important;
   font-family: 'Minecraft', sans-serif !important;
   transition: all 0.2s ease !important;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  ) !important;
+  
 }
 
 .gsc-pagination button:hover:not(:disabled) {
@@ -471,7 +443,7 @@
 .gsc-comment-content blockquote,
 .gsc-reply-content blockquote,
 .markdown blockquote {
-  border-left: 4px solid #c5629a !important;
+  border-left: 0px solid #c5629a !important;
   padding-left: 1rem !important;
   margin: 1rem 0 !important;
   color: #ddd !important;
@@ -509,14 +481,7 @@
   color: #fca5a5 !important;
   padding: 0.75rem !important;
   margin: 1rem 0 !important;
-  clip-path: polygon(
-    0 4px,
-    4px 0,
-    100% 0,
-    100% calc(100% - 4px),
-    calc(100% - 4px) 100%,
-    0 100%
-  ) !important;
+  
 }
 
 /* Timeline line */
