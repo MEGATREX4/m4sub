@@ -186,6 +186,15 @@
   padding: 0 !important;
 }
 
+.gsc-comment{
+  clip-path: polygon(0 calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0, 16px 0, 16px 8px, 8px 8px, 8px 16px, 0 16px) !important;
+}
+
+.gsc-reply{
+    padding-left: 16px !important;
+    clip-path: polygon(0 calc(100% - 16px), 8px calc(100% - 16px), 8px calc(100% - 8px), 16px calc(100% - 8px), 16px 100%, calc(100% - 16px) 100%, calc(100% - 16px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 16px), 100% calc(100% - 16px), 100% 16px, calc(100% - 8px) 16px, calc(100% - 8px) 8px, calc(100% - 16px) 8px, calc(100% - 16px) 0, 16px 0, 16px 8px, 8px 8px, 8px 16px, 0 16px) !important;
+}
+
 /* Comment header */
 .gsc-comment-header,
 .gsc-reply-header {
