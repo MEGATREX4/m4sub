@@ -47,7 +47,7 @@ export default function Comments({ title, slug }) {
     script.setAttribute('data-input-position', 'top');
     
     // Use custom theme 
-    const themeUrl = `https://cdn.jsdelivr.net/gh/MEGATREX4/m4sub@main/public/giscus-m4sub-theme2.css`;
+    const themeUrl = `https://cdn.jsdelivr.net/gh/MEGATREX4/m4sub@main/public/giscus-m4sub-theme3.css`;
     script.setAttribute('data-theme', themeUrl);
     
     script.setAttribute('data-lang', 'uk');

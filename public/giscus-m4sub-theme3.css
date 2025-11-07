@@ -215,16 +215,6 @@
   z-index: 1;
 }
 
-/* Top-left corner pixel effect */
-.gsc-comment::before,
-.gsc-reply::before {
-  top: -2px;
-  left: -2px;
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(45deg, transparent 50%, var(--color-canvas-default) 50%);
-}
-
 /* Bottom-right corner pixel effect */
 .gsc-comment::after,
 .gsc-reply::after {
@@ -352,17 +342,6 @@
 /* Remove timeline bubble/circle indicators */
 .gsc-tl-bubble {
   display: none !important;
-}
-
-/* Hide any other timeline-related pseudo elements */
-.gsc-comment::before,
-.gsc-reply::before {
-  /* Keep the corner effect but ensure no lines */
-  top: -2px;
-  left: -2px;
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(45deg, transparent 50%, var(--color-canvas-default) 50%);
 }
 
 /* Ensure no vertical lines between comments */
