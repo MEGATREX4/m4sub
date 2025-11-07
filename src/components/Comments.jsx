@@ -40,14 +40,14 @@ export default function Comments({ title, slug }) {
     script.setAttribute('data-repo-id', 'R_kgDONmjQhg');
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDONmjQhs4CxgZy');
-    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-mapping', 'url');
     script.setAttribute('data-strict', '1'); // Enable strict matching for better accuracy
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '1'); // Enable metadata events
     script.setAttribute('data-input-position', 'top');
     
-    // Use custom theme
-    const themeUrl = `https://cdn.jsdelivr.net/gh/MEGATREX4/m4sub@main/public/giscus-m4sub-theme.css`;
+    // Use custom theme 
+    const themeUrl = `https://cdn.jsdelivr.net/gh/MEGATREX4/m4sub@main/public/giscus-m4sub-theme2.css`;
     script.setAttribute('data-theme', themeUrl);
     
     script.setAttribute('data-lang', 'uk');
