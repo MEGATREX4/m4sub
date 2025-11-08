@@ -76,12 +76,6 @@
   padding: 1rem !important;
   margin-bottom: 1.5rem !important;
   position: relative !important;
-  /* Stepped pixel corner effect */
-  box-shadow: 
-    4px 0 0 0 var(--color-border-default),
-    0 4px 0 0 var(--color-border-default),
-    -4px 0 0 0 var(--color-border-default),
-    0 -4px 0 0 var(--color-border-default);
 }
 
 /* Textarea styling */
@@ -202,27 +196,6 @@
   padding: 1rem !important;
   position: relative !important;
   overflow: visible !important;
-}
-
-/* Create pixelated corners using pseudo-elements */
-.gsc-comment::before,
-.gsc-comment::after,
-.gsc-reply::before,
-.gsc-reply::after {
-  content: '';
-  position: absolute;
-  background: var(--color-canvas-default);
-  z-index: 1;
-}
-
-/* Bottom-right corner pixel effect */
-.gsc-comment::after,
-.gsc-reply::after {
-  bottom: -2px;
-  right: -2px;
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(225deg, transparent 50%, var(--color-canvas-default) 50%);
 }
 
 /* Comment header */
