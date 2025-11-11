@@ -16,15 +16,15 @@ import { newsManifest } from '../utils/newsManifest';
 import Page from './Page';
 import ArticleMeta from './ArticleMeta';
 
-// Імпортуємо всі необхідні кастомні компоненти
+// Custom components
 import ImageGallery from './ImageGallery';
 import YouTubePlayer from './YouTubePlayer';
 import PlayerAvatar from './PlayerAvatar'; 
 import TableOfContents from './TableOfContents';
 import ArticleMetaSection from './ArticleMetaSection';
-
+import MinecraftModelViewer from './MinecraftModelViewer';
+import CapeWingsViewer from './CapeWingsViewer';
 import Comments from './Comments';
-
 import { CustomList, CustomListItem } from './CustomList';
 
 export default function NewsArticle() {
@@ -34,22 +34,16 @@ export default function NewsArticle() {
   const [headings, setHeadings] = useState([]);
   const [loading, setLoading] = useState(true);
   const articleUrl = window.location.href;
-
   const [readingTimeInSeconds, setReadingTimeInSeconds] = useState(0);
-
   const [navigation, setNavigation] = useState({ prev: null, next: null });
 
-  // useEffect та useMemo залишаються без змін, оскільки вони працюють коректно
   useEffect(() => {
     const fetchArticle = async () => {
       try {
         setLoading(true);
         setHeadings([]);
         setReadingTimeInSeconds(0);
-
         const articles = await getAllNews();
-
-        // Знаходимо індекс поточної статті в масиві
         const currentIndex = articles.findIndex(art => art['page-link'] === slug);
 
         if (currentIndex === -1) {
@@ -58,14 +52,9 @@ export default function NewsArticle() {
           return;
         }
 
-        // Визначаємо попередню та наступну статті з "зациклюванням"
         const prevIndex = (currentIndex - 1 + articles.length) % articles.length;
         const nextIndex = (currentIndex + 1) % articles.length;
-        
-        setNavigation({
-          prev: articles[prevIndex],
-          next: articles[nextIndex]
-        });
+        setNavigation({ prev: articles[prevIndex], next: articles[nextIndex] });
 
         const matchingArticle = articles.find(art => art['page-link'] === slug);
         if (!matchingArticle) { setLoading(false); navigate('/*', { replace: true }); return; }
@@ -78,8 +67,6 @@ export default function NewsArticle() {
         if (data.content) {
           const wordsPerMinute = 200;
           const wordCount = data.content.split(/\s+/).length;
-          
-          // Рахуємо загальну кількість секунд
           const totalSeconds = Math.floor((wordCount / wordsPerMinute) * 60);
           setReadingTimeInSeconds(totalSeconds);
         }
@@ -91,8 +78,7 @@ export default function NewsArticle() {
               visit(tree, 'heading', (node) => {
                 if (node.depth === 2 || node.depth === 3) {
                   const text = toString(node);
-                  const slug = slugify(text, { lower: true, strict: true });
-                  extractedHeadings.push({ level: node.depth, text, slug });
+                  extractedHeadings.push({ level: node.depth, text, slug: slugify(text, { lower: true, strict: true }) });
                 }
               });
             })
@@ -108,15 +94,13 @@ export default function NewsArticle() {
   const processedContent = useMemo(() => {
     if (!article.content) return '';
     const MENTION_REGEX = /@((?:[a-zA-Z0-9_]|\\_){3,16})/g;
-    return article.content.replace(MENTION_REGEX, (match, username) => {
-      return `<playeravatar username="${username}"></playeravatar>${match}`;
-    });
+    const MINECRAFT_MODEL_REGEX = /<minecraftmodel\s+(.*?)\s*\/>/g;
+    return article.content
+      .replace(MENTION_REGEX, (match, username) => `<playeravatar username="${username}"></playeravatar>${match}`)
+      .replace(MINECRAFT_MODEL_REGEX, (match, p1) => `<div class="minecraftmodel-block">${match}</div>`);
   }, [article.content]);
 
-  if (loading) return (
-    <Page title="Завантаження..."><div className="flex justify-center items-center min-h-[50vh]"><div className="text-gray-400">Завантаження статті...</div></div></Page>
-  );
-
+  if (loading) return <Page title="Завантаження..."><div className="flex justify-center items-center min-h-[50vh]"><div className="text-gray-400">Завантаження статті...</div></div></Page>;
   if (!article.frontmatter || !article.content) return <Navigate to="/*" replace />;
 
   return (
@@ -128,8 +112,6 @@ export default function NewsArticle() {
       author={article.frontmatter.author}
       keywords={`M4SUB, Minecraft, ${article.frontmatter.title}`}
     >
-
-      {/* --- ЗМІНА №1: Додаємо overflow-x-hidden --- */}
       <article className="prose prose-invert max-w-3xl mx-auto py-8 px-4 overflow-x-hidden">
         <header className="mb-8">
             {article.frontmatter.preview && (
@@ -149,131 +131,112 @@ export default function NewsArticle() {
         </header>
 
         <ReadingTime totalSeconds={readingTimeInSeconds} />
-
-
-
-        {article.frontmatter.generateTOC && headings.length > 0 && (
-          <TableOfContents
-          headings={headings}
-        />
-        )}
+        {article.frontmatter.generateTOC && headings.length > 0 && <TableOfContents headings={headings} />}
 
         <div className="max-w-none">
           <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
-        components={{
-          // This is the ONLY `a` definition needed. It handles all cases.
-          a: ({ node, href, children, ...props }) => {
-            // Check if the link is external
-            const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
-          
-            // If it's external, render a standard <a> tag that opens in a new tab
-            if (isExternal) {
-              return (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
-                  {...props}
-                >
-                  {children}
-                  <i className="hn hn-arrow-alt-circle-up text-sm align-middle"></i>
-                </a>
-              );
-            }
-          
-            // If it's internal, use React Router's Link for client-side navigation
-            return (
-              <Link
-                to={href || '#'} // Fallback to '#' if href is missing
-                className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors"
-                {...props}
-              >
-                {children}
-              </Link>
-            );
-          },
-        
-          // Your custom list components
-          ul: CustomList,
-          ol: CustomList,
-          li: CustomListItem,
-        
-          // Your custom heading components with slugs
-          h1: ({ node, children, ...props }) => {
-            const text = toString(node);
-            const id = slugify(text, { lower: true, strict: true });
-            return <h1 id={id} {...props} className="text-4xl font-bold mb-4">{children}</h1>;
-          },
-          h2: ({ node, children, ...props }) => {
-            const text = toString(node);
-            const id = slugify(text, { lower: true, strict: true });
-            return <h2 id={id} {...props} className="text-2xl font-bold mb-4">{children}</h2>;
-          },
-          h3: ({ node, children, ...props }) => {
-            const text = toString(node);
-            const id = slugify(text, { lower: true, strict: true });
-            return <h3 id={id} {...props} className="text-xl font-bold mb-4">{children}</h3>;
-          },
-          h4: ({ node, children, ...props }) => {
-            const text = toString(node);
-            const id = slugify(text, { lower: true, strict: true });
-            return <h4 id={id} {...props} className="text-lg font-bold mb-4">{children}</h4>;
-          },
-          hr: ({ node, ...props }) => <hr className="my-8 border-gray-700" {...props} />,
-        
-          // Your other custom components
-          playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
-          p: ({ node, children }) => {
-            if (node.children[0]?.tagName === "img" && node.children[0]?.properties?.src?.includes("youtube")) {
-              return <>{children}</>;
-            }
-            return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
-          },
-          img: ({ node, src, alt, ...props }) => {
-            const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
-            if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
-            return <img src={src} alt={alt || ''} {...props} className="cornerCut shadow-lg my-6 mx-auto max-w-full h-auto" loading="lazy" />;
-          },
-          table: ({ node, ...props }) => (
-            <div className="overflow-x-auto my-6">
-              <table {...props} className="w-full" />
-            </div>
-          ),
-          pre: ({ node, ...props }) => ( // Corrected from `preformat`
-            <pre
-              {...props}
-              className="bg-gray-800/50 border border-gray-700 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words"
-            />
-          ),
-          code: ({ node, inline, ...props }) => inline
-            ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 cornerCut text-[#f390d0]" />
-            : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /> </pre>,
-          gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
-          blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
-                }}
-        >     
-          {processedContent}
-        </ReactMarkdown>
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              a: ({ node, href, children, ...props }) => {
+                const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+                if (isExternal) {
+                  return (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" {...props}>
+                      {children}
+                      <i className="hn hn-arrow-alt-circle-up text-sm align-middle"></i>
+                    </a>
+                  );
+                }
+                return <Link to={href || '#'} className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" {...props}>{children}</Link>;
+              },
+              ul: CustomList,
+              ol: CustomList,
+              li: CustomListItem,
+              h1: ({ node, children, ...props }) => <h1 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-4xl font-bold mb-4">{children}</h1>,
+              h2: ({ node, children, ...props }) => <h2 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-2xl font-bold mb-4">{children}</h2>,
+              h3: ({ node, children, ...props }) => <h3 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-xl font-bold mb-4">{children}</h3>,
+              h4: ({ node, children, ...props }) => <h4 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-lg font-bold mb-4">{children}</h4>,
+              hr: ({ node, ...props }) => <hr className="my-8 border-gray-700" {...props} />,
+              playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
+              
+              // =========================================================
+              // THE CORRECT, SIMPLIFIED `p` MAPPING
+              // =========================================================
+              p: ({ node, children }) => {
+                // Check if ANY child is a custom component
+                const hasCustomComponent = node.children.some(child => 
+                  child.tagName === 'minecraftmodel' ||
+                  child.tagName === 'capewings' ||
+                  child.tagName === 'gallery' ||
+                  (child.tagName === 'img' && child.properties?.src?.includes('youtube'))
+                );
+                
+                if (hasCustomComponent) {
+                  // Don't wrap in paragraph if there are custom components
+                  return <>{children}</>;
+                }
+                
+                // Check if children is just whitespace
+                const textContent = React.Children.toArray(children).join('').trim();
+                if (!textContent) {
+                  return null; // Don't render empty paragraphs
+                }
+                
+                return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
+              },
+              // =========================================================
+              
+              img: ({ node, src, alt, ...props }) => {
+                const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
+                if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
+                return <img src={src} alt={alt || ''} {...props} className="cornerCut shadow-lg my-6 mx-auto max-w-full h-auto" loading="lazy" />;
+              },
+              table: ({ node, ...props }) => <div className="overflow-x-auto my-6"><table {...props} className="w-full" /></div>,
+              pre: ({ node, ...props }) => <pre {...props} className="bg-gray-800/50 border border-gray-700 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words"/>,
+              
+              // These mappings are correct and do not need to change.
+              capewings: ({ node, ...props }) => {
+                const key = `capewings-${props.capebackimage}-${props.capefrontimage}-${props.wingsimage}`;
+                return (
+                  <CapeWingsViewer
+                    key={key}
+                    capefrontimage={props.capefrontimage}
+                    capebackimage={props.capebackimage}
+                    wingsimage={props.wingsimage}
+                  />
+                );
+              },
+              
+              minecraftmodel: ({ node, ...props }) => {
+                return (
+                  <MinecraftModelViewer 
+                    key={`model-${props.image}`}
+                    image={props.image}
+                  />
+                );
+              },
+
+              code: ({ node, inline, ...props }) => inline
+                ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 cornerCut text-[#f390d0]" />
+                : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /> </pre>,
+              gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
+              blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
+            }}
+          >     
+            {processedContent}
+          </ReactMarkdown>
         </div>
 
         <ArticleMetaSection
           alsoOn={article.frontmatter['also-on']}
-          shareInfo={{
-            title: article.frontmatter.title,
-            url: articleUrl,
-          }}
+          shareInfo={{ title: article.frontmatter.title, url: articleUrl }}
         />
-
         <ArticleNavigation 
           prevArticle={navigation.prev} 
           nextArticle={navigation.next} 
         />
-
-
-          <Comments title={article.frontmatter.title} />
+        <Comments title={article.frontmatter.title} />
       </article>
     </Page>
   );

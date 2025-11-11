@@ -39,5 +39,9 @@ export const newsManifest = [
   {
     "filename": "sub_2025.md",
     "pageLink": "sub_2025"
+  },
+  {
+    "filename": "test.md",
+    "pageLink": "test"
   }
 ];
