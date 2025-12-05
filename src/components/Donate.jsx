@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 
 // Configuration - update these for your setup
-const API_BASE_URL = "http://sunrise.bubble.wtf:40010";
+const API_BASE_URL = "/.netlify/functions";
 const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 
 // ==================== UTILITY FUNCTIONS ====================
@@ -128,23 +128,23 @@ export default function Donate() {
 
   // Fetch shop data from server
   const fetchShopData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  setLoading(true);
+  setError(null);
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/shop`);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      const data = await response.json();
-      setShopData(data);
-    } catch (err) {
-      console.error("Failed to fetch shop data:", err);
-      setError("Не вдалося завантажити магазин. Сервер недоступний.");
-    } finally {
-      setLoading(false);
+  try {
+    const response = await fetch(`${API_BASE_URL}/shop`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
-  }, []);
+    const data = await response.json();
+    setShopData(data);
+  } catch (err) {
+    console.error("Failed to fetch shop data:", err);
+    setError("Не вдалося завантажити магазин. Сервер недоступний.");
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
   useEffect(() => {
     fetchShopData();
@@ -210,67 +210,66 @@ export default function Donate() {
 
   // Handle purchase
   const handlePurchase = async () => {
-    const nickError = validateNickname(nickname);
-    if (nickError) {
-      setNicknameError(nickError);
+  const nickError = validateNickname(nickname);
+  if (nickError) {
+    setNicknameError(nickError);
+    return;
+  }
+
+  if (!selectedItem) {
+    setPurchaseStatus({ type: "error", message: "Виберіть товар" });
+    return;
+  }
+
+  setPurchasing(true);
+  setPurchaseStatus(null);
+
+  try {
+    // Create pending purchase via Netlify proxy
+    const response = await fetch(`${API_BASE_URL}/purchase`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        playerName: nickname.trim(),
+        type: selectedType,
+        itemId: selectedItem.id,
+        priceUah: selectedItem.price,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      setPurchaseStatus({ type: "error", message: result.message || "Помилка створення покупки" });
       return;
     }
 
-    if (!selectedItem) {
-      setPurchaseStatus({ type: "error", message: "Виберіть товар" });
-      return;
-    }
+    const purchaseId = result.purchaseId;
 
-    setPurchasing(true);
-    setPurchaseStatus(null);
+    // Generate Monobank payment URL with purchase ID in comment
+    const comment = `purchase:${purchaseId} nick:${nickname.trim()}`;
+    const encodedComment = encodeURIComponent(comment);
+    const paymentUrl = `${MONOBANK_JAR_URL}?a=${selectedItem.price}&t=${encodedComment}`;
 
-    try {
-      // Create pending purchase on server
-      const response = await fetch(`${API_BASE_URL}/api/purchase/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Auth-Token": process.env.REACT_APP_NETLIFY_SECRET || "",
-        },
-        body: JSON.stringify({
-          playerName: nickname.trim(),
-          type: selectedType,
-          itemId: selectedItem.id,
-          priceUah: selectedItem.price,
-        }),
-      });
+    setPurchaseStatus({
+      type: "pending",
+      message: `Покупка створена! ID: ${purchaseId}`,
+      purchaseId,
+      paymentUrl,
+    });
 
-      const result = await response.json();
+    // Open payment in new tab
+    window.open(paymentUrl, "_blank");
 
-      if (!result.success) {
-        setPurchaseStatus({ type: "error", message: result.message || "Помилка створення покупки" });
-        return;
-      }
-
-      const purchaseId = result.purchaseId;
-
-      // Generate Monobank payment URL with purchase ID in comment
-      const comment = `purchase:${purchaseId} nick:${nickname.trim()}`;
-      const encodedComment = encodeURIComponent(comment);
-      const paymentUrl = `${MONOBANK_JAR_URL}?a=${selectedItem.price}&t=${encodedComment}`;
-
-      setPurchaseStatus({
-        type: "pending",
-        message: `Покупка створена! ID: ${purchaseId}`,
-        purchaseId,
-        paymentUrl,
-      });
-
-      // Open payment in new tab
-      window.open(paymentUrl, "_blank");
-
-    } catch (err) {
-      console.error("Purchase error:", err);
-      setPurchaseStatus({ type: "error", message: "Помилка з'єднання з сервером" });
-    } finally {
-      setPurchasing(false);
-    }
-  };
+  } catch (err) {
+    console.error("Purchase error:", err);
+    setPurchaseStatus({ type: "error", message: "Помилка з'єднання з сервером" });
+  } finally {
+    setPurchasing(false);
+  }
+};
 
   const canPurchase = selectedItem && nickname.trim() && !nicknameError && !purchasing;
 
