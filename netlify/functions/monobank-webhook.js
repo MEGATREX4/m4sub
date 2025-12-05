@@ -1,7 +1,7 @@
 // netlify/functions/monobank-webhook.js
 
 const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL; // e.g., "http://your-ip:8765"
-const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
+const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET; 
 
 exports.handler = async (event) => {
   // Handle Monobank GET validation
