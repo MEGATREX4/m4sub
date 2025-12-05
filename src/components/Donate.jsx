@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 export default function Donate() {
+  // --- ЛОГІКА ТИМЧАСОВО ЗАКОМЕНТОВАНА ДЛЯ ПЕРЕРОБКИ ---
+  /*
   const [selected, setSelected] = useState(null);
   const [nickname, setNickname] = useState("");
   
@@ -34,6 +36,8 @@ export default function Donate() {
     const encodedComment = encodeURIComponent(comment);
     return `https://send.monobank.ua/jar/85Ui7vsyCD?a=${option.price}&t=${encodedComment}`;
   };
+  */
+  // -----------------------------------------------------
 
   return (
     <section>
@@ -133,6 +137,33 @@ export default function Donate() {
         </div>
       </div>
 
+      {/* TEMPORARY MESSAGE: REWORK IN PROGRESS */}
+      {/* Ми використовуємо вкладені діви для імітації рамки з clip-path */}
+      <div className="max-w-2xl mx-auto mb-10">
+        <div className="bg-gray-500 p-1 cornerCutSmall">
+            <div className="bg-[#1a1a2e] p-10 text-white text-center cornerCutSmall h-full w-full">
+                <div className="text-5xl mb-4 text-yellow-400">
+                    <i className="hn hn-bullhorn"></i>
+                </div>
+                <h2 className="text-3xl font-bold mb-4 text-yellow-300 minecraftFont">ТЕХНІЧНІ РОБОТИ</h2>
+                <p className="text-xl text-gray-200 mb-4 minecraftFont">
+                Система донатів на сервер тимчасово вимкнена.
+                </p>
+                <p className="text-gray-400 leading-relaxed mb-6">
+                Ми повністю перероблюємо систему оплати, щоб зробити її зручнішою та кращою для вас.
+                <br />
+                Незабаром все запрацює!
+                </p>
+                <div className="flex items-center justify-center gap-2 text-gray-300 minecraftFont">
+                    <span>Дякуємо за терпіння</span>
+                    <i className="hn hn-heart text-red-500 animate-pulse"></i>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      {/* 
+      --- СТАРИЙ КОД ДОНАТУ (ПРИХОВАНИЙ) ---
       <div className="max-w-2xl mx-auto bg-green-900/30 p-8 text-white text-center cornerCutSmall">
         <h2 className="text-3xl font-bold mb-2 text-gray-200 minecraftFont">Підтримати сервер</h2>
         <p className="text-gray-300 mb-6 ">
@@ -205,6 +236,7 @@ export default function Donate() {
           Ваша підтримка дуже важлива для нас!
         </p>
       </div>
+      */}
     </section>
   );
 }
