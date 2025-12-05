@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 
 // Configuration - update these for your setup
-const API_BASE_URL = "http://your-server-ip:8765";
+const API_BASE_URL = "http://sunrise.bubble.wtf:40010";
 const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 
 // ==================== UTILITY FUNCTIONS ====================
