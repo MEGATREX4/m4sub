@@ -2,7 +2,7 @@
 authors:
   - name: MEGATREX4
     mc: Yevhen4
-date: 2025-12-20
+date: 2025-12-13
 preview: https://res.cloudinary.com/kutok/image/fetch/s--e1ocuL3D--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1238/https://kutok.s3.amazonaws.com/uploads/articles/mqhglvd2ojadtgjx11yk.png
 page-link: season6_announcement
 title: Оголошення старту 6-го Сезону M4SUB
