@@ -3,7 +3,7 @@ authors:
   - name: MEGATREX4
     mc: Yevhen4
 date: 2025-12-20
-preview: https://res.cloudinary.com/kutok/image/fetch/s--tQx_0IQa--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1000/https://kutok.s3.amazonaws.com/uploads/articles/season6_preview.png
+preview: https://res.cloudinary.com/kutok/image/fetch/s--e1ocuL3D--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1238/https://kutok.s3.amazonaws.com/uploads/articles/mqhglvd2ojadtgjx11yk.png
 page-link: season6_announcement
 title: Оголошення старту 6-го Сезону M4SUB
 description: 20 грудня M4SUB відкриває 6-й Сезон — новий світ, виживання на межі, унікальний лор та ексклюзивний контент без сторонніх модів.
