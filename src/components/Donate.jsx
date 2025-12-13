@@ -4,13 +4,33 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 const API_BASE_URL = "/.netlify/functions";
 const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 
+// ==================== MINECRAFT BORDER COMPONENT ====================
+// Double-div technique for pixelated borders
+
+const PixelBorder = ({ children, className = "", borderColor = "bg-gray-600", innerBg = "bg-[#1a1a2e]", padding = "p-[3px]" }) => (
+  <div className={`${borderColor} ${padding} ${className}`}>
+    <div className={`${innerBg} h-full w-full`}>
+      {children}
+    </div>
+  </div>
+);
+
+const PixelBorderDouble = ({ children, className = "", outerColor = "bg-gray-500", innerColor = "bg-gray-700", innerBg = "bg-[#1a1a2e]" }) => (
+  <div className={`${outerColor} p-[2px] ${className}`}>
+    <div className={`${innerColor} p-[2px]`}>
+      <div className={`${innerBg} h-full w-full`}>
+        {children}
+      </div>
+    </div>
+  </div>
+);
+
 // ==================== IMAGE CAROUSEL COMPONENT ====================
 
 const ImageCarousel = ({ images, alt, className = "" }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
-  // Auto-advance on hover
   useEffect(() => {
     if (!isHovering || !images || images.length <= 1) return;
     
@@ -21,7 +41,6 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
     return () => clearInterval(interval);
   }, [isHovering, images]);
 
-  // Handle swipe/drag
   const handleMouseMove = (e) => {
     if (!images || images.length <= 1) return;
     
@@ -34,7 +53,7 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
 
   if (!images || images.length === 0) {
     return (
-      <div className={`bg-gray-800 flex items-center justify-center ${className}`}>
+      <div className={`bg-[#0a0a12] flex items-center justify-center ${className}`}>
         <span className="text-4xl opacity-50">🖼️</span>
       </div>
     );
@@ -42,7 +61,7 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
 
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden bg-[#0a0a12] ${className}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => {
         setIsHovering(false);
@@ -54,22 +73,23 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
       <img
         src={images[currentIndex]}
         alt={alt}
-        className="w-full h-full object-cover transition-opacity duration-300"
+        className="w-full h-full object-cover transition-opacity duration-300 pixelated"
+        style={{ imageRendering: 'pixelated' }}
         onError={(e) => {
           e.target.src = "/images/placeholder.png";
         }}
       />
 
-      {/* Image Indicators */}
+      {/* Pixel Image Indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
           {images.map((_, idx) => (
             <div
               key={idx}
-              className={`w-2 h-2  transition-all ${
+              className={`w-3 h-3 transition-all ${
                 idx === currentIndex
-                  ? "bg-white scale-110"
-                  : "bg-white/40 hover:bg-white/60"
+                  ? "bg-white"
+                  : "bg-white/30 hover:bg-white/50"
               }`}
             />
           ))}
@@ -78,9 +98,14 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
 
       {/* Swipe Hint */}
       {images.length > 1 && isHovering && (
-        <div className="absolute top-2 right-2 text-xs bg-black/60 px-2 py-1  text-white/80">
-          ← Проведіть →
-        </div>
+        <PixelBorder 
+          borderColor="bg-black/60" 
+          innerBg="bg-black/80" 
+          padding="p-[2px]"
+          className="absolute top-2 right-2"
+        >
+          <span className="text-xs text-white/80 px-2 py-1 block">← Проведіть →</span>
+        </PixelBorder>
       )}
     </div>
   );
@@ -92,103 +117,139 @@ const ItemCard = ({ item, type, isSelected, onSelect, disabled }) => {
   const isFeatured = item.featured;
   const hasSavings = item.savings && item.savings > 0;
 
+  const borderColor = isSelected 
+    ? "bg-[#c5629a]" 
+    : isFeatured 
+      ? "bg-yellow-500" 
+      : "bg-gray-600";
+
   return (
     <div
       onClick={() => !disabled && onSelect(item, type)}
       className={`
-        group relative overflow-hidden transition-all duration-300 cursor-pointer
-        ${disabled ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] hover:shadow-xl"}
-        ${isSelected 
-          ? "ring-4 ring-[#c5629a] ring-offset-2 ring-offset-[#130217]" 
-          : "hover:ring-2 hover:ring-[#c5629a]/50"}
-        bg-gradient-to-b from-gray-800/90 to-gray-900/90 
-        border-2 ${isFeatured ? "border-yellow-500" : "border-gray-700"}
-        
+        group relative transition-all duration-200
+        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:translate-y-[-2px]"}
       `}
     >
-      {/* Featured Badge */}
-      {isFeatured && (
-        <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-yellow-500 to-amber-600 text-black text-xs font-bold px-3 py-1  shadow-lg">
-          ⭐ Популярне
-        </div>
-      )}
-
-      {/* Savings Badge for Bundles */}
-      {hasSavings && (
-        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1  shadow-lg">
-          -{item.savings}₴
-        </div>
-      )}
-
-      {/* Image Section */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <ImageCarousel
-          images={item.thumbnails}
-          alt={item.name}
-          className="w-full h-full"
-        />
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
-        
-        {/* Type Badge */}
-        <div className="absolute bottom-3 left-3 bg-black/70 px-3 py-1  text-sm">
-          {type === "cape" && "🎭 Плащ"}
-          {type === "icon" && "⭐ Значок"}
-          {type === "bundle" && "📦 Набір"}
-        </div>
-      </div>
-
-      {/* Content Section */}
-      <div className="p-4">
-        {/* Title */}
-        <h3 className={`text-lg font-bold mb-1 minecraftFont ${isFeatured ? "text-yellow-400" : "text-white"}`}>
-          {item.name}
-        </h3>
-
-        {/* Description */}
-        <p className="text-gray-400 text-sm mb-3 line-clamp-2">
-          {item.description}
-        </p>
-
-        {/* Bundle Contents Preview */}
-        {type === "bundle" && item.items && (
-          <div className="mb-3 flex flex-wrap gap-1">
-            {item.items.slice(0, 4).map((bundleItem, idx) => (
-              <span key={idx} className="text-xs bg-gray-700/50 px-2 py-0.5  text-gray-300">
-                {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
-              </span>
-            ))}
-            {item.items.length > 4 && (
-              <span className="text-xs bg-gray-700/50 px-2 py-0.5  text-gray-400">
-                +{item.items.length - 4}
-              </span>
+      {/* Outer Border */}
+      <div className={`${borderColor} p-[3px] transition-colors`}>
+        {/* Inner Border */}
+        <div className="bg-gray-800 p-[2px]">
+          {/* Content Container */}
+          <div className="bg-[#1a1a2e]">
+            
+            {/* Featured Badge */}
+            {isFeatured && (
+              <div className="absolute top-5 right-5 z-10">
+                <PixelBorder borderColor="bg-yellow-600" innerBg="bg-yellow-500" padding="p-[2px]">
+                  <span className="text-black text-xs font-bold px-2 py-1 block minecraftFont">
+                    ⭐ ХІТ
+                  </span>
+                </PixelBorder>
+              </div>
             )}
-          </div>
-        )}
 
-        {/* Price Section */}
-        <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-700/50">
-          <div className="flex items-center gap-2">
+            {/* Savings Badge */}
             {hasSavings && (
-              <span className="text-gray-500 line-through text-sm">
-                {item.originalPrice}₴
-              </span>
+              <div className="absolute top-5 left-5 z-10">
+                <PixelBorder borderColor="bg-green-700" innerBg="bg-green-600" padding="p-[2px]">
+                  <span className="text-white text-xs font-bold px-2 py-1 block minecraftFont">
+                    -{item.savings}₴
+                  </span>
+                </PixelBorder>
+              </div>
             )}
-            <span className={`text-xl font-bold minecraftFont ${
-              item.price === 0 ? "text-green-400" : "text-yellow-400"
-            }`}>
-              {item.price === 0 ? "Безкоштовно" : `${item.price}₴`}
-            </span>
-          </div>
 
-          {/* Selection Indicator */}
-          <div className={`w-6 h-6  border-2 flex items-center justify-center transition-all ${
-            isSelected 
-              ? "bg-[#c5629a] border-[#c5629a] text-white" 
-              : "border-gray-600 text-transparent group-hover:border-gray-400"
-          }`}>
-            ✓
+            {/* Image Section */}
+            <div className="relative aspect-[4/3]">
+              <PixelBorder borderColor="bg-gray-700" innerBg="bg-[#0a0a12]" padding="p-[2px]" className="h-full">
+                <ImageCarousel
+                  images={item.thumbnails}
+                  alt={item.name}
+                  className="w-full h-full"
+                />
+              </PixelBorder>
+              
+              {/* Type Badge */}
+              <div className="absolute bottom-4 left-4">
+                <PixelBorder borderColor="bg-gray-800" innerBg="bg-black/90" padding="p-[2px]">
+                  <span className="text-sm px-2 py-1 block text-gray-200">
+                    {type === "cape" && "🎭 Плащ"}
+                    {type === "icon" && "⭐ Значок"}
+                    {type === "bundle" && "📦 Набір"}
+                  </span>
+                </PixelBorder>
+              </div>
+            </div>
+
+            {/* Content Section */}
+            <div className="p-4">
+              {/* Title */}
+              <h3 className={`text-lg font-bold mb-2 minecraftFont ${isFeatured ? "text-yellow-400" : "text-white"}`}>
+                {item.name}
+              </h3>
+
+              {/* Description */}
+              <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                {item.description}
+              </p>
+
+              {/* Bundle Contents Preview */}
+              {type === "bundle" && item.items && (
+                <div className="mb-3 flex flex-wrap gap-1">
+                  {item.items.slice(0, 4).map((bundleItem, idx) => (
+                    <PixelBorder key={idx} borderColor="bg-gray-700" innerBg="bg-gray-800/50" padding="p-[1px]">
+                      <span className="text-xs px-2 py-0.5 block text-gray-300">
+                        {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
+                      </span>
+                    </PixelBorder>
+                  ))}
+                  {item.items.length > 4 && (
+                    <PixelBorder borderColor="bg-gray-700" innerBg="bg-gray-800/50" padding="p-[1px]">
+                      <span className="text-xs px-2 py-0.5 block text-gray-400">
+                        +{item.items.length - 4}
+                      </span>
+                    </PixelBorder>
+                  )}
+                </div>
+              )}
+
+              {/* Separator */}
+              <div className="bg-gray-700 h-[2px] mb-3" />
+
+              {/* Price Section */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {hasSavings && (
+                    <span className="text-gray-500 line-through text-sm">
+                      {item.originalPrice}₴
+                    </span>
+                  )}
+                  <span className={`text-xl font-bold minecraftFont ${
+                    item.price === 0 ? "text-green-400" : "text-yellow-400"
+                  }`}>
+                    {item.price === 0 ? "Безкоштовно" : `${item.price}₴`}
+                  </span>
+                </div>
+
+                {/* Selection Checkbox */}
+                <div className={`w-6 h-6 flex items-center justify-center transition-all ${
+                  isSelected 
+                    ? "bg-[#c5629a] text-white" 
+                    : "bg-gray-800 text-transparent group-hover:bg-gray-700"
+                }`}>
+                  <PixelBorder 
+                    borderColor={isSelected ? "bg-[#9e4d7d]" : "bg-gray-600"} 
+                    innerBg={isSelected ? "bg-[#c5629a]" : "bg-gray-800"} 
+                    padding="p-[2px]"
+                  >
+                    <span className={`block w-4 h-4 flex items-center justify-center text-xs ${isSelected ? "text-white" : "text-transparent"}`}>
+                      ✓
+                    </span>
+                  </PixelBorder>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -202,18 +263,17 @@ const CategoryTab = ({ label, icon, isActive, onClick, count }) => (
   <button
     onClick={onClick}
     className={`
-      flex-1 py-4 px-6 font-bold minecraftFont transition-all relative
+      flex-1 py-3 px-4 font-bold minecraftFont transition-all
       ${isActive
-        ? "bg-gradient-to-b from-[#c5629a] to-[#9e4d7d] text-white shadow-lg"
-        : "bg-gray-800/80 text-gray-400 hover:bg-gray-700 hover:text-white"}
-      border-b-4 ${isActive ? "border-[#7a3960]" : "border-transparent"}
+        ? "bg-[#c5629a] text-white"
+        : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"}
     `}
   >
     <span className="text-xl mr-2">{icon}</span>
     <span className="hidden sm:inline">{label}</span>
     {count > 0 && (
-      <span className={`ml-2 text-xs px-2 py-0.5  ${
-        isActive ? "bg-white/20" : "bg-gray-700"
+      <span className={`ml-2 text-xs px-2 py-0.5 ${
+        isActive ? "bg-white/20" : "bg-gray-600"
       }`}>
         {count}
       </span>
@@ -227,61 +287,78 @@ const SelectedItemPreview = ({ item, type, onClear }) => {
   if (!item) return null;
 
   return (
-    <div className="bg-gradient-to-r from-[#1a0f1f] to-[#0f1a1f] p-6 border-t-2 border-[#c5629a]/50">
-      <div className="flex flex-col lg:flex-row items-center gap-6">
-        {/* Large Image Preview */}
-        <div className="w-full lg:w-64 aspect-video  overflow-hidden border-2 border-gray-700">
-          <ImageCarousel
-            images={item.thumbnails}
-            alt={item.name}
-            className="w-full h-full"
-          />
-        </div>
+    <div className="bg-[#130217] p-[3px]">
+      <div className="bg-gray-800 p-[2px]">
+        <div className="bg-[#1a0f1f] p-6">
+          <div className="flex flex-col lg:flex-row items-center gap-6">
+            
+            {/* Large Image Preview */}
+            <div className="w-full lg:w-72">
+              <PixelBorderDouble 
+                outerColor="bg-[#c5629a]" 
+                innerColor="bg-gray-700" 
+                innerBg="bg-[#0a0a12]"
+              >
+                <div className="aspect-video">
+                  <ImageCarousel
+                    images={item.thumbnails}
+                    alt={item.name}
+                    className="w-full h-full"
+                  />
+                </div>
+              </PixelBorderDouble>
+            </div>
 
-        {/* Item Details */}
-        <div className="flex-1 text-center lg:text-left">
-          <div className="flex items-center gap-3 justify-center lg:justify-start mb-2">
-            <span className="text-2xl">
-              {type === "cape" && "🎭"}
-              {type === "icon" && "⭐"}
-              {type === "bundle" && "📦"}
-            </span>
-            <h3 className="text-2xl font-bold text-white minecraftFont">{item.name}</h3>
-            {item.featured && (
-              <span className="text-yellow-400 text-sm">⭐ Популярне</span>
-            )}
-          </div>
-          
-          <p className="text-gray-400 mb-4">{item.description}</p>
-
-          {/* Bundle Contents */}
-          {type === "bundle" && item.items && (
-            <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-4">
-              {item.items.map((bundleItem, idx) => (
-                <span key={idx} className="text-sm bg-gray-800 px-3 py-1  border border-gray-700">
-                  {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
+            {/* Item Details */}
+            <div className="flex-1 text-center lg:text-left">
+              <div className="flex items-center gap-3 justify-center lg:justify-start mb-2">
+                <span className="text-3xl">
+                  {type === "cape" && "🎭"}
+                  {type === "icon" && "⭐"}
+                  {type === "bundle" && "📦"}
                 </span>
-              ))}
-            </div>
-          )}
-        </div>
+                <h3 className="text-2xl font-bold text-white minecraftFont">{item.name}</h3>
+                {item.featured && (
+                  <PixelBorder borderColor="bg-yellow-600" innerBg="bg-yellow-500" padding="p-[1px]">
+                    <span className="text-black text-xs px-2 block">⭐ ХІТ</span>
+                  </PixelBorder>
+                )}
+              </div>
+              
+              <p className="text-gray-400 mb-4">{item.description}</p>
 
-        {/* Price & Actions */}
-        <div className="flex flex-col items-center gap-3">
-          {item.savings && item.savings > 0 && (
-            <div className="text-green-400 text-sm">
-              Економія: {item.savings}₴
+              {/* Bundle Contents */}
+              {type === "bundle" && item.items && (
+                <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-4">
+                  {item.items.map((bundleItem, idx) => (
+                    <PixelBorder key={idx} borderColor="bg-gray-600" innerBg="bg-gray-800" padding="p-[2px]">
+                      <span className="text-sm px-3 py-1 block text-gray-200">
+                        {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
+                      </span>
+                    </PixelBorder>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-          <div className="text-3xl font-bold text-yellow-400 minecraftFont">
-            {item.price === 0 ? "Безкоштовно" : `${item.price}₴`}
+
+            {/* Price & Actions */}
+            <div className="flex flex-col items-center gap-3">
+              {item.savings && item.savings > 0 && (
+                <div className="text-green-400 text-sm minecraftFont">
+                  Економія: {item.savings}₴
+                </div>
+              )}
+              <div className="text-3xl font-bold text-yellow-400 minecraftFont">
+                {item.price === 0 ? "Безкоштовно" : `${item.price}₴`}
+              </div>
+              <button
+                onClick={onClear}
+                className="text-sm text-gray-500 hover:text-red-400 transition-colors px-4 py-2 bg-gray-800 hover:bg-gray-700"
+              >
+                ✕ Скасувати вибір
+              </button>
+            </div>
           </div>
-          <button
-            onClick={onClear}
-            className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            ✕ Скасувати вибір
-          </button>
         </div>
       </div>
     </div>
@@ -292,11 +369,17 @@ const SelectedItemPreview = ({ item, type, onClear }) => {
 
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-12">
-    <div className="relative w-16 h-16">
-      <div className="absolute inset-0 border-4 border-[#c5629a]/30 " />
-      <div className="absolute inset-0 border-4 border-transparent border-t-[#c5629a]  animate-spin" />
+    <div className="relative">
+      {/* Pixelated loading animation */}
+      <div className="w-16 h-16 bg-gray-800 animate-pulse flex items-center justify-center">
+        <PixelBorder borderColor="bg-[#c5629a]" innerBg="bg-[#130217]" padding="p-[3px]">
+          <div className="w-8 h-8 flex items-center justify-center text-2xl animate-spin">
+            ⏳
+          </div>
+        </PixelBorder>
+      </div>
     </div>
-    <span className="mt-4 text-gray-400">Завантаження магазину...</span>
+    <span className="mt-4 text-gray-400 minecraftFont">Завантаження магазину...</span>
   </div>
 );
 
@@ -305,12 +388,12 @@ const LoadingSpinner = () => (
 const ErrorMessage = ({ message, onRetry }) => (
   <div className="text-center p-12">
     <div className="text-6xl mb-4">😔</div>
-    <h3 className="text-xl font-bold text-red-400 mb-2">Щось пішло не так</h3>
+    <h3 className="text-xl font-bold text-red-400 mb-2 minecraftFont">Щось пішло не так</h3>
     <p className="text-gray-400 mb-6">{message}</p>
     {onRetry && (
       <button
         onClick={onRetry}
-        className="bg-[#c5629a] hover:bg-[#b25587] text-white px-6 py-3  font-bold transition-colors"
+        className="bg-[#c5629a] hover:bg-[#f390d0] text-white px-6 py-3 font-bold transition-colors minecraftFont"
       >
         🔄 Спробувати знову
       </button>
@@ -466,220 +549,271 @@ export default function Donate() {
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">
+      
       {/* Ukrainian Support Banner */}
-      <div className="bg-gradient-to-r from-blue-900/60 to-yellow-900/40 p-6  text-center mb-8 border border-yellow-500/30">
-        <h2 className="text-2xl font-bold mb-3 text-yellow-300 minecraftFont">
-          🇺🇦 ПІДТРИМАЙ УКРАЇНУ 🇺🇦
-        </h2>
-        <p className="text-yellow-100/80 mb-4">
-          Перш ніж донатити на розваги, підтримайте українське військо!
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          {[
-            { name: "Повернись живим", url: "https://savelife.in.ua", emoji: "💙" },
-            { name: "Фонд Притули", url: "https://prytulafoundation.org/", emoji: "💛" },
-            { name: "United24", url: "https://united24.gov.ua", emoji: "🇺🇦" },
-          ].map((org) => (
-            <a
-              key={org.name}
-              href={org.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#130217]/80 border-2 border-yellow-500/50 hover:border-yellow-400 px-6 py-3  transition-all hover:scale-105"
-            >
-              <span className="text-2xl mr-2">{org.emoji}</span>
-              <span className="text-yellow-200 font-bold">{org.name}</span>
-            </a>
-          ))}
+      <PixelBorderDouble outerColor="bg-yellow-500" innerColor="bg-blue-600" innerBg="bg-blue-900/60">
+        <div className="p-6 text-center">
+          <h2 className="text-2xl font-bold mb-3 text-yellow-300 minecraftFont">
+            🇺🇦 ПІДТРИМАЙ УКРАЇНУ 🇺🇦
+          </h2>
+          <p className="text-yellow-100/80 mb-4">
+            Перш ніж донатити на розваги, підтримайте українське військо!
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {[
+              { name: "Повернись живим", url: "https://savelife.in.ua", emoji: "💙" },
+              { name: "Фонд Притули", url: "https://prytulafoundation.org/", emoji: "💛" },
+              { name: "United24", url: "https://united24.gov.ua", emoji: "🇺🇦" },
+            ].map((org) => (
+              <a
+                key={org.name}
+                href={org.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#130217] hover:bg-[#1a0420] px-6 py-3 transition-all hover:translate-y-[-2px]"
+              >
+                <PixelBorder borderColor="bg-yellow-500/50" innerBg="bg-[#130217]" padding="p-[2px]">
+                  <div className="px-4 py-2 flex items-center">
+                    <span className="text-2xl mr-2">{org.emoji}</span>
+                    <span className="text-yellow-200 font-bold minecraftFont">{org.name}</span>
+                  </div>
+                </PixelBorder>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
+      </PixelBorderDouble>
 
       {/* Main Shop Container */}
-      <div className="bg-gradient-to-b from-[#1a1a2e] to-[#16162a]  border border-gray-800 overflow-hidden shadow-2xl">
-        
-        {/* Shop Header */}
-        <div className="bg-gradient-to-r from-[#130217] via-[#1a0f1f] to-[#130217] p-8 text-center border-b border-gray-800">
-          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#c5629a] to-[#e87db5] minecraftFont mb-3">
-            🛒 Магазин Косметики
-          </h2>
-          <p className="text-gray-400 text-lg">
-            Підтримай сервер та отримай ексклюзивні плащі, значки та набори!
-          </p>
-        </div>
+      <div className="mt-8">
+        <PixelBorderDouble outerColor="bg-[#c5629a]" innerColor="bg-gray-700" innerBg="bg-[#1a1a2e]">
+          
+          {/* Shop Header */}
+          <div className="bg-[#130217] p-8 text-center">
+            <h2 className="text-4xl font-bold text-[#c5629a] minecraftFont mb-3">
+              🛒 Магазин Косметики
+            </h2>
+            <p className="text-gray-400 text-lg">
+              Підтримай сервер та отримай ексклюзивні плащі, значки та набори!
+            </p>
+          </div>
 
-        {/* Loading / Error States */}
-        {loading && <LoadingSpinner />}
-        {error && <ErrorMessage message={error} onRetry={fetchShopData} />}
+          {/* Separator */}
+          <div className="bg-gray-700 h-[3px]" />
 
-        {/* Shop Content */}
-        {!loading && !error && shopData && (
-          <>
-            {/* Nickname Input */}
-            <div className="p-6 bg-gradient-to-r from-gray-900/50 to-gray-800/30 border-b border-gray-800">
-              <div className="max-w-md mx-auto">
-                <label className="block text-gray-300 mb-2 font-bold">
-                  📝 Ваш нікнейм на сервері
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={nickname}
-                    onChange={handleNicknameChange}
-                    placeholder="Наприклад: MEGATREX4"
-                    maxLength={16}
-                    className={`
-                      w-full px-4 py-3 bg-[#130217] text-white  border-2 
-                      focus:outline-none focus:ring-2 focus:ring-[#c5629a] transition-all
-                      ${nicknameError ? "border-red-500" : nicknameValid ? "border-green-500" : "border-gray-700"}
-                    `}
-                  />
-                  {nicknameValid && (
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-green-400 text-xl">
-                      ✓
-                    </span>
-                  )}
+          {/* Loading / Error States */}
+          {loading && <LoadingSpinner />}
+          {error && <ErrorMessage message={error} onRetry={fetchShopData} />}
+
+          {/* Shop Content */}
+          {!loading && !error && shopData && (
+            <>
+              {/* Nickname Input */}
+              <div className="p-6 bg-[#0f0f1a]">
+                <div className="max-w-md mx-auto">
+                  <label className="block text-gray-300 mb-2 font-bold minecraftFont">
+                    📝 Ваш нікнейм на сервері
+                  </label>
+                  <PixelBorder 
+                    borderColor={nicknameError ? "bg-red-500" : nicknameValid ? "bg-green-500" : "bg-gray-600"} 
+                    innerBg="bg-[#130217]" 
+                    padding="p-[3px]"
+                  >
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={nickname}
+                        onChange={handleNicknameChange}
+                        placeholder="Наприклад: MEGATREX4"
+                        maxLength={16}
+                        className="w-full px-4 py-3 bg-transparent text-white focus:outline-none minecraftFont"
+                      />
+                      {nicknameValid && (
+                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-green-400 text-xl">
+                          ✓
+                        </span>
+                      )}
+                    </div>
+                  </PixelBorder>
+                  {nicknameError && <p className="mt-2 text-red-400 text-sm">{nicknameError}</p>}
+                  <p className="mt-2 text-gray-500 text-sm">⚠️ Переконайтеся, що нікнейм введено правильно!</p>
                 </div>
-                {nicknameError && <p className="mt-2 text-red-400 text-sm">{nicknameError}</p>}
-                <p className="mt-2 text-gray-500 text-sm">⚠️ Переконайтеся, що нікнейм введено правильно!</p>
               </div>
-            </div>
 
-            {/* Category Tabs */}
-            <div className="flex bg-gray-900/50">
-              <CategoryTab
-                label="Плащі"
-                icon="🎭"
-                isActive={selectedCategory === "capes"}
-                onClick={() => handleCategoryChange("capes")}
-                count={shopData.capes?.length || 0}
-              />
-              <CategoryTab
-                label="Значки"
-                icon="⭐"
-                isActive={selectedCategory === "icons"}
-                onClick={() => handleCategoryChange("icons")}
-                count={shopData.icons?.length || 0}
-              />
-              <CategoryTab
-                label="Набори"
-                icon="📦"
-                isActive={selectedCategory === "bundles"}
-                onClick={() => handleCategoryChange("bundles")}
-                count={shopData.bundles?.length || 0}
-              />
-            </div>
+              {/* Separator */}
+              <div className="bg-gray-700 h-[2px]" />
 
-            {/* Items Grid */}
-            <div className="p-6">
-              {currentItems.length === 0 ? (
-                <div className="text-center text-gray-400 py-12">
-                  <div className="text-6xl mb-4 opacity-50">🏪</div>
-                  <p className="text-xl">Немає доступних товарів</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentItems.map((item) => (
-                    <ItemCard
-                      key={item.id}
-                      item={item}
-                      type={selectedCategory.slice(0, -1)}
-                      isSelected={selectedItem?.id === item.id}
-                      onSelect={handleItemSelect}
-                      disabled={purchasing}
-                    />
-                  ))}
+              {/* Category Tabs */}
+              <div className="flex">
+                <CategoryTab
+                  label="Плащі"
+                  icon="🎭"
+                  isActive={selectedCategory === "capes"}
+                  onClick={() => handleCategoryChange("capes")}
+                  count={shopData.capes?.length || 0}
+                />
+                <div className="bg-gray-700 w-[2px]" />
+                <CategoryTab
+                  label="Значки"
+                  icon="⭐"
+                  isActive={selectedCategory === "icons"}
+                  onClick={() => handleCategoryChange("icons")}
+                  count={shopData.icons?.length || 0}
+                />
+                <div className="bg-gray-700 w-[2px]" />
+                <CategoryTab
+                  label="Набори"
+                  icon="📦"
+                  isActive={selectedCategory === "bundles"}
+                  onClick={() => handleCategoryChange("bundles")}
+                  count={shopData.bundles?.length || 0}
+                />
+              </div>
+
+              {/* Separator */}
+              <div className="bg-gray-700 h-[3px]" />
+
+              {/* Items Grid */}
+              <div className="p-6 bg-[#12121f]">
+                {currentItems.length === 0 ? (
+                  <div className="text-center text-gray-400 py-12">
+                    <div className="text-6xl mb-4 opacity-50">🏪</div>
+                    <p className="text-xl minecraftFont">Немає доступних товарів</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {currentItems.map((item) => (
+                      <ItemCard
+                        key={item.id}
+                        item={item}
+                        type={selectedCategory.slice(0, -1)}
+                        isSelected={selectedItem?.id === item.id}
+                        onSelect={handleItemSelect}
+                        disabled={purchasing}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Selected Item Preview */}
+              {selectedItem && (
+                <>
+                  <div className="bg-gray-700 h-[3px]" />
+                  <SelectedItemPreview
+                    item={selectedItem}
+                    type={selectedType}
+                    onClear={() => {
+                      setSelectedItem(null);
+                      setSelectedType(null);
+                    }}
+                  />
+                </>
+              )}
+
+              {/* Purchase Status */}
+              {purchaseStatus && (
+                <div className="mx-6 mb-4">
+                  <PixelBorder 
+                    borderColor={
+                      purchaseStatus.type === "error" ? "bg-red-500" :
+                      purchaseStatus.type === "pending" ? "bg-yellow-500" : "bg-green-500"
+                    }
+                    innerBg={
+                      purchaseStatus.type === "error" ? "bg-red-900/50" :
+                      purchaseStatus.type === "pending" ? "bg-yellow-900/50" : "bg-green-900/50"
+                    }
+                    padding="p-[3px]"
+                  >
+                    <div className="p-4 text-center">
+                      <p className={`font-bold minecraftFont ${
+                        purchaseStatus.type === "error" ? "text-red-200" :
+                        purchaseStatus.type === "pending" ? "text-yellow-200" : "text-green-200"
+                      }`}>
+                        {purchaseStatus.message}
+                      </p>
+                      {purchaseStatus.purchaseId && (
+                        <p className="mt-2 text-sm opacity-80">
+                          ID: <code className="bg-black/30 px-2 py-1">{purchaseStatus.purchaseId}</code>
+                        </p>
+                      )}
+                      {purchaseStatus.paymentUrl && (
+                        <a
+                          href={purchaseStatus.paymentUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-block bg-green-600 hover:bg-green-500 text-white px-6 py-2 font-bold transition-colors minecraftFont"
+                        >
+                          💳 Відкрити оплату
+                        </a>
+                      )}
+                    </div>
+                  </PixelBorder>
                 </div>
               )}
-            </div>
 
-            {/* Selected Item Preview */}
-            <SelectedItemPreview
-              item={selectedItem}
-              type={selectedType}
-              onClear={() => {
-                setSelectedItem(null);
-                setSelectedType(null);
-              }}
-            />
+              {/* Separator */}
+              <div className="bg-gray-700 h-[3px]" />
 
-            {/* Purchase Status */}
-            {purchaseStatus && (
-              <div className={`mx-6 mb-4 p-4  text-center ${
-                purchaseStatus.type === "error"
-                  ? "bg-red-900/50 border border-red-500 text-red-200"
-                  : purchaseStatus.type === "pending"
-                  ? "bg-yellow-900/50 border border-yellow-500 text-yellow-200"
-                  : "bg-green-900/50 border border-green-500 text-green-200"
-              }`}>
-                <p className="font-bold">{purchaseStatus.message}</p>
-                {purchaseStatus.purchaseId && (
-                  <p className="mt-2 text-sm opacity-80">
-                    ID: <code className="bg-black/30 px-2 py-1 ">{purchaseStatus.purchaseId}</code>
-                  </p>
-                )}
-                {purchaseStatus.paymentUrl && (
-                  <a
-                    href={purchaseStatus.paymentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-block bg-green-600 hover:bg-green-500 text-white px-6 py-2  font-bold transition-colors"
-                  >
-                    💳 Відкрити оплату
-                  </a>
-                )}
+              {/* Purchase Button */}
+              <div className="p-6 bg-[#130217]">
+                <button
+                  onClick={handlePurchase}
+                  disabled={!canPurchase}
+                  className={`
+                    w-full py-4 text-xl font-bold minecraftFont transition-all
+                    ${canPurchase
+                      ? "bg-[#c5629a] hover:bg-[#f390d0] text-white hover:translate-y-[-2px]"
+                      : "bg-gray-700 text-gray-500 cursor-not-allowed"}
+                  `}
+                >
+                  {purchasing ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="animate-spin">⏳</span> Обробка...
+                    </span>
+                  ) : selectedItem ? (
+                    `💳 Оплатити ${selectedItem.price}₴`
+                  ) : (
+                    "👆 Виберіть товар"
+                  )}
+                </button>
+
+                <p className="text-center text-gray-500 text-sm mt-4">
+                  Оплата через Monobank • Товар буде додано автоматично після оплати
+                </p>
               </div>
-            )}
-
-            {/* Purchase Button */}
-            <div className="p-6 bg-gradient-to-r from-[#130217] via-[#1a0f1f] to-[#130217]">
-              <button
-                onClick={handlePurchase}
-                disabled={!canPurchase}
-                className={`
-                  w-full py-4 text-xl font-bold minecraftFont  transition-all
-                  ${canPurchase
-                    ? "bg-gradient-to-r from-[#c5629a] to-[#d47aad] hover:from-[#d47aad] hover:to-[#e08abb] text-white shadow-lg hover:shadow-xl hover:scale-[1.01]"
-                    : "bg-gray-700 text-gray-500 cursor-not-allowed"}
-                `}
-              >
-                {purchasing ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="animate-spin">⏳</span> Обробка...
-                  </span>
-                ) : selectedItem ? (
-                  `💳 Оплатити ${selectedItem.price}₴`
-                ) : (
-                  "👆 Виберіть товар"
-                )}
-              </button>
-
-              <p className="text-center text-gray-500 text-sm mt-4">
-                Оплата через Monobank • Товар буде додано автоматично після оплати
-              </p>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </PixelBorderDouble>
       </div>
 
       {/* How it Works */}
-      <div className="mt-8 bg-gradient-to-b from-[#1a1a2e] to-[#16162a] border border-gray-800 p-8">
-        <h3 className="text-2xl font-bold text-[#c5629a] minecraftFont mb-6 text-center">
-          ❓ Як це працює?
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { step: "1", icon: "🛒", title: "Виберіть товар", desc: "Оберіть плащ, значок або набір зі списку" },
-            { step: "2", icon: "💳", title: "Оплатіть", desc: "Перейдіть на Monobank та оплатіть покупку" },
-            { step: "3", icon: "🎉", title: "Отримайте!", desc: "Товар з'явиться автоматично протягом хвилини" },
-          ].map((item) => (
-            <div key={item.step} className="text-center p-6 bg-gray-800/30">
-              <div className="text-5xl mb-4">{item.icon}</div>
-              <div className="text-sm text-[#c5629a] mb-2">Крок {item.step}</div>
-              <h4 className="font-bold text-white text-lg mb-2">{item.title}</h4>
-              <p className="text-gray-400">{item.desc}</p>
+      <div className="mt-8">
+        <PixelBorderDouble outerColor="bg-gray-600" innerColor="bg-gray-700" innerBg="bg-[#1a1a2e]">
+          <div className="p-8">
+            <h3 className="text-2xl font-bold text-[#c5629a] minecraftFont mb-6 text-center">
+              ❓ Як це працює?
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { step: "1", icon: "🛒", title: "Виберіть товар", desc: "Оберіть плащ, значок або набір зі списку" },
+                { step: "2", icon: "💳", title: "Оплатіть", desc: "Перейдіть на Monobank та оплатіть покупку" },
+                { step: "3", icon: "🎉", title: "Отримайте!", desc: "Товар з'явиться автоматично протягом хвилини" },
+              ].map((item) => (
+                <PixelBorder key={item.step} borderColor="bg-gray-600" innerBg="bg-[#12121f]" padding="p-[3px]">
+                  <div className="text-center p-6">
+                    <div className="text-5xl mb-4">{item.icon}</div>
+                    <PixelBorder borderColor="bg-[#c5629a]" innerBg="bg-[#130217]" padding="p-[2px]" className="inline-block mb-2">
+                      <span className="text-sm text-[#c5629a] px-3 py-1 block minecraftFont">Крок {item.step}</span>
+                    </PixelBorder>
+                    <h4 className="font-bold text-white text-lg mb-2 minecraftFont">{item.title}</h4>
+                    <p className="text-gray-400">{item.desc}</p>
+                  </div>
+                </PixelBorder>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </PixelBorderDouble>
       </div>
     </section>
   );
