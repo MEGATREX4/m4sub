@@ -29,6 +29,10 @@ export const newsManifest = [
     "pageLink": "season5_stats"
   },
   {
+    "filename": "season6_announcement.md",
+    "pageLink": "season6_announcement"
+  },
+  {
     "filename": "september_update_2025.md",
     "pageLink": "september_update"
   },
@@ -39,9 +43,5 @@ export const newsManifest = [
   {
     "filename": "sub_2025.md",
     "pageLink": "sub_2025"
-  },
-  {
-    "filename": "test.md",
-    "pageLink": "test"
   }
 ];
