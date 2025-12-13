@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 
 // Configuration
 const API_BASE_URL = "/.netlify/functions";
-const SHOP_API_URL = "http://sunrise.bubble.wtf:40010/api/shop";
+const SHOP_API_URL = "/.netlify/functions/shop";
 const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 
 // If your images are hosted on the API server instead of the website, uncomment this:
