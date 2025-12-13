@@ -66,7 +66,7 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
           {images.map((_, idx) => (
             <div
               key={idx}
-              className={`w-2 h-2 rounded-full transition-all ${
+              className={`w-2 h-2  transition-all ${
                 idx === currentIndex
                   ? "bg-white scale-110"
                   : "bg-white/40 hover:bg-white/60"
@@ -78,7 +78,7 @@ const ImageCarousel = ({ images, alt, className = "" }) => {
 
       {/* Swipe Hint */}
       {images.length > 1 && isHovering && (
-        <div className="absolute top-2 right-2 text-xs bg-black/60 px-2 py-1 rounded text-white/80">
+        <div className="absolute top-2 right-2 text-xs bg-black/60 px-2 py-1  text-white/80">
           ← Проведіть →
         </div>
       )}
@@ -103,19 +103,19 @@ const ItemCard = ({ item, type, isSelected, onSelect, disabled }) => {
           : "hover:ring-2 hover:ring-[#c5629a]/50"}
         bg-gradient-to-b from-gray-800/90 to-gray-900/90 
         border-2 ${isFeatured ? "border-yellow-500" : "border-gray-700"}
-        rounded-lg
+        
       `}
     >
       {/* Featured Badge */}
       {isFeatured && (
-        <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-yellow-500 to-amber-600 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+        <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-yellow-500 to-amber-600 text-black text-xs font-bold px-3 py-1  shadow-lg">
           ⭐ Популярне
         </div>
       )}
 
       {/* Savings Badge for Bundles */}
       {hasSavings && (
-        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+        <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1  shadow-lg">
           -{item.savings}₴
         </div>
       )}
@@ -132,7 +132,7 @@ const ItemCard = ({ item, type, isSelected, onSelect, disabled }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
         
         {/* Type Badge */}
-        <div className="absolute bottom-3 left-3 bg-black/70 px-3 py-1 rounded-full text-sm">
+        <div className="absolute bottom-3 left-3 bg-black/70 px-3 py-1  text-sm">
           {type === "cape" && "🎭 Плащ"}
           {type === "icon" && "⭐ Значок"}
           {type === "bundle" && "📦 Набір"}
@@ -155,12 +155,12 @@ const ItemCard = ({ item, type, isSelected, onSelect, disabled }) => {
         {type === "bundle" && item.items && (
           <div className="mb-3 flex flex-wrap gap-1">
             {item.items.slice(0, 4).map((bundleItem, idx) => (
-              <span key={idx} className="text-xs bg-gray-700/50 px-2 py-0.5 rounded text-gray-300">
+              <span key={idx} className="text-xs bg-gray-700/50 px-2 py-0.5  text-gray-300">
                 {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
               </span>
             ))}
             {item.items.length > 4 && (
-              <span className="text-xs bg-gray-700/50 px-2 py-0.5 rounded text-gray-400">
+              <span className="text-xs bg-gray-700/50 px-2 py-0.5  text-gray-400">
                 +{item.items.length - 4}
               </span>
             )}
@@ -183,7 +183,7 @@ const ItemCard = ({ item, type, isSelected, onSelect, disabled }) => {
           </div>
 
           {/* Selection Indicator */}
-          <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+          <div className={`w-6 h-6  border-2 flex items-center justify-center transition-all ${
             isSelected 
               ? "bg-[#c5629a] border-[#c5629a] text-white" 
               : "border-gray-600 text-transparent group-hover:border-gray-400"
@@ -212,7 +212,7 @@ const CategoryTab = ({ label, icon, isActive, onClick, count }) => (
     <span className="text-xl mr-2">{icon}</span>
     <span className="hidden sm:inline">{label}</span>
     {count > 0 && (
-      <span className={`ml-2 text-xs px-2 py-0.5 rounded-full ${
+      <span className={`ml-2 text-xs px-2 py-0.5  ${
         isActive ? "bg-white/20" : "bg-gray-700"
       }`}>
         {count}
@@ -230,7 +230,7 @@ const SelectedItemPreview = ({ item, type, onClear }) => {
     <div className="bg-gradient-to-r from-[#1a0f1f] to-[#0f1a1f] p-6 border-t-2 border-[#c5629a]/50">
       <div className="flex flex-col lg:flex-row items-center gap-6">
         {/* Large Image Preview */}
-        <div className="w-full lg:w-64 aspect-video rounded-lg overflow-hidden border-2 border-gray-700">
+        <div className="w-full lg:w-64 aspect-video  overflow-hidden border-2 border-gray-700">
           <ImageCarousel
             images={item.thumbnails}
             alt={item.name}
@@ -258,7 +258,7 @@ const SelectedItemPreview = ({ item, type, onClear }) => {
           {type === "bundle" && item.items && (
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start mb-4">
               {item.items.map((bundleItem, idx) => (
-                <span key={idx} className="text-sm bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
+                <span key={idx} className="text-sm bg-gray-800 px-3 py-1  border border-gray-700">
                   {bundleItem.split(":")[0] === "cape" ? "🎭" : "⭐"} {bundleItem.split(":")[1]}
                 </span>
               ))}
@@ -293,8 +293,8 @@ const SelectedItemPreview = ({ item, type, onClear }) => {
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-12">
     <div className="relative w-16 h-16">
-      <div className="absolute inset-0 border-4 border-[#c5629a]/30 rounded-full" />
-      <div className="absolute inset-0 border-4 border-transparent border-t-[#c5629a] rounded-full animate-spin" />
+      <div className="absolute inset-0 border-4 border-[#c5629a]/30 " />
+      <div className="absolute inset-0 border-4 border-transparent border-t-[#c5629a]  animate-spin" />
     </div>
     <span className="mt-4 text-gray-400">Завантаження магазину...</span>
   </div>
@@ -310,7 +310,7 @@ const ErrorMessage = ({ message, onRetry }) => (
     {onRetry && (
       <button
         onClick={onRetry}
-        className="bg-[#c5629a] hover:bg-[#b25587] text-white px-6 py-3 rounded-lg font-bold transition-colors"
+        className="bg-[#c5629a] hover:bg-[#b25587] text-white px-6 py-3  font-bold transition-colors"
       >
         🔄 Спробувати знову
       </button>
@@ -467,7 +467,7 @@ export default function Donate() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">
       {/* Ukrainian Support Banner */}
-      <div className="bg-gradient-to-r from-blue-900/60 to-yellow-900/40 p-6 rounded-xl text-center mb-8 border border-yellow-500/30">
+      <div className="bg-gradient-to-r from-blue-900/60 to-yellow-900/40 p-6  text-center mb-8 border border-yellow-500/30">
         <h2 className="text-2xl font-bold mb-3 text-yellow-300 minecraftFont">
           🇺🇦 ПІДТРИМАЙ УКРАЇНУ 🇺🇦
         </h2>
@@ -485,7 +485,7 @@ export default function Donate() {
               href={org.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#130217]/80 border-2 border-yellow-500/50 hover:border-yellow-400 px-6 py-3 rounded-lg transition-all hover:scale-105"
+              className="bg-[#130217]/80 border-2 border-yellow-500/50 hover:border-yellow-400 px-6 py-3  transition-all hover:scale-105"
             >
               <span className="text-2xl mr-2">{org.emoji}</span>
               <span className="text-yellow-200 font-bold">{org.name}</span>
@@ -495,7 +495,7 @@ export default function Donate() {
       </div>
 
       {/* Main Shop Container */}
-      <div className="bg-gradient-to-b from-[#1a1a2e] to-[#16162a] rounded-xl border border-gray-800 overflow-hidden shadow-2xl">
+      <div className="bg-gradient-to-b from-[#1a1a2e] to-[#16162a]  border border-gray-800 overflow-hidden shadow-2xl">
         
         {/* Shop Header */}
         <div className="bg-gradient-to-r from-[#130217] via-[#1a0f1f] to-[#130217] p-8 text-center border-b border-gray-800">
@@ -528,7 +528,7 @@ export default function Donate() {
                     placeholder="Наприклад: MEGATREX4"
                     maxLength={16}
                     className={`
-                      w-full px-4 py-3 bg-[#130217] text-white rounded-lg border-2 
+                      w-full px-4 py-3 bg-[#130217] text-white  border-2 
                       focus:outline-none focus:ring-2 focus:ring-[#c5629a] transition-all
                       ${nicknameError ? "border-red-500" : nicknameValid ? "border-green-500" : "border-gray-700"}
                     `}
@@ -604,7 +604,7 @@ export default function Donate() {
 
             {/* Purchase Status */}
             {purchaseStatus && (
-              <div className={`mx-6 mb-4 p-4 rounded-lg text-center ${
+              <div className={`mx-6 mb-4 p-4  text-center ${
                 purchaseStatus.type === "error"
                   ? "bg-red-900/50 border border-red-500 text-red-200"
                   : purchaseStatus.type === "pending"
@@ -614,7 +614,7 @@ export default function Donate() {
                 <p className="font-bold">{purchaseStatus.message}</p>
                 {purchaseStatus.purchaseId && (
                   <p className="mt-2 text-sm opacity-80">
-                    ID: <code className="bg-black/30 px-2 py-1 rounded">{purchaseStatus.purchaseId}</code>
+                    ID: <code className="bg-black/30 px-2 py-1 ">{purchaseStatus.purchaseId}</code>
                   </p>
                 )}
                 {purchaseStatus.paymentUrl && (
@@ -622,7 +622,7 @@ export default function Donate() {
                     href={purchaseStatus.paymentUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-block bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-lg font-bold transition-colors"
+                    className="mt-3 inline-block bg-green-600 hover:bg-green-500 text-white px-6 py-2  font-bold transition-colors"
                   >
                     💳 Відкрити оплату
                   </a>
@@ -636,7 +636,7 @@ export default function Donate() {
                 onClick={handlePurchase}
                 disabled={!canPurchase}
                 className={`
-                  w-full py-4 text-xl font-bold minecraftFont rounded-lg transition-all
+                  w-full py-4 text-xl font-bold minecraftFont  transition-all
                   ${canPurchase
                     ? "bg-gradient-to-r from-[#c5629a] to-[#d47aad] hover:from-[#d47aad] hover:to-[#e08abb] text-white shadow-lg hover:shadow-xl hover:scale-[1.01]"
                     : "bg-gray-700 text-gray-500 cursor-not-allowed"}
@@ -662,7 +662,7 @@ export default function Donate() {
       </div>
 
       {/* How it Works */}
-      <div className="mt-8 bg-gradient-to-b from-[#1a1a2e] to-[#16162a] rounded-xl border border-gray-800 p-8">
+      <div className="mt-8 bg-gradient-to-b from-[#1a1a2e] to-[#16162a] border border-gray-800 p-8">
         <h3 className="text-2xl font-bold text-[#c5629a] minecraftFont mb-6 text-center">
           ❓ Як це працює?
         </h3>
@@ -672,7 +672,7 @@ export default function Donate() {
             { step: "2", icon: "💳", title: "Оплатіть", desc: "Перейдіть на Monobank та оплатіть покупку" },
             { step: "3", icon: "🎉", title: "Отримайте!", desc: "Товар з'явиться автоматично протягом хвилини" },
           ].map((item) => (
-            <div key={item.step} className="text-center p-6 bg-gray-800/30 rounded-xl">
+            <div key={item.step} className="text-center p-6 bg-gray-800/30">
               <div className="text-5xl mb-4">{item.icon}</div>
               <div className="text-sm text-[#c5629a] mb-2">Крок {item.step}</div>
               <h4 className="font-bold text-white text-lg mb-2">{item.title}</h4>
