@@ -1,6 +1,6 @@
 // src/components/donate/constants.js
 export const API_BASE_URL = "/.netlify/functions";
-export const SHOP_API_URL = "/.netlify/functions/shop";
+export const SHOP_API_URL = "http://sunrise.bubble.wtf:40010/api/shop";
 export const CHECK_OWNERSHIP_URL = "/.netlify/functions/check-ownership";
 export const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 export const IMAGES_BASE_URL = "";

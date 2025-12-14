@@ -93,7 +93,7 @@ export const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
         key={currentImage}
         src={currentImage}
         alt={alt || "Item image"}
-        style={{ imageRendering: "pixelated" }}
+        style={{ imageRendering: "pixelated", maxHeight: '100%', maxWidth: '100%' }}
         className={`w-full h-full object-contain transition-opacity duration-200 ${
           currentState === 'loaded' ? 'opacity-100' : 'opacity-0'
         }`}

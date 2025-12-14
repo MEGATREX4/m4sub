@@ -22,7 +22,7 @@ export const getItemNameFromReference = (itemRef, shopData) => {
 export const validateNickname = (nick) => {
   if (!nick || nick.trim().length === 0) return "Введіть нікнейм";
   if (nick.length < 3 || nick.length > 16) return "Нікнейм має бути від 3 до 16 символів";
-  if (!/^[a-zA-Z0-9_]+$/.test(nick)) return "Нікнейм може містити лише літери, цифри та _";
+  if (!/^[a-zA-Z0-9_]+$/.test(nick)) return "Нікнейм може містити лише латинські літери, цифри та _ (без пробілів)";
   return "";
 };
 

@@ -17,6 +17,7 @@ import { SelectedItemPreview } from "./donate/components/SelectedItemPreview";
 import { PurchaseStatusDisplay } from "./donate/components/PurchaseStatusDisplay";
 import { PurchaseButton } from "./donate/components/PurchaseButton";
 import { HowItWorks } from "./donate/components/HowItWorks";
+import { BorderBox } from "./donate/components/BorderBox";
 
 // Constants
 import { SUPPORT_ITEM } from "./donate/constants";
@@ -227,22 +228,37 @@ export default function Donate() {
                       <p className="text-xl minecraftFont">Немає доступних товарів</p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {currentItems.map((item) => {
+                    <div className="grid gap-6" style={{
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                      gridAutoRows: 'max-content'
+                    }}>
+                      {currentItems.map((item, index) => {
                         const itemType = item.type === 'support' ? 'support' : selectedCategory.slice(0, -1);
+                        const isLargeItem = item.type === 'support';
+                        
                         return (
-                          <ItemCard
+                          <div
                             key={item.id}
-                            item={item}
-                            type={itemType}
-                            isSelected={selectedItem?.id === item.id && selectedType === itemType}
-                            onSelect={handleItemSelect}
-                            disabled={purchasing}
-                            shopData={shopData}
-                            ownedItems={ownedItems}
-                            supportAmount={supportAmount}
-                            onSupportAmountChange={handleSupportAmountChange}
-                          />
+                            style={isLargeItem ? {
+                              gridColumn: 'span min(2, auto)',
+                            } : {}}
+                            className={isLargeItem ? 'grid grid-cols-subgrid' : ''}
+                          >
+                            <ItemCard
+                              item={item}
+                              type={itemType}
+                              isSelected={selectedItem?.id === item.id && selectedType === itemType}
+                              onSelect={handleItemSelect}
+                              disabled={purchasing}
+                              shopData={shopData}
+                              ownedItems={ownedItems}
+                              supportAmount={supportAmount}
+                              onSupportAmountChange={handleSupportAmountChange}
+                              nickname={nickname}
+                              nicknameError={nicknameError}
+                              isLarge={item.type === 'support'}
+                            />
+                          </div>
                         );
                       })}
                     </div>
@@ -272,21 +288,19 @@ export default function Donate() {
                     <div className="bg-pink-900/30 p-[3px]">
                       <div className="bg-gray-800 p-[2px]">
                         <div className="bg-[#1a0f1f] p-6">
-                          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div className="flex items-center gap-4">
-                              <i className="hn hn-heart-solid text-5xl text-pink-400"></i>
-                              <div>
-                                <h4 className="text-xl font-bold text-white minecraftFont">
-                                  {SUPPORT_ITEM.name}
-                                </h4>
-                                <p className="text-gray-400 text-sm">
-                                  Ви отримаєте роль SUPPORTER
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <div className="text-3xl font-bold text-pink-400 minecraftFont">
-                                {selectedItem.price}₴
+                          <div className="flex flex-col gap-6">
+                            {/* Header with amount */}
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                              <div className="flex items-center gap-4">
+                                <i className="hn hn-heart-solid text-5xl text-pink-400"></i>
+                                <div>
+                                  <h4 className="text-xl font-bold text-white minecraftFont">
+                                    {SUPPORT_ITEM.name}
+                                  </h4>
+                                  <p className="text-gray-400 text-sm">
+                                    Ви отримаєте роль SUPPORTER
+                                  </p>
+                                </div>
                               </div>
                               <button
                                 onClick={() => {
@@ -295,9 +309,69 @@ export default function Donate() {
                                 }}
                                 className="text-sm text-gray-500 hover:text-red-400 transition-colors px-4 py-2 bg-gray-800 hover:bg-gray-700 flex items-center gap-1"
                               >
-                                <i className="hn hn-x"></i>
+                                <i className="hn hn-times-solid"></i>
                                 Скасувати
                               </button>
+                            </div>
+
+                            {/* Amount Input Section */}
+                            <div className="space-y-3">
+                              <div className="text-sm font-bold text-gray-300 minecraftFont">
+                                <i className="hn hn-edit mr-2"></i>
+                                Сума підтримки:
+                              </div>
+                              
+                              {/* Quick buttons */}
+                              <div className="flex gap-2 flex-wrap">
+                                {[50, 100, 200, 500].map((amount) => (
+                                  <button
+                                    key={amount}
+                                    onClick={() => {
+                                      setSupportAmount(amount);
+                                      setSelectedItem(prev => ({ ...prev, price: amount }));
+                                    }}
+                                    className={`
+                                      px-4 py-2 text-sm minecraftFont transition-all font-bold
+                                      ${supportAmount === amount 
+                                        ? "bg-pink-500 text-white" 
+                                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"}
+                                    `}
+                                  >
+                                    {amount}₴
+                                  </button>
+                                ))}
+                              </div>
+
+                              {/* Custom amount input with shine border */}
+                              <div className="flex items-center gap-2">
+                                <div className="flex-1">
+                                  <BorderBox borderColor="bg-pink-500" innerBg="bg-[#130217]" shine={true}>
+                                    <input
+                                      type="number"
+                                      value={supportAmount}
+                                      onChange={(e) => {
+                                        const value = parseInt(e.target.value, 10);
+                                        if (!isNaN(value) && value >= SUPPORT_ITEM.minPrice && value <= SUPPORT_ITEM.maxPrice) {
+                                          setSupportAmount(value);
+                                          setSelectedItem(prev => ({ ...prev, price: value }));
+                                        }
+                                      }}
+                                      min={SUPPORT_ITEM.minPrice}
+                                      max={SUPPORT_ITEM.maxPrice}
+                                      placeholder={`${SUPPORT_ITEM.minPrice}-${SUPPORT_ITEM.maxPrice}`}
+                                      className="w-full px-3 py-2 bg-transparent text-white focus:outline-none minecraftFont text-center [&::-webkit-outer-spin-button]:hidden [&::-webkit-inner-spin-button]:hidden [&[type=number]]:text-center"
+                                      style={{ MozAppearance: 'textfield' }}
+                                    />
+                                  </BorderBox>
+                                </div>
+                                <span className="text-pink-400 minecraftFont font-bold text-lg">₴</span>
+                              </div>
+
+                              {/* Info */}
+                              <div className="text-xs text-gray-400">
+                                <i className="hn hn-alert-circle mr-1"></i>
+                                Від {SUPPORT_ITEM.minPrice}₴ до {SUPPORT_ITEM.maxPrice}₴
+                              </div>
                             </div>
                           </div>
                         </div>

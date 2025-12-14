@@ -29,12 +29,6 @@ export const PurchaseButton = ({
   return (
     <div className="p-6 bg-[#130217]">
       {/* Warning message if no nickname but item selected */}
-      {showNicknameWarning && (
-        <div className="mb-4 bg-yellow-500/20 border border-yellow-500/50 p-3 flex items-center gap-2 justify-center">
-          <i className="hn hn-alert-triangle text-yellow-400"></i>
-          <span className="text-yellow-300 text-sm minecraftFont">{nicknameWarning}</span>
-        </div>
-      )}
       
       <button
         onClick={onClick}

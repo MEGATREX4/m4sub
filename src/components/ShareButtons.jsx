@@ -22,7 +22,7 @@ export default function ShareButtons({ title, url }) {
 
   // Base list of social networks
   const socialNetworks = [
-    { name: 'X', icon: 'hn hn-x', url: `https://x.com/intent/tweet?text=${encodedShareText}` },
+    { name: 'X', icon: 'hn hn-times-solid', url: `https://x.com/intent/tweet?text=${encodedShareText}` },
     { name: 'Bluesky', icon: 'hn hn-bluesky', url: `https://bsky.app/intent/compose?text=${encodedShareText}` },
     { name: 'Facebook', icon: 'hn hn-facebook-square', url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
     { name: 'Mastodon', icon: 'hn hn-mastodon', url: `https://toot.kytta.dev/?text=${encodedShareText}` },

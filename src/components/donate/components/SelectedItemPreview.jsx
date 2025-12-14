@@ -18,7 +18,7 @@ export const SelectedItemPreview = ({ item, type, onClear, shopData }) => {
             
             {/* Large Image Preview */}
             <div className="w-full lg:w-72">
-              <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
+              <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]" shine={true}>
                 <div className="aspect-video">
                   <ImageCarousel
                     images={item.thumbnails}
@@ -83,7 +83,7 @@ export const SelectedItemPreview = ({ item, type, onClear, shopData }) => {
                 onClick={onClear}
                 className="text-sm text-gray-500 hover:text-red-400 transition-colors px-4 py-2 bg-gray-800 hover:bg-gray-700 flex items-center gap-1"
               >
-                <i className="hn hn-x"></i>
+                <i className="hn hn-times-solid"></i>
                 Скасувати вибір
               </button>
             </div>
