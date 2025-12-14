@@ -523,6 +523,15 @@ export default function Donate() {
   const [purchasing, setPurchasing] = useState(false);
   const [purchaseStatus, setPurchaseStatus] = useState(null);
 
+  useEffect(() => {
+    console.log("🛒 Purchase state:", {
+      item: selectedItem?.id || "none",
+      nick: nickname || "empty",
+      nickError: nicknameError || "none",
+      purchasing,
+    });
+  }, [selectedItem, nickname, nicknameError, purchasing]);
+  
   // Fetch shop data
   const fetchShopData = useCallback(async () => {
     setLoading(true);
@@ -572,16 +581,29 @@ export default function Donate() {
   const handleNicknameChange = (e) => {
     const value = e.target.value;
     setNickname(value);
-    const validationError = validateNickname(value);
-    setNicknameError(validationError);
-    setNicknameValid(!validationError && value.length >= 3);
+    
+    // Validate only if there's input
+    if (value.length === 0) {
+      setNicknameError("");
+      setNicknameValid(false);
+    } else {
+      const validationError = validateNickname(value);
+      setNicknameError(validationError);
+      setNicknameValid(validationError === "" && value.length >= 3);
+    }
   };
 
   const handleItemSelect = (item, type) => {
+    console.log("📦 Item selected:", item.id, type);
+    
     if (selectedItem?.id === item.id && selectedType === type) {
+      // Deselect
+      console.log("📦 Deselecting item");
       setSelectedItem(null);
       setSelectedType(null);
     } else {
+      // Select new item
+      console.log("📦 Selecting item:", item.name, "price:", item.price);
       setSelectedItem(item);
       setSelectedType(type);
     }
@@ -654,7 +676,14 @@ export default function Donate() {
     }
   };
 
-  const canPurchase = selectedItem && nickname.trim() && !nicknameError && !purchasing;
+  const canPurchase = useMemo(() => {
+    const hasItem = selectedItem !== null;
+    const hasNickname = nickname.trim().length >= 3;
+    const noNicknameError = nicknameError === "";
+    const notPurchasing = !purchasing;
+    
+    return hasItem && hasNickname && noNicknameError && notPurchasing;
+  }, [selectedItem, nickname, nicknameError, purchasing]);
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">
