@@ -39,7 +39,7 @@ export default function Donate() {
   } = useNickname();
 
   // Selection state
-  const [selectedCategory, setSelectedCategory] = useState("support");
+  const [selectedCategory, setSelectedCategory] = useState("capes");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [supportAmount, setSupportAmount] = useState(SUPPORT_ITEM.price);
@@ -55,16 +55,25 @@ export default function Donate() {
 
   // Current items based on category
   const currentItems = useMemo(() => {
-    if (!shopData) return [];
-    if (selectedCategory === "support") {
-      return [SUPPORT_ITEM]; // Support is always available
-    }
+    if (!shopData) return [SUPPORT_ITEM]; // Always include support item
+    
+    let items = [];
     switch (selectedCategory) {
-      case "capes": return shopData.capes || [];
-      case "icons": return shopData.icons || [];
-      case "bundles": return shopData.bundles || [];
-      default: return [];
+      case "capes":
+        items = shopData.capes || [];
+        break;
+      case "icons":
+        items = shopData.icons || [];
+        break;
+      case "bundles":
+        items = shopData.bundles || [];
+        break;
+      default:
+        items = [];
     }
+    
+    // Always add support item to the end of each category
+    return [...items, SUPPORT_ITEM];
   }, [shopData, selectedCategory]);
 
   // Handle item selection
@@ -184,14 +193,6 @@ export default function Donate() {
                 {/* Category Tabs */}
                 <div className="flex">
                   <CategoryTab
-                    label="Підтримка"
-                    icon="hn-heart-solid"
-                    isActive={selectedCategory === "support"}
-                    onClick={() => handleCategoryChange("support")}
-                    count={1}
-                  />
-                  <div className="bg-gray-700 w-[2px]" />
-                  <CategoryTab
                     label="Плащі"
                     icon="hn-users-crown-solid"
                     isActive={selectedCategory === "capes"}
@@ -228,7 +229,7 @@ export default function Donate() {
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {currentItems.map((item) => {
-                        const itemType = selectedCategory === 'support' ? 'support' : selectedCategory.slice(0, -1);
+                        const itemType = item.type === 'support' ? 'support' : selectedCategory.slice(0, -1);
                         return (
                           <ItemCard
                             key={item.id}
