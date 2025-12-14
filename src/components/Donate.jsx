@@ -17,7 +17,6 @@ import { SelectedItemPreview } from "./donate/components/SelectedItemPreview";
 import { PurchaseStatusDisplay } from "./donate/components/PurchaseStatusDisplay";
 import { PurchaseButton } from "./donate/components/PurchaseButton";
 import { HowItWorks } from "./donate/components/HowItWorks";
-import { SupportSection } from "./donate/components/SupportSection";
 
 // Constants
 import { SUPPORT_ITEM } from "./donate/constants";
@@ -40,7 +39,7 @@ export default function Donate() {
   } = useNickname();
 
   // Selection state
-  const [selectedCategory, setSelectedCategory] = useState("capes");
+  const [selectedCategory, setSelectedCategory] = useState("support");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [supportAmount, setSupportAmount] = useState(SUPPORT_ITEM.price);
@@ -57,6 +56,9 @@ export default function Donate() {
   // Current items based on category
   const currentItems = useMemo(() => {
     if (!shopData) return [];
+    if (selectedCategory === "support") {
+      return [SUPPORT_ITEM]; // Support is always available
+    }
     switch (selectedCategory) {
       case "capes": return shopData.capes || [];
       case "icons": return shopData.icons || [];
@@ -67,15 +69,27 @@ export default function Donate() {
 
   // Handle item selection
   const handleItemSelect = useCallback((item, type) => {
-    if (selectedItem?.id === item.id && selectedType === type) {
-      setSelectedItem(null);
-      setSelectedType(null);
+    if (type === 'support') {
+      // For support, set the item with current support amount
+      if (selectedItem?.id === item.id && selectedType === type) {
+        setSelectedItem(null);
+        setSelectedType(null);
+      } else {
+        setSelectedItem({ ...item, price: supportAmount });
+        setSelectedType(type);
+      }
     } else {
-      setSelectedItem(item);
-      setSelectedType(type);
+      // Regular items
+      if (selectedItem?.id === item.id && selectedType === type) {
+        setSelectedItem(null);
+        setSelectedType(null);
+      } else {
+        setSelectedItem(item);
+        setSelectedType(type);
+      }
     }
     clearPurchaseStatus();
-  }, [selectedItem, selectedType, clearPurchaseStatus]);
+  }, [selectedItem, selectedType, supportAmount, clearPurchaseStatus]);
 
   // Handle support selection
   const handleSupportSelect = useCallback((item, type) => {
@@ -103,13 +117,10 @@ export default function Donate() {
   // Handle category change
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
-    // Only clear if not support type
-    if (selectedType !== 'support') {
-      setSelectedItem(null);
-      setSelectedType(null);
-    }
+    setSelectedItem(null);
+    setSelectedType(null);
     clearPurchaseStatus();
-  }, [selectedType, clearPurchaseStatus]);
+  }, [clearPurchaseStatus]);
 
   // Handle purchase click
   const onPurchaseClick = useCallback(() => {
@@ -158,40 +169,34 @@ export default function Donate() {
 
                 <div className="bg-gray-700 h-[2px]" />
 
-                {/* Support Section - Above Categories */}
-                <div className="p-6 bg-[#12121f]">
-                  <SupportSection
-                    isSelected={isSupportSelected}
-                    onSelect={handleSupportSelect}
-                    disabled={purchasing}
-                    customAmount={supportAmount}
-                    onAmountChange={handleSupportAmountChange}
-                    hasSupporter={hasSupporter}
-                  />
-                </div>
-
-                <div className="bg-gray-700 h-[3px]" />
-
                 {/* Cosmetics Section Header */}
                 <div className="bg-[#130217] p-4 text-center">
                   <h3 className="text-xl font-bold text-gray-300 minecraftFont flex items-center justify-center gap-2">
                     <i className="hn hn-sparkles"></i>
-                    Косметичні Предмети
+                    Магазин
                     <i className="hn hn-sparkles"></i>
                   </h3>
                   <p className="text-gray-500 text-sm mt-1">
-                    Плащі, значки та набори для вашого персонажа
+                    Плащі, значки, набори та підтримка для розвитку сервера
                   </p>
                 </div>
 
                 {/* Category Tabs */}
                 <div className="flex">
                   <CategoryTab
+                    label="Підтримка"
+                    icon="hn-heart-solid"
+                    isActive={selectedCategory === "support"}
+                    onClick={() => handleCategoryChange("support")}
+                    count={1}
+                  />
+                  <div className="bg-gray-700 w-[2px]" />
+                  <CategoryTab
                     label="Плащі"
                     icon="hn-users-crown-solid"
                     isActive={selectedCategory === "capes"}
                     onClick={() => handleCategoryChange("capes")}
-                    count={shopData.capes?.length || 0}
+                    count={shopData?.capes?.length || 0}
                   />
                   <div className="bg-gray-700 w-[2px]" />
                   <CategoryTab
@@ -199,7 +204,7 @@ export default function Donate() {
                     icon="hn-star-solid"
                     isActive={selectedCategory === "icons"}
                     onClick={() => handleCategoryChange("icons")}
-                    count={shopData.icons?.length || 0}
+                    count={shopData?.icons?.length || 0}
                   />
                   <div className="bg-gray-700 w-[2px]" />
                   <CategoryTab
@@ -207,7 +212,7 @@ export default function Donate() {
                     icon="hn-users-solid"
                     isActive={selectedCategory === "bundles"}
                     onClick={() => handleCategoryChange("bundles")}
-                    count={shopData.bundles?.length || 0}
+                    count={shopData?.bundles?.length || 0}
                   />
                 </div>
 
@@ -222,18 +227,23 @@ export default function Donate() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {currentItems.map((item) => (
-                        <ItemCard
-                          key={item.id}
-                          item={item}
-                          type={selectedCategory.slice(0, -1)}
-                          isSelected={selectedItem?.id === item.id && selectedType !== 'support'}
-                          onSelect={handleItemSelect}
-                          disabled={purchasing}
-                          shopData={shopData}
-                          ownedItems={ownedItems}
-                        />
-                      ))}
+                      {currentItems.map((item) => {
+                        const itemType = selectedCategory === 'support' ? 'support' : selectedCategory.slice(0, -1);
+                        return (
+                          <ItemCard
+                            key={item.id}
+                            item={item}
+                            type={itemType}
+                            isSelected={selectedItem?.id === item.id && selectedType === itemType}
+                            onSelect={handleItemSelect}
+                            disabled={purchasing}
+                            shopData={shopData}
+                            ownedItems={ownedItems}
+                            supportAmount={supportAmount}
+                            onSupportAmountChange={handleSupportAmountChange}
+                          />
+                        );
+                      })}
                     </div>
                   )}
                 </div>
