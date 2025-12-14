@@ -1,6 +1,6 @@
 // src/components/donate/hooks/usePurchase.js
 import { useState, useCallback, useMemo } from 'react';
-import { API_BASE_URL, MONOBANK_JAR_URL } from '../constants';
+import { API_BASE_URL, MONOBANK_JAR_URL, SUPPORT_ITEM } from '../constants';
 import { validateNickname } from '../utils/helpers';
 
 export const usePurchase = (nickname, nicknameError, selectedItem, selectedType) => {
@@ -17,6 +17,17 @@ export const usePurchase = (nickname, nicknameError, selectedItem, selectedType)
     if (!selectedItem) {
       setPurchaseStatus({ type: "error", message: "Виберіть товар" });
       return;
+    }
+
+    // Validate support item price
+    if (selectedType === 'support') {
+      if (selectedItem.price < SUPPORT_ITEM.minPrice || selectedItem.price > SUPPORT_ITEM.maxPrice) {
+        setPurchaseStatus({ 
+          type: "error", 
+          message: `Сума підтримки має бути від ${SUPPORT_ITEM.minPrice}₴ до ${SUPPORT_ITEM.maxPrice}₴` 
+        });
+        return;
+      }
     }
 
     setPurchasing(true);
@@ -50,7 +61,9 @@ export const usePurchase = (nickname, nicknameError, selectedItem, selectedType)
 
       setPurchaseStatus({
         type: "pending",
-        message: `Покупка створена! ID: ${purchaseId}`,
+        message: selectedType === 'support' 
+          ? `Дякуємо за підтримку! ID: ${purchaseId}`
+          : `Покупка створена! ID: ${purchaseId}`,
         purchaseId,
         paymentUrl,
       });
@@ -70,6 +83,13 @@ export const usePurchase = (nickname, nicknameError, selectedItem, selectedType)
     const hasNickname = nickname.trim().length >= 3;
     const noNicknameError = nicknameError === "";
     const notPurchasing = !purchasing;
+    
+    // Additional validation for support items
+    if (selectedItem && selectedItem.type === 'support') {
+      const validPrice = selectedItem.price >= SUPPORT_ITEM.minPrice && 
+                         selectedItem.price <= SUPPORT_ITEM.maxPrice;
+      return hasItem && hasNickname && noNicknameError && notPurchasing && validPrice;
+    }
     
     return hasItem && hasNickname && noNicknameError && notPurchasing;
   }, [selectedItem, nickname, nicknameError, purchasing]);

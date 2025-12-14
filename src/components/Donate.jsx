@@ -17,6 +17,10 @@ import { SelectedItemPreview } from "./donate/components/SelectedItemPreview";
 import { PurchaseStatusDisplay } from "./donate/components/PurchaseStatusDisplay";
 import { PurchaseButton } from "./donate/components/PurchaseButton";
 import { HowItWorks } from "./donate/components/HowItWorks";
+import { SupportSection } from "./donate/components/SupportSection";
+
+// Constants
+import { SUPPORT_ITEM } from "./donate/constants";
 
 export default function Donate() {
   // Shop data
@@ -30,6 +34,7 @@ export default function Donate() {
     isChecking,
     ownedItems,
     playerExists,
+    hasSupporter,
     handleNicknameChange,
     setNicknameError,
   } = useNickname();
@@ -38,6 +43,7 @@ export default function Donate() {
   const [selectedCategory, setSelectedCategory] = useState("capes");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
+  const [supportAmount, setSupportAmount] = useState(SUPPORT_ITEM.price);
 
   // Purchase handling
   const {
@@ -71,18 +77,47 @@ export default function Donate() {
     clearPurchaseStatus();
   }, [selectedItem, selectedType, clearPurchaseStatus]);
 
+  // Handle support selection
+  const handleSupportSelect = useCallback((item, type) => {
+    if (selectedType === 'support' && selectedItem?.id === item.id) {
+      // Deselect
+      setSelectedItem(null);
+      setSelectedType(null);
+    } else {
+      // Select support with current amount
+      setSelectedItem({ ...item, price: supportAmount });
+      setSelectedType('support');
+    }
+    clearPurchaseStatus();
+  }, [selectedType, selectedItem, supportAmount, clearPurchaseStatus]);
+
+  // Handle support amount change
+  const handleSupportAmountChange = useCallback((amount) => {
+    setSupportAmount(amount);
+    // Update selected item price if support is selected
+    if (selectedType === 'support' && selectedItem) {
+      setSelectedItem(prev => ({ ...prev, price: amount }));
+    }
+  }, [selectedType, selectedItem]);
+
   // Handle category change
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategory(category);
-    setSelectedItem(null);
-    setSelectedType(null);
+    // Only clear if not support type
+    if (selectedType !== 'support') {
+      setSelectedItem(null);
+      setSelectedType(null);
+    }
     clearPurchaseStatus();
-  }, [clearPurchaseStatus]);
+  }, [selectedType, clearPurchaseStatus]);
 
   // Handle purchase click
   const onPurchaseClick = useCallback(() => {
     handlePurchase(setNicknameError);
   }, [handlePurchase, setNicknameError]);
+
+  // Check if support is selected
+  const isSupportSelected = selectedType === 'support';
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">
@@ -122,6 +157,32 @@ export default function Donate() {
                 />
 
                 <div className="bg-gray-700 h-[2px]" />
+
+                {/* Support Section - Above Categories */}
+                <div className="p-6 bg-[#12121f]">
+                  <SupportSection
+                    isSelected={isSupportSelected}
+                    onSelect={handleSupportSelect}
+                    disabled={purchasing}
+                    customAmount={supportAmount}
+                    onAmountChange={handleSupportAmountChange}
+                    hasSupporter={hasSupporter}
+                  />
+                </div>
+
+                <div className="bg-gray-700 h-[3px]" />
+
+                {/* Cosmetics Section Header */}
+                <div className="bg-[#130217] p-4 text-center">
+                  <h3 className="text-xl font-bold text-gray-300 minecraftFont flex items-center justify-center gap-2">
+                    <i className="hn hn-sparkles"></i>
+                    Косметичні Предмети
+                    <i className="hn hn-sparkles"></i>
+                  </h3>
+                  <p className="text-gray-500 text-sm mt-1">
+                    Плащі, значки та набори для вашого персонажа
+                  </p>
+                </div>
 
                 {/* Category Tabs */}
                 <div className="flex">
@@ -166,7 +227,7 @@ export default function Donate() {
                           key={item.id}
                           item={item}
                           type={selectedCategory.slice(0, -1)}
-                          isSelected={selectedItem?.id === item.id}
+                          isSelected={selectedItem?.id === item.id && selectedType !== 'support'}
                           onSelect={handleItemSelect}
                           disabled={purchasing}
                           shopData={shopData}
@@ -177,7 +238,8 @@ export default function Donate() {
                   )}
                 </div>
 
-                {selectedItem && (
+                {/* Selected Item Preview */}
+                {selectedItem && selectedType !== 'support' && (
                   <>
                     <div className="bg-gray-700 h-[3px]" />
                     <SelectedItemPreview
@@ -189,6 +251,47 @@ export default function Donate() {
                       }}
                       shopData={shopData}
                     />
+                  </>
+                )}
+
+                {/* Support Selected Preview */}
+                {isSupportSelected && selectedItem && (
+                  <>
+                    <div className="bg-gray-700 h-[3px]" />
+                    <div className="bg-pink-900/30 p-[3px]">
+                      <div className="bg-gray-800 p-[2px]">
+                        <div className="bg-[#1a0f1f] p-6">
+                          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-4">
+                              <i className="hn hn-heart-solid text-5xl text-pink-400"></i>
+                              <div>
+                                <h4 className="text-xl font-bold text-white minecraftFont">
+                                  {SUPPORT_ITEM.name}
+                                </h4>
+                                <p className="text-gray-400 text-sm">
+                                  Ви отримаєте роль SUPPORTER
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <div className="text-3xl font-bold text-pink-400 minecraftFont">
+                                {selectedItem.price}₴
+                              </div>
+                              <button
+                                onClick={() => {
+                                  setSelectedItem(null);
+                                  setSelectedType(null);
+                                }}
+                                className="text-sm text-gray-500 hover:text-red-400 transition-colors px-4 py-2 bg-gray-800 hover:bg-gray-700 flex items-center gap-1"
+                              >
+                                <i className="hn hn-x"></i>
+                                Скасувати
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </>
                 )}
 
@@ -204,6 +307,7 @@ export default function Donate() {
                   nickname={nickname}
                   nicknameValid={nicknameValid}
                   onClick={onPurchaseClick}
+                  isSupport={isSupportSelected}
                 />
               </>
             )}

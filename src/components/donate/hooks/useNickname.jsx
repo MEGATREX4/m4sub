@@ -1,7 +1,7 @@
 // src/components/donate/hooks/useNickname.js
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { CHECK_OWNERSHIP_URL, NICKNAME_DEBOUNCE_MS } from '../constants';
-import { validateNickname } from '../utils/helpers';
+import { validateNickname, hasSupporter as checkHasSupporter } from '../utils/helpers';
 
 export const useNickname = () => {
   const [nickname, setNickname] = useState("");
@@ -10,6 +10,7 @@ export const useNickname = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [ownedItems, setOwnedItems] = useState([]);
   const [playerExists, setPlayerExists] = useState(null);
+  const [hasSupporter, setHasSupporter] = useState(false);
   
   const debounceRef = useRef(null);
   const abortControllerRef = useRef(null);
@@ -39,9 +40,10 @@ export const useNickname = () => {
       
       setPlayerExists(data.exists);
       setOwnedItems(data.ownedItems || []);
+      setHasSupporter(checkHasSupporter(data.ownedItems));
       
       if (data.exists) {
-        console.log(`Player ${name} owns ${data.ownedItems?.length || 0} items`);
+        console.log(`Player ${name} owns ${data.ownedItems?.length || 0} items, supporter: ${checkHasSupporter(data.ownedItems)}`);
       }
     } catch (err) {
       if (err.name === 'AbortError') {
@@ -51,6 +53,7 @@ export const useNickname = () => {
       // Don't block purchase on ownership check failure
       setOwnedItems([]);
       setPlayerExists(null);
+      setHasSupporter(false);
     } finally {
       setIsChecking(false);
     }
@@ -71,6 +74,7 @@ export const useNickname = () => {
       setNicknameValid(false);
       setOwnedItems([]);
       setPlayerExists(null);
+      setHasSupporter(false);
       return;
     }
 
@@ -86,6 +90,7 @@ export const useNickname = () => {
     } else {
       setOwnedItems([]);
       setPlayerExists(null);
+      setHasSupporter(false);
     }
   }, [checkOwnership]);
 
@@ -108,6 +113,7 @@ export const useNickname = () => {
     isChecking,
     ownedItems,
     playerExists,
+    hasSupporter,
     handleNicknameChange,
     setNicknameError,
   };

@@ -5,9 +5,9 @@ export const PurchaseButton = ({
   selectedItem, 
   nickname,
   nicknameValid,
-  onClick 
+  onClick,
+  isSupport = false
 }) => {
-  // Determine what message/state to show
   const getNicknameWarning = () => {
     if (!nickname || nickname.trim().length === 0) {
       return "Спочатку введіть нікнейм";
@@ -19,11 +19,16 @@ export const PurchaseButton = ({
   };
 
   const nicknameWarning = getNicknameWarning();
-  const showNicknameWarning = !selectedItem && nicknameWarning;
+  const showNicknameWarning = selectedItem && nicknameWarning;
+
+  // Button colors based on type
+  const buttonColors = isSupport
+    ? "bg-pink-500 hover:bg-pink-400"
+    : "bg-[#c5629a] hover:bg-[#f390d0]";
 
   return (
     <div className="p-6 bg-[#130217]">
-      {/* Warning message if no nickname */}
+      {/* Warning message if no nickname but item selected */}
       {showNicknameWarning && (
         <div className="mb-4 bg-yellow-500/20 border border-yellow-500/50 p-3 flex items-center gap-2 justify-center">
           <i className="hn hn-alert-triangle text-yellow-400"></i>
@@ -37,7 +42,7 @@ export const PurchaseButton = ({
         className={`
           w-full py-4 text-xl font-bold minecraftFont transition-all flex items-center justify-center gap-2
           ${canPurchase
-            ? "bg-[#c5629a] hover:bg-[#f390d0] text-white hover:translate-y-[-2px]"
+            ? `${buttonColors} text-white hover:translate-y-[-2px]`
             : "bg-gray-700 text-gray-500 cursor-not-allowed"}
         `}
       >
@@ -52,6 +57,11 @@ export const PurchaseButton = ({
               <i className="hn hn-alert-triangle"></i>
               <span>{nicknameWarning}</span>
             </>
+          ) : isSupport ? (
+            <>
+              <i className="hn hn-heart-solid"></i>
+              <span>Підтримати на {selectedItem.price}₴</span>
+            </>
           ) : (
             <>
               <i className="hn hn-credit-card"></i>
@@ -61,13 +71,16 @@ export const PurchaseButton = ({
         ) : (
           <>
             <i className="hn hn-arrow-up-solid"></i>
-            <span>Виберіть товар</span>
+            <span>Виберіть товар або підтримку</span>
           </>
         )}
       </button>
 
       <p className="text-center text-gray-500 text-sm mt-4">
-        Оплата через Monobank • Товар буде додано автоматично після оплати
+        {isSupport 
+          ? "Оплата через Monobank • Роль SUPPORTER буде додано після оплати"
+          : "Оплата через Monobank • Товар буде додано автоматично після оплати"
+        }
       </p>
     </div>
   );

@@ -42,6 +42,14 @@ export const isItemOwned = (itemId, itemType, ownedItems) => {
 };
 
 /**
+ * Check if player has supporter role
+ */
+export const hasSupporter = (ownedItems) => {
+  if (!ownedItems || !Array.isArray(ownedItems)) return false;
+  return ownedItems.some(owned => owned.type === 'role' && owned.id === 'supporter');
+};
+
+/**
  * Check if bundle is fully owned
  */
 export const isBundleFullyOwned = (bundle, ownedItems) => {
