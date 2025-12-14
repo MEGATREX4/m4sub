@@ -5,9 +5,6 @@ const API_BASE_URL = "/.netlify/functions";
 const SHOP_API_URL = "/.netlify/functions/shop";
 const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 
-// If your images are hosted on the API server instead of the website, uncomment this:
-// const IMAGES_BASE_URL = "http://sunrise.bubble.wtf:40010";
-// For images in website's public folder, leave empty:
 const IMAGES_BASE_URL = "";
 
 // ==================== BORDER WRAPPER COMPONENT ====================
@@ -65,6 +62,11 @@ const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
       result = [url];
     }
     
+    // DEBUG: Log what we're trying to load
+    if (result.length > 0) {
+      console.log("ImageCarousel loading:", result[0]);
+    }
+    
     return result;
   }, [images, textureUrl]);
 
@@ -76,7 +78,7 @@ const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
       initialStates[idx] = 'loading';
     });
     setImageStates(initialStates);
-  }, [displayImages.length]); // Only reset when array length changes
+  }, [displayImages.length]);
 
   // Handle side click - previous image
   const handleLeftClick = (e) => {
@@ -94,12 +96,14 @@ const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
 
   // Handle image load
   const handleImageLoad = (idx) => {
+    console.log("✅ Image loaded:", displayImages[idx]);
     setImageStates(prev => ({ ...prev, [idx]: 'loaded' }));
   };
 
   // Handle image error
   const handleImageError = (idx) => {
-    console.warn(`Image failed to load: ${displayImages[idx]}`);
+    console.error("❌ Image failed to load:", displayImages[idx]);
+    console.error("   Full URL:", window.location.origin + displayImages[idx]);
     setImageStates(prev => ({ ...prev, [idx]: 'error' }));
   };
 
@@ -125,15 +129,17 @@ const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
         </div>
       )}
 
-      {/* Error overlay */}
+      {/* Error overlay - Shows the path that failed */}
       {currentState === 'error' && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a12] z-10">
-          <i className="hn hn-alert-circle text-3xl opacity-50"></i>
-          <span className="text-xs text-gray-500 mt-1">Помилка</span>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a12] z-10 p-2">
+          <i className="hn hn-alert-circle text-3xl text-red-500 opacity-70"></i>
+          <span className="text-xs text-red-400 mt-2 text-center break-all max-w-full">
+            404: {currentImage}
+          </span>
         </div>
       )}
 
-      {/* Main Image - always render to trigger load/error events */}
+      {/* Main Image */}
       <img
         key={currentImage}
         src={currentImage}
@@ -147,20 +153,24 @@ const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
         draggable="false"
       />
 
-      {/* Left Click Zone - Previous */}
+      {/* Left Click Zone */}
       {displayImages.length > 1 && (
         <div
           onClick={handleLeftClick}
-          className="absolute left-0 top-0 w-1/4 h-full cursor-pointer z-20 hover:bg-black/10 transition-colors"
-        />
+          className="absolute left-0 top-0 w-1/4 h-full cursor-pointer z-20 hover:bg-black/10 transition-colors flex items-center justify-start pl-2"
+        >
+          <i className="hn hn-chevron-left text-white/0 hover:text-white/50 text-2xl"></i>
+        </div>
       )}
 
-      {/* Right Click Zone - Next */}
+      {/* Right Click Zone */}
       {displayImages.length > 1 && (
         <div
           onClick={handleRightClick}
-          className="absolute right-0 top-0 w-1/4 h-full cursor-pointer z-20 hover:bg-black/10 transition-colors"
-        />
+          className="absolute right-0 top-0 w-1/4 h-full cursor-pointer z-20 hover:bg-black/10 transition-colors flex items-center justify-end pr-2"
+        >
+          <i className="hn hn-chevron-right text-white/0 hover:text-white/50 text-2xl"></i>
+        </div>
       )}
 
       {/* Image indicators */}
