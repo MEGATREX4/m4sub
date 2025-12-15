@@ -234,7 +234,7 @@ export default function NewsArticle() {
                       {...props} 
                       className="text-2xl font-bold text-[#f390d0] minecraftFont mb-4 mt-8 flex items-center gap-3"
                     >
-                      <i className="hn hn-chevron-right text-[#c5629a] text-sm"></i>
+                      <i className="hn hn-angle-right text-[#c5629a] text-sm"></i>
                       {children}
                     </h2>
                   ),

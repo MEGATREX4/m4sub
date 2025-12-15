@@ -114,7 +114,7 @@ export const ImageCarousel = ({ images, alt, className = "", textureUrl }) => {
             onClick={handleRightClick}
             className="absolute right-0 top-0 w-1/4 h-full cursor-pointer z-20 hover:bg-black/10 transition-colors flex items-center justify-end pr-2"
           >
-            <i className="hn hn-chevron-right text-white/0 hover:text-white/50 text-2xl"></i>
+            <i className="hn hn-angle-right text-white/0 hover:text-white/50 text-2xl"></i>
           </div>
         </>
       )}

@@ -34,7 +34,7 @@ export default function FeatureCard({
             {items.map((item, index) => (
               <li key={index} className="flex items-start gap-3 text-gray-300">
                 <span className="text-[#c5629a] mt-1 flex-shrink-0">
-                  <i className="hn hn-chevron-right text-xs"></i>
+                  <i className="hn hn-angle-right text-xs"></i>
                 </span>
                 <span>{typeof item === 'string' ? item : item.title}</span>
               </li>

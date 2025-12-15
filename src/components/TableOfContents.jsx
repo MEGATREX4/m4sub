@@ -41,7 +41,7 @@ export default function TableOfContents({ headings }) {
                 `}
               >
                 <span className="flex items-center gap-3 text-gray-300 hover:text-white">
-                  <i className="hn hn-chevron-right text-[#c5629a] text-xs"></i>
+                  <i className="hn hn-angle-right text-[#c5629a] text-xs"></i>
                   <span>{heading.text}</span>
                 </span>
               </a>

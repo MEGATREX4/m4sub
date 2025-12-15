@@ -186,7 +186,7 @@ export default function Team() {
                   onClick={nextSlide} 
                   className="w-10 h-10 bg-[#1a1a2e] hover:bg-[#c5629a] transition-colors flex items-center justify-center"
                 >
-                  <i className="hn hn-chevron-right text-white"></i>
+                  <i className="hn hn-angle-right text-white"></i>
                 </button>
               </div>
               

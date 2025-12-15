@@ -37,7 +37,7 @@ function NavButton({ article, direction }) {
               ) : (
                 <>
                   Наступна
-                  <i className="hn hn-chevron-right text-[8px]"></i>
+                  <i className="hn hn-angle-right text-[8px]"></i>
                 </>
               )}
             </div>

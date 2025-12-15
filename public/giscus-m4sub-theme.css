@@ -2,12 +2,12 @@
 
 /* Main theme variables matching your site */
 :root {
-  --color-canvas-default: #0e0e10 !important;
-  --color-canvas-subtle: #1a0f15 !important;
-  --color-canvas-inset: #2d1a23 !important;
-  --color-border-default: #374151 !important;
-  --color-border-muted: #4b5563 !important;
-  --color-neutral-muted: rgba(55, 65, 81, 0.4) !important;
+  --color-canvas-default: #0a0a12 !important;
+  --color-canvas-subtle: #1a1a2e !important;
+  --color-canvas-inset: #0f0f1a !important;
+  --color-border-default: rgba(197, 98, 154, 0.3) !important;
+  --color-border-muted: rgba(197, 98, 154, 0.2) !important;
+  --color-neutral-muted: rgba(197, 98, 154, 0.1) !important;
   --color-accent-fg: #f390d0 !important;
   --color-accent-emphasis: #c5629a !important;
   --color-accent-muted: rgba(197, 98, 154, 0.3) !important;
@@ -17,11 +17,11 @@
   --color-fg-subtle: #6b7280 !important;
   --color-fg-on-emphasis: #ffffff !important;
   --color-btn-text: #e5e7eb !important;
-  --color-btn-bg: #2d1a23 !important;
-  --color-btn-border: #374151 !important;
-  --color-btn-hover-bg: #374151 !important;
-  --color-btn-hover-border: #4b5563 !important;
-  --color-btn-active-bg: #4b5563 !important;
+  --color-btn-bg: #1a1a2e !important;
+  --color-btn-border: rgba(197, 98, 154, 0.3) !important;
+  --color-btn-hover-bg: #2a1a3e !important;
+  --color-btn-hover-border: #c5629a !important;
+  --color-btn-active-bg: #c5629a !important;
   --color-btn-primary-text: #ffffff !important;
   --color-btn-primary-bg: #c5629a !important;
   --color-btn-primary-border: #c5629a !important;
@@ -69,7 +69,7 @@
   font-size: 1.25rem !important;
 }
 
-/* Comment box with Minecraft styling */
+/* Comment box with site styling */
 .gsc-comment-box {
   background: var(--color-canvas-subtle) !important;
   border: 2px solid var(--color-border-default) !important;
@@ -126,7 +126,7 @@
 .gsc-comment-box-tabs button.selected::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: -2px;
   left: 0;
   right: 0;
   height: 2px;
@@ -183,15 +183,15 @@
   overflow: visible !important;
 }
 
-/* FIX: Properly handle reply containers and indentation */
+/* Reply containers */
 .gsc-replies {
-  margin-left: 2rem !important; /* Indent the replies container to the RIGHT */
+  margin-left: 2rem !important;
   margin-top: 1rem !important;
 }
 
 .gsc-reply {
-  background: var(--color-canvas-subtle) !important;
-  border: 2px solid var(--color-border-default) !important;
+  background: var(--color-canvas-inset) !important;
+  border: 2px solid var(--color-border-muted) !important;
   margin-bottom: 1rem !important;
   padding: 1rem !important;
   position: relative !important;
@@ -201,7 +201,7 @@
 /* Comment header */
 .gsc-comment-header,
 .gsc-reply-header {
-  background: var(--color-canvas-inset) !important;
+  background: rgba(197, 98, 154, 0.1) !important;
   border-bottom: 2px solid var(--color-border-default) !important;
   padding: 0.75rem 1rem !important;
   margin: -1rem -1rem 1rem -1rem !important;
@@ -215,7 +215,7 @@
 /* Avatar styling */
 .gsc-comment-author-avatar img,
 .gsc-reply-author-avatar img {
-  border: 2px solid var(--color-border-default) !important;
+  border: 2px solid var(--color-accent-muted) !important;
 }
 
 /* Author links */
@@ -231,7 +231,7 @@
 .gsc-comment-author-avatar .Link--primary:hover,
 .gsc-reply-author .Link--primary:hover,
 .gsc-username:hover {
-  color: var(--color-accent-emphasis) !important;
+  color: #ffffff !important;
 }
 
 /* Comment content */
@@ -251,10 +251,11 @@
   display: flex !important;
   gap: 0.5rem !important;
   flex-wrap: wrap !important;
-  margin: 0 -1rem -1rem -1rem !important;
+  margin: 1rem -1rem -1rem -1rem !important;
+  background: rgba(197, 98, 154, 0.05) !important;
 }
 
-/* Reaction buttons with Minecraft styling */
+/* Reaction buttons */
 .gsc-reactions-button {
   background: var(--color-canvas-inset) !important;
   border: 2px solid var(--color-border-default) !important;
@@ -297,27 +298,14 @@
   border-color: var(--color-accent-emphasis) !important;
 }
 
-/* FIX: REMOVE ALL TIMELINE LINES */
+/* Remove timeline lines */
 .gsc-timeline {
   position: relative !important;
 }
 
-/* Remove the timeline vertical line */
-.gsc-timeline::before {
-  display: none !important;
-}
-
-/* Remove any timeline line elements */
-.gsc-tl-line {
-  display: none !important;
-}
-
-/* Remove timeline bubble/circle indicators */
-.gsc-tl-bubble {
-  display: none !important;
-}
-
-/* Ensure no vertical lines between comments */
+.gsc-timeline::before,
+.gsc-tl-line,
+.gsc-tl-bubble,
 .gsc-comment-box-preview::before,
 .gsc-comment::before:not(.gsc-comment::before),
 .gsc-homepage-bg::before {
@@ -335,7 +323,7 @@
 }
 
 .gsc-pagination button {
-  background: var(--color-canvas-inset) !important;
+  background: var(--color-canvas-subtle) !important;
   border: 2px solid var(--color-border-default) !important;
   color: var(--color-fg-default) !important;
   padding: 0.5rem 1rem !important;
@@ -344,7 +332,7 @@
 }
 
 .gsc-pagination button:hover:not(:disabled) {
-  background: var(--color-accent-subtle) !important;
+  background: var(--color-btn-hover-bg) !important;
   border-color: var(--color-accent-fg) !important;
   transform: translateY(-1px) !important;
 }
@@ -358,25 +346,25 @@
 .gsc-comment-content a,
 .gsc-reply-content a,
 .markdown a {
-  color: #c5629a !important;
-  text-decoration: underline !important;
+  color: #f390d0 !important;
+  text-decoration: none !important;
   transition: color 0.2s ease-in-out !important;
 }
 
 .gsc-comment-content a:hover,
 .gsc-reply-content a:hover,
 .markdown a:hover {
-  color: #f390d0 !important;
+  color: #c5629a !important;
 }
 
-/* Code blocks matching your site */
+/* Code blocks */
 .gsc-comment-content code,
 .gsc-reply-content code,
 .markdown code:not(pre code) {
-  background: var(--color-canvas-inset) !important;
+  background: rgba(197, 98, 154, 0.15) !important;
   color: var(--color-accent-fg) !important;
   padding: 0.125rem 0.375rem !important;
-  border: 2px solid var(--color-border-default) !important;
+  border: none !important;
   font-family: 'Courier New', monospace !important;
   font-size: 0.875rem !important;
 }
@@ -400,16 +388,16 @@
   color: #e5e7eb !important;
 }
 
-/* Blockquotes matching your site */
+/* Blockquotes */
 .gsc-comment-content blockquote,
 .gsc-reply-content blockquote,
 .markdown blockquote {
   border-left: 4px solid #c5629a !important;
-  padding-left: 1rem !important;
+  padding: 0.75rem 1rem !important;
   margin: 1rem 0 !important;
-  color: #ddd !important;
+  color: #d1d5db !important;
   font-style: italic !important;
-  background: rgba(197, 98, 154, 0.05) !important;
+  background: rgba(197, 98, 154, 0.1) !important;
 }
 
 /* User mention */
@@ -417,7 +405,7 @@
 .gsc-reply-content .user-mention {
   color: var(--color-accent-fg) !important;
   background: var(--color-accent-subtle) !important;
-  padding: 0.125rem 0.25rem !important;
+  padding: 0.125rem 0.375rem !important;
   font-weight: 600 !important;
   text-decoration: none !important;
 }
@@ -446,8 +434,15 @@
 
 /* Popover (emoji picker etc) */
 .Popover-message {
-  background: var(--color-canvas-inset) !important;
+  background: var(--color-canvas-subtle) !important;
   border: 2px solid var(--color-border-default) !important;
+}
+
+/* Empty state */
+.gsc-empty-state {
+  color: var(--color-fg-muted) !important;
+  padding: 2rem !important;
+  text-align: center !important;
 }
 
 /* Mobile responsiveness */
@@ -467,156 +462,11 @@
   }
   
   .gsc-replies {
-    margin-left: 1rem !important; /* Less indentation on mobile */
-  }
-}
-
-/* src/components/Comments.css - Keep this section as-is */
-
-.comments-section {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  position: relative;
-  min-height: 200px;
-}
-
-.comments-header {
-  margin-bottom: 2rem;
-}
-
-.comments-title {
-  font-size: 1.75rem;
-  font-family: 'Minecraft', sans-serif;
-  font-weight: normal;
-  color: #f390d0;
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.comment-count-badge {
-  background: rgba(197, 98, 154, 0.2);
-  color: #f390d0;
-  font-size: 0.875rem;
-  padding: 0.25rem 0.5rem;
-  margin-left: 0.75rem;
-}
-
-.comments-divider {
-  height: 2px;
-  background: linear-gradient(90deg, #c5629a 0%, transparent 100%);
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
-
-.comments-loading {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  background: rgba(31, 20, 25, 0.5);
-}
-
-.comments-loading-placeholder {
-  width: 100%;
-  max-width: 600px;
-  padding: 0 1rem;
-}
-
-.load-comments-btn {
-  background: #c5629a;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-family: 'Minecraft', sans-serif;
-  font-weight: normal;
-  transition: all 0.2s;
-  margin-top: 2rem;
-}
-
-.load-comments-btn:hover {
-  background: #f390d0;
-  transform: translateY(-2px);
-}
-
-.giscus-wrapper {
-  animation: fadeIn 0.5s ease-in;
-  min-height: 350px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.giscus-frame {
-  border: none !important;
-  width: 100% !important;
-  min-height: 350px;
-  color-scheme: dark;
-}
-
-.comment-login-prompt {
-  margin-top: 1.5rem;
-  padding: 1rem;
-}
-
-.comment-login-prompt p {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  color: #9ca3af;
-  font-size: 0.875rem;
-}
-
-/* Loading animation skeleton */
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: .5;
-  }
-}
-
-.space-y-4 > * + * {
-  margin-top: 1rem;
-}
-
-.animate-pulse div {
-  background: #374151;
-  opacity: 0.5;
-  border-radius: 0rem !important;
-}
-
-/* Mobile responsiveness for comments section */
-@media (max-width: 640px) {
-  .comments-title {
-    font-size: 1.5rem;
+    margin-left: 1rem !important;
   }
   
-  .load-comments-btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .comment-count-badge {
-    font-size: 0.75rem;
+  .gsc-reactions {
+    padding: 0.5rem !important;
   }
 }
 
