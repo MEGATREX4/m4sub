@@ -1,4 +1,4 @@
-/* public/giscus-m4sub-theme.css */
+/* public/giscus-m4sub-theme1.css */
 
 /* Main theme variables matching your site */
 :root {
@@ -12,6 +12,8 @@
   --color-accent-emphasis: #c5629a !important;
   --color-accent-muted: rgba(197, 98, 154, 0.3) !important;
   --color-accent-subtle: rgba(197, 98, 154, 0.1) !important;
+  --color-bg-default: #0a0a1200 !important;
+  --color-bg-primary: #c5629a00 !important;
   --color-fg-default: #e5e7eb !important;
   --color-fg-muted: #9ca3af !important;
   --color-fg-subtle: #6b7280 !important;
@@ -37,7 +39,7 @@
 }
 
 #__next .border {
-  border-width: 2px !important;
+  border-width: 0px !important;
 }
 
 /* Apply fonts globally */
