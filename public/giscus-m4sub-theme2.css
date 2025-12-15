@@ -1,4 +1,4 @@
-/* public/giscus-m4sub-theme1.css */
+/* public/giscus-m4sub-theme2.css */
 
 /* Main theme variables matching your site */
 :root {
@@ -475,4 +475,8 @@
 /* Override Giscus iframe internal styles */
 iframe.giscus-frame {
   background: transparent !important;
+}
+
+.color-bg-default, .color-bg-primary{
+  background-color: transparent !important;
 }
