@@ -161,7 +161,7 @@ export default function Team() {
                   onClick={prevSlide} 
                   className="w-10 h-10 bg-[#1a1a2e] hover:bg-[#c5629a] transition-colors flex items-center justify-center"
                 >
-                  <i className="hn hn-chevron-left text-white"></i>
+                  <i className="hn hn-angle-left text-white"></i>
                 </button>
                 
                 {teamData.map((_, idx) => (

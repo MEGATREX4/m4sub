@@ -31,7 +31,7 @@ function NavButton({ article, direction }) {
             <div className={`text-xs text-gray-500 uppercase tracking-wider mb-1 flex items-center gap-2 ${!isPrev ? 'justify-end' : ''}`}>
               {isPrev ? (
                 <>
-                  <i className="hn hn-chevron-left text-[8px]"></i>
+                  <i className="hn hn-angle-left text-[8px]"></i>
                   Попередня
                 </>
               ) : (
