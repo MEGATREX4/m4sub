@@ -12,23 +12,8 @@ export default function Hero({ title, subtitle, icon }) {
         }}
       />
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-transparent"></div>
-      
-      {/* Border bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] flex">
-        <div className="flex-1 bg-[#2a0a1a]"></div>
-        <div className="flex-1 bg-[#4a1a3a]"></div>
-        <div className="flex-1 bg-[#6a2a5a]"></div>
-        <div className="flex-1 bg-[#8a3a7a]"></div>
-        <div className="flex-1 bg-[#a54a8a]"></div>
-        <div className="flex-1 bg-[#c5629a]"></div>
-        <div className="flex-1 bg-[#a54a8a]"></div>
-        <div className="flex-1 bg-[#8a3a7a]"></div>
-        <div className="flex-1 bg-[#6a2a5a]"></div>
-        <div className="flex-1 bg-[#4a1a3a]"></div>
-        <div className="flex-1 bg-[#2a0a1a]"></div>
-      </div>
+      {/* Dark fade from bottom */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-[#0a0a12]/40 to-transparent"></div>
 
       {/* Текст поверх зображення */}
       <div className="relative text-center px-4 z-10">

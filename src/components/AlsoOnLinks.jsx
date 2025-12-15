@@ -1,14 +1,15 @@
 import React from 'react';
+import { BorderBox } from './donate/components/BorderBox';
 
-// A helper to get an appropriate icon based on the platform name
 const getPlatformIcon = (platformName) => {
   const name = platformName.toLowerCase();
-  if (name.includes('medium')) return 'hn hn-arrow-alt-circle-up';
-  if (name.includes('dev.to')) return 'hn hn-arrow-alt-circle-up';
-  // Add more platform checks as needed
-  // ...
-  // Default icon if no match is found
-  return 'hn hn-arrow-alt-circle-up'; 
+  if (name.includes('medium')) return 'hn hn-medium';
+  if (name.includes('dev.to') || name.includes('dev')) return 'hn hn-dev';
+  if (name.includes('twitter') || name.includes('x')) return 'hn hn-x';
+  if (name.includes('telegram')) return 'hn hn-telegram';
+  if (name.includes('youtube')) return 'hn hn-youtube';
+  if (name.includes('github')) return 'hn hn-github';
+  return 'hn hn-link'; 
 };
 
 export default function AlsoOnLinks({ links }) {
@@ -18,34 +19,35 @@ export default function AlsoOnLinks({ links }) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-pink-400 mb-4">Також читайте на</h2>
+      <h2 className="text-lg font-bold text-[#c5629a] minecraftFont mb-4 flex items-center gap-2">
+        <i className="hn hn-external-link"></i>
+        Також читайте на
+      </h2>
       
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         {links.map((link, index) => (
-          // --- THIS IS THE CORRECTED PART ---
-          // 1. Outer div: The "border" container.
-          <div 
-            key={index} 
-            className="bg-gray-700/50 p-[1px] cornerCutSmall transition-all duration-200 hover:bg-pink-500/70"
+          <a
+            key={index}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block"
           >
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              // 2. Inner div: The main background and content area.
-              className="group flex items-center gap-4 p-3 bg-gray-800/60 cornerCutSmall no-underline"
+            <BorderBox 
+              borderColor="bg-gray-700/30 group-hover:bg-[#c5629a]/50" 
+              innerBg="bg-[#1a1a2e] group-hover:bg-[#2a1a3e]"
             >
-              {/* The Icon in its "slot" */}
-              <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-white-400 cornerCutSmall">
-                <i className={`${getPlatformIcon(link.name)} text-xl`}></i>
+              <div className="p-3 flex items-center gap-3">
+                <div className="w-8 h-8 flex items-center justify-center bg-[#c5629a]/20 group-hover:bg-[#c5629a] transition-colors">
+                  <i className={`${getPlatformIcon(link.name)} text-[#c5629a] group-hover:text-white transition-colors`}></i>
+                </div>
+                <span className="text-gray-300 group-hover:text-white transition-colors flex-1">
+                  {link.name}
+                </span>
+                <i className="hn hn-arrow-alt-circle-up text-gray-500 group-hover:text-[#c5629a] transition-colors"></i>
               </div>
-              
-              {/* The Text */}
-              <span className="text-gray-300 group-hover:text-white transition-colors">
-                {link.name}
-              </span>
-            </a>
-          </div>
+            </BorderBox>
+          </a>
         ))}
       </div>
     </div>

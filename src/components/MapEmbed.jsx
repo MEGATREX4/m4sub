@@ -62,7 +62,7 @@ export default function MapEmbed({ src, fullscreenUrl }) {
       {mapStatus === 'loading' && (
         <div className="absolute inset-0 flex items-center justify-center bg-[#1a1a2e] z-20">
           <div className="text-center">
-            <div className="animate-spin w-12 h-12 border-4 border-[#c5629a] border-t-transparent rounded-full mx-auto mb-4"></div>
+            <div className="animate-spin w-12 h-12 border-4 border-[#c5629a] border-t-transparent mx-auto mb-4"></div>
             <p className="minecraftFont text-white text-lg">Завантаження карти...</p>
             {needsProxy && (
               <p className="text-gray-500 text-sm mt-2">Через HTTPS проксі...</p>
@@ -137,7 +137,7 @@ export default function MapEmbed({ src, fullscreenUrl }) {
       {mapStatus === 'loaded' && (
         <div className="absolute top-4 left-4 z-10 flex gap-2">
           {needsProxy && (
-            <span className="bg-blue-600/80 text-white text-xs px-2 py-1 rounded">
+            <span className="bg-blue-600/80 text-white text-xs px-2 py-1">
               🔒 HTTPS Проксі
             </span>
           )}

@@ -24,8 +24,6 @@ export default function FeatureCard({
         {title}
       </h2>
       
-      <div className="h-[2px] bg-gradient-to-r from-[#c5629a] to-transparent mb-4"></div>
-      
       {description && (
         <p className="text-gray-300 leading-relaxed mb-4">{description}</p>
       )}

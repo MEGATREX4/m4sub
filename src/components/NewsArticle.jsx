@@ -10,11 +10,11 @@ import { remark } from 'remark';
 
 import ReadingTime from './ReadingTime';
 import ArticleNavigation from './ArticleNavigation';
-
 import { parseFrontmatter, getAllNews } from '../utils/frontmatter';
 import { newsManifest } from '../utils/newsManifest';
 import Page from './Page';
 import ArticleMeta from './ArticleMeta';
+import { BorderBox } from './donate/components/BorderBox';
 
 // Custom components
 import ImageGallery from './ImageGallery';
@@ -26,6 +26,8 @@ import MinecraftModelViewer from './MinecraftModelViewer';
 import CapeWingsViewer from './CapeWingsViewer';
 import Comments from './Comments';
 import { CustomList, CustomListItem } from './CustomList';
+
+const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
 
 export default function NewsArticle() {
   const { slug } = useParams();
@@ -85,7 +87,10 @@ export default function NewsArticle() {
             .processSync(data.content);
           setHeadings(extractedHeadings);
         }
-      } catch (error) { console.error('Error fetching article:', error); navigate('/*', { replace: true }); }
+      } catch (error) { 
+        console.error('Error fetching article:', error); 
+        navigate('/*', { replace: true }); 
+      }
       finally { setLoading(false); }
     };
     fetchArticle();
@@ -100,7 +105,25 @@ export default function NewsArticle() {
       .replace(MINECRAFT_MODEL_REGEX, (match, p1) => `<div class="minecraftmodel-block">${match}</div>`);
   }, [article.content]);
 
-  if (loading) return <Page title="Завантаження..."><div className="flex justify-center items-center min-h-[50vh]"><div className="text-gray-400">Завантаження статті...</div></div></Page>;
+  if (loading) {
+    return (
+      <Page title="Завантаження...">
+        <div className="max-w-4xl mx-auto py-8 px-4">
+          <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
+            <div className="p-8 flex flex-col items-center justify-center min-h-[50vh] gap-4">
+              <div className="animate-pulse flex flex-col items-center gap-4 w-full max-w-md">
+                <div className="h-8 bg-gray-700/50 w-3/4"></div>
+                <div className="h-4 bg-gray-700/50 w-1/2"></div>
+                <div className="h-48 bg-gray-700/50 w-full mt-4"></div>
+              </div>
+              <p className="text-gray-400 mt-4">Завантаження статті...</p>
+            </div>
+          </BorderBox>
+        </div>
+      </Page>
+    );
+  }
+  
   if (!article.frontmatter || !article.content) return <Navigate to="/*" replace />;
 
   return (
@@ -112,132 +135,268 @@ export default function NewsArticle() {
       author={article.frontmatter.author}
       keywords={`M4SUB, Minecraft, ${article.frontmatter.title}`}
     >
-      <article className="prose prose-invert max-w-3xl mx-auto py-8 px-4 overflow-x-hidden">
-        <header className="mb-8">
+      <div className="max-w-4xl mx-auto py-8 px-4">
+        {/* Article Header */}
+        <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
+          <article className="overflow-hidden">
+            {/* Preview Image */}
             {article.frontmatter.preview && (
-            <img src={article.frontmatter.preview} alt={article.frontmatter.title} className="w-full h-72 object-cover mb-4 cornerCut"/>
-          )}
-          <h1 className="text-3xl font-bold mb-2">{article.frontmatter.title}</h1>
-          <ArticleMeta 
-            authors={article.frontmatter.authors} 
-            author={article.frontmatter.author} 
-            authorImg={article.frontmatter["author-img"]} 
-            editors={article.frontmatter.editors}
-            date={article.frontmatter.date} 
-            tags={article.frontmatter.tags}
-            formatDateStyle="long"
-            variant="full"
-          />
-        </header>
+              <div className="relative h-64 sm:h-80 overflow-hidden">
+                <img 
+                  src={article.frontmatter.preview} 
+                  alt={article.frontmatter.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0"></div>
+              </div>
+            )}
+            
+            {/* Article Header Content */}
+            <header className="p-6 sm:p-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white minecraftFont mb-4 leading-tight">
+                {article.frontmatter.title}
+              </h1>
+              
+              <ArticleMeta 
+                authors={article.frontmatter.authors} 
+                author={article.frontmatter.author} 
+                authorImg={article.frontmatter["author-img"]} 
+                editors={article.frontmatter.editors}
+                date={article.frontmatter.date} 
+                tags={article.frontmatter.tags}
+                formatDateStyle="long"
+                variant="full"
+              />
+              
+              <div className="mt-4">
+                <ReadingTime totalSeconds={readingTimeInSeconds} />
+              </div>
+            </header>
+          </article>
+        </BorderBox>
 
-        <ReadingTime totalSeconds={readingTimeInSeconds} />
-        {article.frontmatter.generateTOC && headings.length > 0 && <TableOfContents headings={headings} />}
+        {/* Table of Contents */}
+        {article.frontmatter.generateTOC && headings.length > 0 && (
+          <div className="mt-6">
+            <TableOfContents headings={headings} />
+          </div>
+        )}
 
-        <div className="max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              a: ({ node, href, children, ...props }) => {
-                const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
-                if (isExternal) {
-                  return (
-                    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" {...props}>
+        {/* Article Content */}
+        <div className="mt-6">
+          <BorderBox borderColor="bg-gray-700/50" innerBg="bg-[#0a0a12]/80">
+            <div className="p-6 sm:p-8 prose prose-invert max-w-none">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  a: ({ node, href, children, ...props }) => {
+                    const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+                    if (isExternal) {
+                      return (
+                        <a 
+                          href={href} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="inline-flex items-center gap-1 text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" 
+                          {...props}
+                        >
+                          {children}
+                          <i className="hn hn-arrow-alt-circle-up text-sm align-middle"></i>
+                        </a>
+                      );
+                    }
+                    return (
+                      <Link 
+                        to={href || '#'} 
+                        className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" 
+                        {...props}
+                      >
+                        {children}
+                      </Link>
+                    );
+                  },
+                  ul: CustomList,
+                  ol: CustomList,
+                  li: CustomListItem,
+                  h1: ({ node, children, ...props }) => (
+                    <h1 
+                      id={slugify(toString(node), { lower: true, strict: true })} 
+                      {...props} 
+                      className="text-3xl font-bold text-white minecraftFont mb-4 mt-8 first:mt-0"
+                    >
                       {children}
-                      <i className="hn hn-arrow-alt-circle-up text-sm align-middle"></i>
-                    </a>
-                  );
-                }
-                return <Link to={href || '#'} className="text-[#f390d0] no-underline hover:text-[#c5629a] transition-colors" {...props}>{children}</Link>;
-              },
-              ul: CustomList,
-              ol: CustomList,
-              li: CustomListItem,
-              h1: ({ node, children, ...props }) => <h1 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-4xl font-bold mb-4">{children}</h1>,
-              h2: ({ node, children, ...props }) => <h2 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-2xl font-bold mb-4">{children}</h2>,
-              h3: ({ node, children, ...props }) => <h3 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-xl font-bold mb-4">{children}</h3>,
-              h4: ({ node, children, ...props }) => <h4 id={slugify(toString(node), { lower: true, strict: true })} {...props} className="text-lg font-bold mb-4">{children}</h4>,
-              hr: ({ node, ...props }) => <hr className="my-8 border-gray-700" {...props} />,
-              playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
-              
-              // =========================================================
-              // THE CORRECT, SIMPLIFIED `p` MAPPING
-              // =========================================================
-              p: ({ node, children }) => {
-                // Check if ANY child is a custom component
-                const hasCustomComponent = node.children.some(child => 
-                  child.tagName === 'minecraftmodel' ||
-                  child.tagName === 'capewings' ||
-                  child.tagName === 'gallery' ||
-                  (child.tagName === 'img' && child.properties?.src?.includes('youtube'))
-                );
-                
-                if (hasCustomComponent) {
-                  // Don't wrap in paragraph if there are custom components
-                  return <>{children}</>;
-                }
-                
-                // Check if children is just whitespace
-                const textContent = React.Children.toArray(children).join('').trim();
-                if (!textContent) {
-                  return null; // Don't render empty paragraphs
-                }
-                
-                return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
-              },
-              // =========================================================
-              
-              img: ({ node, src, alt, ...props }) => {
-                const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
-                if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
-                return <img src={src} alt={alt || ''} {...props} className="cornerCut shadow-lg my-6 mx-auto max-w-full h-auto" loading="lazy" />;
-              },
-              table: ({ node, ...props }) => <div className="overflow-x-auto my-6"><table {...props} className="w-full" /></div>,
-              pre: ({ node, ...props }) => <pre {...props} className="bg-gray-800/50 border border-gray-700 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words"/>,
-              
-              // These mappings are correct and do not need to change.
-              capewings: ({ node, ...props }) => {
-                const key = `capewings-${props.capebackimage}-${props.capefrontimage}-${props.wingsimage}`;
-                return (
-                  <CapeWingsViewer
-                    key={key}
-                    capefrontimage={props.capefrontimage}
-                    capebackimage={props.capebackimage}
-                    wingsimage={props.wingsimage}
-                  />
-                );
-              },
-              
-              minecraftmodel: ({ node, ...props }) => {
-                return (
-                  <MinecraftModelViewer 
-                    key={`model-${props.image}`}
-                    image={props.image}
-                  />
-                );
-              },
+                    </h1>
+                  ),
+                  h2: ({ node, children, ...props }) => (
+                    <h2 
+                      id={slugify(toString(node), { lower: true, strict: true })} 
+                      {...props} 
+                      className="text-2xl font-bold text-[#f390d0] minecraftFont mb-4 mt-8 flex items-center gap-3"
+                    >
+                      <i className="hn hn-chevron-right text-[#c5629a] text-sm"></i>
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({ node, children, ...props }) => (
+                    <h3 
+                      id={slugify(toString(node), { lower: true, strict: true })} 
+                      {...props} 
+                      className="text-xl font-bold text-[#c5629a] mb-3 mt-6"
+                    >
+                      {children}
+                    </h3>
+                  ),
+                  h4: ({ node, children, ...props }) => (
+                    <h4 
+                      id={slugify(toString(node), { lower: true, strict: true })} 
+                      {...props} 
+                      className="text-lg font-bold text-gray-300 mb-2 mt-4"
+                    >
+                      {children}
+                    </h4>
+                  ),
+                  hr: ({ node, ...props }) => (
+                                  <div className="my-5 flex items-center gap-2">
+            <div className="flex-1 flex h-[3px]">
+              <div className="flex-1 bg-[#2a0a1a]"></div>
+              <div className="flex-1 bg-[#4a1a3a]"></div>
+              <div className="flex-1 bg-[#6a2a5a]"></div>
+              <div className="flex-1 bg-[#8a3a7a]"></div>
+              <div className="flex-1 bg-[#a54a8a]"></div>
+              <div className="flex-1 bg-[#c5629a]"></div>
+            </div>
+            <img 
+              src={mcTexture("nether_star")} 
+              alt="Nether Star" 
+              className="w-4 h-4"
+              style={{ imageRendering: 'pixelated' }}
+            />
+            <div className="flex-1 flex h-[3px]">
+              <div className="flex-1 bg-[#c5629a]"></div>
+              <div className="flex-1 bg-[#a54a8a]"></div>
+              <div className="flex-1 bg-[#8a3a7a]"></div>
+              <div className="flex-1 bg-[#6a2a5a]"></div>
+              <div className="flex-1 bg-[#4a1a3a]"></div>
+              <div className="flex-1 bg-[#2a0a1a]"></div>
+            </div>
+          </div>
+                  ),
+                  playeravatar: ({ node, ...props }) => <PlayerAvatar username={props.username} />,
+                  
+                  p: ({ node, children }) => {
+                    const hasCustomComponent = node.children.some(child => 
+                      child.tagName === 'minecraftmodel' ||
+                      child.tagName === 'capewings' ||
+                      child.tagName === 'gallery' ||
+                      (child.tagName === 'img' && child.properties?.src?.includes('youtube'))
+                    );
+                    
+                    if (hasCustomComponent) {
+                      return <>{children}</>;
+                    }
+                    
+                    const textContent = React.Children.toArray(children).join('').trim();
+                    if (!textContent) {
+                      return null;
+                    }
+                    
+                    return <p className="text-gray-300 leading-relaxed my-4">{children}</p>;
+                  },
+                  
+                  img: ({ node, src, alt, ...props }) => {
+                    const isYouTube = src && (src.includes('youtube.com') || src.includes('youtu.be'));
+                    if (isYouTube) return <YouTubePlayer url={src} title={alt} />;
+                    return (
+                      <figure className="my-6">
+                        <img 
+                          src={src} 
+                          alt={alt || ''} 
+                          {...props} 
+                          className="w-full h-auto shadow-lg" 
+                          loading="lazy" 
+                        />
+                      </figure>
+                    );
+                  },
+                  
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-6">
+                      <BorderBox borderColor="bg-gray-700/30" innerBg="bg-[#1a1a2e]/50">
+                        <table {...props} className="w-full text-left" />
+                      </BorderBox>
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead {...props} className="bg-[#c5629a]/20 text-[#f390d0]" />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th {...props} className="px-4 py-3 font-bold minecraftFont text-sm border-b border-gray-700/50" />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td {...props} className="px-4 py-3 text-gray-300 border-b border-gray-700/30" />
+                  ),
+                  
+                  pre: ({ node, ...props }) => (
+                    <pre {...props} className="bg-[#1a1a2e] border border-gray-700/50 p-4 my-6 text-gray-300 overflow-x-auto whitespace-pre-wrap break-words text-sm"/>
+                  ),
+                  
+                  capewings: ({ node, ...props }) => {
+                    const key = `capewings-${props.capebackimage}-${props.capefrontimage}-${props.wingsimage}`;
+                    return (
+                      <CapeWingsViewer
+                        key={key}
+                        capefrontimage={props.capefrontimage}
+                        capebackimage={props.capebackimage}
+                        wingsimage={props.wingsimage}
+                      />
+                    );
+                  },
+                  
+                  minecraftmodel: ({ node, ...props }) => {
+                    return (
+                      <MinecraftModelViewer 
+                        key={`model-${props.image}`}
+                        image={props.image}
+                      />
+                    );
+                  },
 
-              code: ({ node, inline, ...props }) => inline
-                ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 cornerCut text-[#f390d0]" />
-                : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /> </pre>,
-              gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
-              blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-pink-500 pl-4 italic my-6 text-gray-300" />,
-            }}
-          >     
-            {processedContent}
-          </ReactMarkdown>
+                  code: ({ node, inline, ...props }) => inline
+                    ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 text-[#f390d0] text-sm" />
+                    : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /></pre>,
+                  
+                  gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
+                  
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote 
+                      {...props} 
+                      className="border-l-4 border-[#c5629a] bg-[#c5629a]/10 pl-4 pr-4 py-3 italic my-6 text-gray-300" 
+                    />
+                  ),
+                }}
+              >     
+                {processedContent}
+              </ReactMarkdown>
+            </div>
+          </BorderBox>
         </div>
 
+        {/* Article Meta Section */}
         <ArticleMetaSection
           alsoOn={article.frontmatter['also-on']}
           shareInfo={{ title: article.frontmatter.title, url: articleUrl }}
         />
+        
+        {/* Navigation */}
         <ArticleNavigation 
           prevArticle={navigation.prev} 
           nextArticle={navigation.next} 
         />
+        
+        {/* Comments */}
         <Comments title={article.frontmatter.title} />
-      </article>
+      </div>
     </Page>
   );
 }

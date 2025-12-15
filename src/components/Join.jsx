@@ -52,12 +52,11 @@ export default function Join() {
               Вступай зараз!
             </h2>
             
-            <div className="h-[2px] bg-gradient-to-r from-[#c5629a] to-transparent mb-6"></div>
             
             {/* Features */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
               <div className="bg-[#1a1a2e] px-3 py-1.5 flex items-center gap-2 text-sm text-gray-300">
-                <i className="hn hn-cube-solid text-[#c5629a]"></i>
+                <i className="hn hn-folder text-[#c5629a]"></i>
                 <span>Без модів</span>
               </div>
               <div className="bg-[#1a1a2e] px-3 py-1.5 flex items-center gap-2 text-sm text-gray-300">

@@ -1,10 +1,10 @@
-// src/components/Comments.jsx
 import React, { useEffect, useRef, useState } from 'react';
+import { BorderBox } from './donate/components/BorderBox';
 import './Comments.css';
 
 export default function Comments({ title, slug }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [commentCount, setCommentCount] = useState(0);
   const observerTarget = useRef(null);
   const iframeRef = useRef(null);
 
@@ -19,13 +19,14 @@ export default function Comments({ title, slug }) {
       { threshold: 0, rootMargin: '200px' }
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
     };
   }, [isLoaded]);
@@ -41,12 +42,11 @@ export default function Comments({ title, slug }) {
     script.setAttribute('data-category', 'General');
     script.setAttribute('data-category-id', 'DIC_kwDONmjQhs4CxgZy');
     script.setAttribute('data-mapping', 'url');
-    script.setAttribute('data-strict', '1'); // Enable strict matching for better accuracy
+    script.setAttribute('data-strict', '1');
     script.setAttribute('data-reactions-enabled', '1');
-    script.setAttribute('data-emit-metadata', '1'); // Enable metadata events
+    script.setAttribute('data-emit-metadata', '1');
     script.setAttribute('data-input-position', 'top');
     
-    // Use custom theme 
     const themeUrl = `https://cdn.jsdelivr.net/gh/MEGATREX4/m4sub@main/public/giscus-m4sub-theme4.css`;
     script.setAttribute('data-theme', themeUrl);
     
@@ -62,9 +62,9 @@ export default function Comments({ title, slug }) {
     }
 
     return () => {
-      const comments = document.getElementById('giscus-comments');
-      if (comments) {
-        comments.innerHTML = '';
+      const commentsEl = document.getElementById('giscus-comments');
+      if (commentsEl) {
+        commentsEl.innerHTML = '';
       }
     };
   }, [isLoaded, slug]);
@@ -77,23 +77,9 @@ export default function Comments({ title, slug }) {
 
       const giscusData = event.data.giscus;
 
-      // Handle discussion metadata
       if ('discussion' in giscusData) {
-        console.log('Discussion loaded:', giscusData.discussion);
-        // You can update your UI based on comment count, reactions, etc.
-        const commentCount = giscusData.discussion.totalCommentCount;
-        const reactionCount = giscusData.discussion.totalReactionCount;
-        
-        // Update comment count badge if you have one
-        const badge = document.querySelector('.comment-count-badge');
-        if (badge) {
-          badge.textContent = commentCount;
-        }
-      }
-
-      // Handle errors
-      if ('error' in giscusData) {
-        console.error('Giscus error:', giscusData.error);
+        const count = giscusData.discussion.totalCommentCount;
+        setCommentCount(count);
       }
     };
 
@@ -101,84 +87,59 @@ export default function Comments({ title, slug }) {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // Function to send messages to Giscus
-  const sendMessageToGiscus = (message) => {
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) return;
-    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-  };
-
-  // Theme toggle function
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    
-    // Update Giscus theme dynamically
-    sendMessageToGiscus({
-      setConfig: {
-        theme: newTheme === 'dark' 
-          ? `${window.location.origin}/giscus-m4sub-theme.css`
-          : 'light'
-      }
-    });
-  };
-
   return (
-    <div className="comments-section" ref={observerTarget}>
-      <div className="comments-header">
-        <div className="flex items-center justify-between">
-          <h2 className="comments-title">
-            <i className="hn hn-comments-solid mr-3"></i>
-            Коментарі
-            <span className="comment-count-badge ml-3 text-sm bg-pink-500/20 px-2 py-1"></span>
-          </h2>
-          
-          {/* Optional: Theme toggle button */}
-          {false && ( // Set to true if you want theme toggle
-            <button 
-              onClick={toggleTheme}
-              className="theme-toggle-btn"
-              aria-label="Toggle theme"
-            >
-              <i className={`hn hn-${theme === 'dark' ? 'sun' : 'moon'}-solid`}></i>
-            </button>
-          )}
-        </div>
-        <div className="comments-divider"></div>
-      </div>
+    <section className="mt-8" ref={observerTarget}>
+      <BorderBox borderColor="bg-[#c5629a]/30" innerBg="bg-[#0a0a12]">
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-6">
+            <i className="hn hn-comments-solid text-[#c5629a] text-xl"></i>
+            <h2 className="text-xl font-bold text-[#c5629a] minecraftFont">
+              Коментарі
+            </h2>
+            {commentCount > 0 && (
+              <span className="bg-[#c5629a]/20 text-[#f390d0] text-xs px-2 py-0.5">
+                {commentCount}
+              </span>
+            )}
+            <div className="flex-1 h-[2px] bg-gradient-to-r from-[#c5629a]/50 to-transparent"></div>
+          </div>
 
-      {!isLoaded ? (
-        <div className="comments-loading">
-          <div className="comments-loading-placeholder">
-            <div className="animate-pulse space-y-4">
-              <div className="h-4 bg-gray-700/50 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-700/50 rounded w-1/2"></div>
-              <div className="h-20 bg-gray-700/50 rounded w-full"></div>
+          {/* Content */}
+          {!isLoaded ? (
+            <div className="flex flex-col items-center justify-center py-12 gap-6">
+              {/* Loading skeleton */}
+              <div className="space-y-4 w-full max-w-md">
+                <div className="h-4 bg-gray-700/50 w-3/4 mx-auto animate-pulse"></div>
+                <div className="h-4 bg-gray-700/50 w-1/2 mx-auto animate-pulse"></div>
+                <div className="h-20 bg-gray-700/50 w-full mt-4 animate-pulse"></div>
+              </div>
+              
+              <button 
+                onClick={() => setIsLoaded(true)}
+                className="px-6 py-3 bg-[#c5629a] hover:bg-[#f390d0] text-white font-bold minecraftFont transition-colors flex items-center gap-2"
+              >
+                <i className="hn hn-comments"></i>
+                Завантажити коментарі
+              </button>
             </div>
-            <button 
-              onClick={() => setIsLoaded(true)}
-              className="load-comments-btn"
-            >
-              <i className="hn hn-comments mr-2"></i>
-              Завантажити коментарі
-            </button>
+          ) : (
+            <div 
+              id="giscus-comments" 
+              className="giscus-wrapper"
+              ref={iframeRef}
+            ></div>
+          )}
+
+          {/* Login Prompt */}
+          <div className="mt-6 pt-4 border-t border-gray-700/30">
+            <p className="text-sm text-gray-500 flex items-center gap-2">
+              <i className="hn hn-github"></i>
+              Щоб залишити коментар, увійдіть через GitHub
+            </p>
           </div>
         </div>
-      ) : (
-        <div 
-          id="giscus-comments" 
-          className="giscus-wrapper"
-          ref={iframeRef}
-        ></div>
-      )}
-
-      {/* Optional: Login prompt for non-authenticated users */}
-      <div className="comment-login-prompt">
-        <p className="text-sm text-gray-400 mt-4">
-          <i className="hn hn-info-circle mr-2"></i>
-          Щоб залишити коментар, увійдіть через ваш GitHub акаунт
-        </p>
-      </div>
-    </div>
+      </BorderBox>
+    </section>
   );
 }

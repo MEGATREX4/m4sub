@@ -7,7 +7,7 @@ authors:
 date: 2025-09-08
 preview: https://res.cloudinary.com/kutok/image/fetch/s--tQx_0IQa--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1000/https://kutok.s3.amazonaws.com/uploads/articles/z28xklog3ruuh623xofe.png
 page-link: season5_stats
-title: Статистика сервера за 5 сезон 
+title: Статистика сервера за 5 сезон M4SUB
 description: 5 сезон Сабсерверу добігає кінця — час підбити підсумки улюбленою статистикою перед Міжсезонням!
 tags: ["Підсумки", "Саб"]
 ---

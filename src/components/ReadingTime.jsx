@@ -12,7 +12,7 @@ const getPlural = (number, one, few, many) => {
 
 export default function ReadingTime({ totalSeconds }) {
   // Не відображаємо, якщо час занадто малий
-  if (!totalSeconds || totalSeconds < 30) { // Наприклад, не показуємо, якщо менше 30 секунд
+  if (!totalSeconds || totalSeconds < 30) {
     return null; 
   }
 
@@ -21,24 +21,26 @@ export default function ReadingTime({ totalSeconds }) {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  // Формуємо рядок для відображення
-  let timeString = 'Час на статтю:';
+  // Формуємо частини рядка
+  const parts = [];
   
   if (hours > 0) {
-    timeString += ` ${hours} ${getPlural(hours, 'година', 'години', 'годин')}`;
+    parts.push(`${hours} ${getPlural(hours, 'година', 'години', 'годин')}`);
   }
   if (minutes > 0) {
-    timeString += ` ${minutes} ${getPlural(minutes, 'хвилина', 'хвилини', 'хвилин')}`;
+    parts.push(`${minutes} ${getPlural(minutes, 'хвилина', 'хвилини', 'хвилин')}`);
   }
-  // Показуємо секунди, тільки якщо немає годин і хвилини менше 1 (тобто, якщо це єдиний показник)
+  // Показуємо секунди, тільки якщо немає годин і хвилини менше 1
   if (hours === 0 && minutes < 1 && seconds > 0) {
-    timeString += ` ${seconds} ${getPlural(seconds, 'секунда', 'секунди', 'секунд')}`;
+    parts.push(`${seconds} ${getPlural(seconds, 'секунда', 'секунди', 'секунд')}`);
   }
 
+  const timeString = parts.join(' ');
+
   return (
-    <div className="flex items-center gap-2 text-sm text-gray-400 mb-6 italic">
-      <i className="hn hn-clock text-base"></i>
-      <span>{timeString}</span>
+    <div className="inline-flex items-center gap-2 text-sm bg-[#1a1a2e] border border-gray-700/30 px-3 py-1.5">
+      <i className="hn hn-clock text-[#c5629a]"></i>
+      <span className="text-gray-400">{timeString}</span>
     </div>
   );
 }

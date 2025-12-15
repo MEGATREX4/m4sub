@@ -1,4 +1,5 @@
 import React from 'react';
+import { BorderBox } from './donate/components/BorderBox';
 import AlsoOnLinks from './AlsoOnLinks';
 import ShareButtons from './ShareButtons';
 
@@ -11,17 +12,15 @@ export default function ArticleMetaSection({ alsoOn, shareInfo }) {
   }
 
   return (
-    <section className="my-8 bg-green-900/20 p-6 cornerCut">
-      {/* Use Grid for a responsive two-column layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* "Also On" column */}
-        {hasAlsoOn && <AlsoOnLinks links={alsoOn} />}
-        
-        {/* "Share" column */}
-        {hasShare && <ShareButtons title={shareInfo.title} url={shareInfo.url} />}
-        
-      </div>
+    <section className="mt-8">
+      <BorderBox borderColor="bg-[#c5629a]/30" innerBg="bg-[#0a0a12]">
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {hasAlsoOn && <AlsoOnLinks links={alsoOn} />}
+            {hasShare && <ShareButtons title={shareInfo.title} url={shareInfo.url} />}
+          </div>
+        </div>
+      </BorderBox>
     </section>
   );
 }

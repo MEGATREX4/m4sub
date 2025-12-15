@@ -37,7 +37,6 @@ export default function News() {
                 <i className="hn hn-newspaper text-[#c5629a]"></i>
                 Останні новини
               </h2>
-              <div className="h-[2px] bg-gradient-to-r from-[#c5629a] to-transparent mb-4"></div>
               <p className="text-gray-300 mb-6">Слідкуйте за останніми подіями на нашому сервері</p>
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                 <Link 

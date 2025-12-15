@@ -3,7 +3,8 @@ export const BorderBox = ({
   children, 
   borderColor = "bg-gray-600", 
   innerBg = "bg-[#1a1a2e]",
-  shine = false
+  shine = false,
+  className = ""
 }) => (
   <>
     {shine && (
@@ -14,7 +15,7 @@ export const BorderBox = ({
         }
       `}</style>
     )}
-    <div className={`${borderColor} p-[3px] relative overflow-hidden`}>
+    <div className={`${borderColor} p-[3px] relative overflow-hidden h-full ${className}`}>
       {shine && (
         <div 
           style={{
@@ -39,8 +40,8 @@ export const BorderBox = ({
           }}
         />
       )}
-      <div className="bg-gray-800 p-[2px] relative" style={{ zIndex: 2, position: 'relative' }}>
-        <div className={`${innerBg} ${!innerBg.includes('bg-') ? 'bg-[#1a1a2e]' : ''}`}>
+      <div className="bg-gray-800 p-[2px] relative h-full" style={{ zIndex: 2 }}>
+        <div className={`h-full ${innerBg} ${!innerBg.includes('bg-') ? 'bg-[#1a1a2e]' : ''}`}>
           {children}
         </div>
       </div>

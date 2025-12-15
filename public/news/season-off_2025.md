@@ -49,7 +49,7 @@ tags: ["Оголошення", "Саб"]
 *GPU Booster, Sodium та його аддони (Sodium Extra), FerriteCore.*  
 
 Радимо встановлювати модпак саме через **Modrinth**, щоб завжди отримувати найновіші оновлення:  
-👉 [Modrinth — m4sub-pack-off v1.0.2](https://modrinth.com/modpack/m4sub-pack-off/version/1.0.2)
+[Modrinth — m4sub-pack-off v1.0.2](https://modrinth.com/modpack/m4sub-pack-off/version/1.0.2)
 
 
 
