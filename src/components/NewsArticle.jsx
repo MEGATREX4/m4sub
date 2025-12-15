@@ -220,42 +220,45 @@ export default function NewsArticle() {
                   ol: CustomList,
                   li: CustomListItem,
                   h1: ({ node, children, ...props }) => (
-                    <h1 
-                      id={slugify(toString(node), { lower: true, strict: true })} 
-                      {...props} 
-                      className="text-3xl font-bold text-white minecraftFont mb-4 mt-8 first:mt-0"
-                    >
-                      {children}
-                    </h1>
-                  ),
-                  h2: ({ node, children, ...props }) => (
-                    <h2 
-                      id={slugify(toString(node), { lower: true, strict: true })} 
-                      {...props} 
-                      className="text-2xl font-bold text-[#f390d0] minecraftFont mb-4 mt-8 flex items-center gap-3"
-                    >
-                      <i className="hn hn-angle-right text-[#c5629a] text-sm"></i>
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ node, children, ...props }) => (
-                    <h3 
-                      id={slugify(toString(node), { lower: true, strict: true })} 
-                      {...props} 
-                      className="text-xl font-bold text-[#c5629a] mb-3 mt-6"
-                    >
-                      {children}
-                    </h3>
-                  ),
-                  h4: ({ node, children, ...props }) => (
-                    <h4 
-                      id={slugify(toString(node), { lower: true, strict: true })} 
-                      {...props} 
-                      className="text-lg font-bold text-gray-300 mb-2 mt-4"
-                    >
-                      {children}
-                    </h4>
-                  ),
+  <h1 
+    id={slugify(toString(node), { lower: true, strict: true })} 
+    {...props} 
+    className="text-3xl font-bold text-white minecraftFont mb-4 mt-8 first:mt-0"
+  >
+    {children}
+  </h1>
+),
+
+h2: ({ node, children, ...props }) => (
+  <h2 
+    id={slugify(toString(node), { lower: true, strict: true })} 
+    {...props} 
+    className="text-2xl font-bold text-[#f390d0] minecraftFont mb-4 mt-8"
+  >
+    <i className=" text-[#c5629a] text-sm mr-2"></i>
+    {children}
+  </h2>
+),
+
+h3: ({ node, children, ...props }) => (
+  <h3 
+    id={slugify(toString(node), { lower: true, strict: true })} 
+    {...props} 
+    className="text-xl font-bold text-[#c5629a] mb-3 mt-6"
+  >
+    {children}
+  </h3>
+),
+
+h4: ({ node, children, ...props }) => (
+  <h4 
+    id={slugify(toString(node), { lower: true, strict: true })} 
+    {...props} 
+    className="text-lg font-bold text-gray-300 mb-2 mt-4"
+  >
+    {children}
+  </h4>
+),
                   hr: ({ node, ...props }) => (
                                   <div className="my-5 flex items-center gap-2">
             <div className="flex-1 flex h-[3px]">
