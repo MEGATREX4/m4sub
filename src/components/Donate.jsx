@@ -298,7 +298,7 @@ export default function Donate() {
                                     {SUPPORT_ITEM.name}
                                   </h4>
                                   <p className="text-gray-400 text-sm">
-                                    Ви отримаєте роль SUPPORTER
+                                    Ви отримаєте роль
                                   </p>
                                 </div>
                               </div>

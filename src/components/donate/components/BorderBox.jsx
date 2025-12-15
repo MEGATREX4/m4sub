@@ -33,7 +33,7 @@ export const BorderBox = ({
               transparent 55%,
               transparent 100%
             )`,
-            animation: 'diagonalShine 3s infinite',
+            animation: 'diagonalShine 5s infinite',
             pointerEvents: 'none',
             zIndex: 1,
           }}

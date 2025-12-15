@@ -1,31 +1,44 @@
+// Detailed.jsx
 import { Link } from "react-router-dom";
+import { BorderBox } from "./donate/components/BorderBox";
 
 export default function Detailed({ items }) {
   return (
-    <section
-      className="grid gap-2 justify-items-center"
-      style={{
-        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 320px))",
-        width: "calc(100% - 20px)",
-        justifyContent: "center" // This centers the grid items horizontally
-      }}
-    >
+    <section className="grid gap-4 justify-center" style={{
+      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 320px))",
+    }}>
       {items.map((item, index) => (
         <Link
           to={item.link}
           key={index}
-          className="bg-green-900/20 pixelcut rounded-lg grid text-center text-gray-200 hover:bg-green-900/40 transition p-4"
-          style={{
-            width: "300px",
-            height: "300px",
-            display: "grid",
-            gridTemplateRows: "subgrid",
-            gridRow: "span 3"
-          }}
+          className="group transition-all duration-200 hover:translate-y-[-4px]"
         >
-          <img src={item.image} alt={item.title} className="w-40 h-40 object-contain mx-auto" />
-          <h3 className="text-lg font-bold">{item.title}</h3>
-          <p className="text-sm">{item.description}</p>
+          <BorderBox 
+            borderColor="bg-[#c5629a]/50 group-hover:bg-[#c5629a]" 
+            innerBg="bg-[#0a0a12]"
+          >
+            <div className="p-6 flex flex-col items-center text-center h-full group-hover:bg-[#130217] transition-colors">
+              {/* Image */}
+              <div className="mb-4 p-4 bg-[#1a1a2e] rounded-lg group-hover:bg-[#2a1a3e] transition-colors">
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  className="w-24 h-24 object-contain group-hover:scale-110 transition-transform" 
+                />
+              </div>
+              
+              {/* Title */}
+              <h3 className="text-lg font-bold text-white minecraftFont mb-2 flex items-center gap-2">
+                {item.title}
+                <i className="hn hn-arrow-right text-[#c5629a] text-sm opacity-0 group-hover:opacity-100 transition-opacity"></i>
+              </h3>
+              
+              {/* Description */}
+              <p className="text-sm text-gray-400 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </BorderBox>
         </Link>
       ))}
     </section>

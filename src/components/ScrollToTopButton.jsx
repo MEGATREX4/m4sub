@@ -1,45 +1,25 @@
+// ScrollToTopButton.jsx
 import React, { useState, useEffect } from 'react';
 
 export default function ScrollToTopButton({ footerRef }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [bottomPosition, setBottomPosition] = useState('2rem'); // Початковий відступ 32px (bottom-8)
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  const [bottomPosition, setBottomPosition] = useState('2rem');
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Логіка видимості кнопки
       setIsVisible(window.pageYOffset > 400);
 
-      // 2. Логіка позиціонування відносно футера
-      if (footerRef && footerRef.current) {
-        // Висота видимої частини вікна
+      if (footerRef?.current) {
         const windowHeight = window.innerHeight;
-        // Позиція верху футера відносно вікна
         const footerTop = footerRef.current.getBoundingClientRect().top;
-        
-        // Розраховуємо, наскільки футер вже "виїхав" на екран
         const footerVisibleHeight = windowHeight - footerTop;
         
-        // Якщо футер видно на екрані...
-        if (footerVisibleHeight > 0) {
-          // ...встановлюємо відступ від низу = висота видимої частини футера + наш стандартний відступ (32px)
-          setBottomPosition(`${footerVisibleHeight + 32}px`);
-        } else {
-          // ...інакше, повертаємо стандартний відступ
-          setBottomPosition('32px');
-        }
+        setBottomPosition(footerVisibleHeight > 0 ? `${footerVisibleHeight + 32}px` : '32px');
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-
     handleScroll();
 
     return () => {
@@ -50,22 +30,19 @@ export default function ScrollToTopButton({ footerRef }) {
 
   return (
     <button
-      onClick={scrollToTop}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       aria-label="Повернутися нагору"
       className={`
-        fixed right-8 z-50
-        w-16 h-16 bg-[#c5629a] hover:bg-[#f390d0] backdrop-blur-sm flex items-center justify-center 
+        fixed right-6 z-50 w-12 h-12 
+        bg-[#c5629a] hover:bg-[#f390d0] 
+        flex items-center justify-center 
         shadow-lg transition-all duration-300 hover:scale-110 
-        focus:outline-none focus:ring-2 focus:ring-[#bb659d]
-        cornerCut
+        cornerCutSmall
         ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
       `}
-      style={{
-        // Застосовуємо динамічно розрахований відступ
-        bottom: bottomPosition,
-      }}
+      style={{ bottom: bottomPosition }}
     >
-      <i className="hn hn-angle-up-solid text-[#e5e7eb] text-4xl"></i>
+      <i className="hn hn-chevron-up text-white text-2xl"></i>
     </button>
   );
 }
