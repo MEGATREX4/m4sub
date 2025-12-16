@@ -199,7 +199,7 @@ export const PurchaseStats = () => {
           color="text-blue-400"
         />
         <StatCard
-          icon="hn-currency-dollar"
+          icon="hn-box-usd"
           label="Загальний дохід"
           value={`${stats.summary?.totalRevenue || 0}₴`}
           color="text-green-400"
