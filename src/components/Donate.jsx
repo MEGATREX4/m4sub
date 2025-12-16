@@ -1,5 +1,5 @@
 // src/components/donate/Donate.jsx
-import { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 
 // Hooks
 import { useShopData } from "./donate/hooks/useShopData";
@@ -19,8 +19,9 @@ import { PurchaseButton } from "./donate/components/PurchaseButton";
 import { HowItWorks } from "./donate/components/HowItWorks";
 import { BorderBox } from "./donate/components/BorderBox";
 
-// Constants
 import { SUPPORT_ITEM } from "./donate/constants";
+
+import { isItemOwned, isBundleFullyOwned } from "./donate/utils/helpers"; 
 
 export default function Donate() {
   // Shop data
@@ -79,6 +80,17 @@ export default function Donate() {
 
   // Handle item selection
   const handleItemSelect = useCallback((item, type) => {
+
+    if (type !== 'support' && ownedItems && ownedItems.length > 0) {
+    const isAlreadyOwned = type === 'bundle'
+      ? isBundleFullyOwned(item, ownedItems)
+      : isItemOwned(item.id, type, ownedItems);
+    
+    if (isAlreadyOwned) {
+      return; // Не дозволяємо вибрати вже придбаний товар
+    }
+  }
+
     if (type === 'support') {
       // For support, set the item with current support amount
       if (selectedItem?.id === item.id && selectedType === type) {
@@ -139,6 +151,21 @@ export default function Donate() {
 
   // Check if support is selected
   const isSupportSelected = selectedType === 'support';
+
+
+  useEffect(() => {
+    if (!selectedItem || !selectedType || selectedType === 'support') return;
+    if (!ownedItems || ownedItems.length === 0) return;
+
+    const isSelectedItemOwned = selectedType === 'bundle'
+      ? isBundleFullyOwned(selectedItem, ownedItems)
+      : isItemOwned(selectedItem.id, selectedType, ownedItems);
+
+    if (isSelectedItemOwned) {
+      setSelectedItem(null);
+      setSelectedType(null);
+    }
+  }, [ownedItems, selectedItem, selectedType]);
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-8">

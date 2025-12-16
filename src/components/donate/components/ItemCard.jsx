@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 import { ImageCarousel } from './ImageCarousel';
 import { Badge } from './Badge';
 import { BorderBox } from './BorderBox';
+import PlayerAvatar from '../../PlayerAvatar';
 import { TYPE_ICONS, SUPPORT_ITEM } from '../constants';
 import { getItemNameFromReference, isItemOwned, isBundleFullyOwned, isBundlePartiallyOwned } from '../utils/helpers';
 
@@ -100,7 +101,7 @@ export const ItemCard = ({
       {/* Username warning overlay */}
       {showNicknameWarning && (
         <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/60">
-          <BorderBox borderColor="bg-yellow-600" innerBg="bg-yellow-900/80">
+          <BorderBox borderColor="bg-yellow-600" innerBg="bg-yellow-900/80" width="auto" height="auto">
             <div className="px-4 py-3 flex items-center gap-2 whitespace-nowrap">
               <i className="hn hn-alert-triangle text-yellow-300 text-lg flex-shrink-0"></i>
               <span className="text-yellow-200 font-bold minecraftFont text-sm">
@@ -175,6 +176,22 @@ export const ItemCard = ({
               }`}>
                 {item.name}
               </h3>
+
+              {item.author && type !== 'support' && (
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="bg-gray-700/50 p-[1px] inline-flex">
+                    <div className="bg-[#12121f] px-2 py-1 flex items-center gap-2">
+                      <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                        <PlayerAvatar size="fill" username={item.author} />
+                      </div>
+                      <span className="text-xs text-gray-300 minecraftFont">
+                        <span className="text-gray-500">Зроблено - </span>
+                        <span className="text-purple-400">{item.author}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {item.description && (
                 <p className={`text-gray-400 mb-3 ${isLarge ? 'text-sm line-clamp-4' : 'text-sm line-clamp-2'}`}>

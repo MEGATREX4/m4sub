@@ -4,7 +4,9 @@ export const BorderBox = ({
   borderColor = "bg-gray-600", 
   innerBg = "bg-[#1a1a2e]",
   shine = false,
-  className = ""
+  className = "",
+  width = "full",
+  height = "full"
 }) => (
   <>
     {shine && (
@@ -15,7 +17,13 @@ export const BorderBox = ({
         }
       `}</style>
     )}
-    <div className={`${borderColor} p-[3px] relative overflow-hidden h-full ${className}`}>
+    <div 
+      className={`${borderColor} p-[3px] relative overflow-hidden ${className}`}
+      style={{ 
+        width: width === "full" ? "100%" : width,
+        height: height === "full" ? "100%" : height 
+      }}
+    >
       {shine && (
         <div 
           style={{
