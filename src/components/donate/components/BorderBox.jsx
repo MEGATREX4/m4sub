@@ -35,11 +35,13 @@ export const BorderBox = ({
             background: `linear-gradient(
               135deg,
               transparent 0%,
-              transparent 45%,
-              rgba(255, 255, 255, 0.4) 49%,
-              rgba(255, 255, 255, 0.7) 50%,
-              rgba(255, 255, 255, 0.4) 51%,
-              transparent 55%,
+              transparent 42%,
+              rgba(255, 120, 200, 0.25) 45%,
+              rgba(120, 200, 255, 0.3) 47%,
+              rgba(255, 255, 255, 0.6) 50%,
+              rgba(200, 120, 255, 0.3) 53%,
+              rgba(120, 255, 200, 0.25) 55%,
+              transparent 58%,
               transparent 100%
             )`,
             animation: 'diagonalShine 5s infinite',
@@ -49,7 +51,7 @@ export const BorderBox = ({
         />
       )}
       <div className="bg-gray-800 p-[2px] relative h-full" style={{ zIndex: 2 }}>
-        <div className={`h-full ${innerBg} ${!innerBg.includes('bg-') ? 'bg-[#1a1a2e]' : ''}`}>
+        <div className={`h-full ${innerBg}`}>
           {children}
         </div>
       </div>

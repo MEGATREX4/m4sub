@@ -2,6 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { BorderBox } from "./donate/components/BorderBox";
 
+
+
 function getContrastColor(hexColor) {
   if (!hexColor) return '#FFFFFF';
   const hex = hexColor.replace('#', '');
@@ -12,78 +14,117 @@ function getContrastColor(hexColor) {
   return luminance > 140 ? '#000000' : '#FFFFFF';
 }
 
+const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
+
 function TeamSlide({ member }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 100);
+    setVisible(false);
+    const timer = setTimeout(() => setVisible(true), 50);
     return () => clearTimeout(timer);
   }, [member]);
 
+  const bustUrl = `https://nmsr.nickac.dev/bust/${member.username}`;
+
+  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[1fr,auto] items-center gap-8 p-6 sm:p-8">
-      <div className={`flex flex-col text-center md:text-left transition-all duration-500 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
-        <h3 className="text-2xl sm:text-3xl font-bold text-white minecraftFont mb-3">
-          {member.name}
-        </h3>
-
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-4">
-          {member.role && (
-            <div
-              className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm font-bold"
-              style={{ backgroundColor: member.role.color, color: getContrastColor(member.role.color) }}
-            >
-              <i className={`hn hn-${member.role.icon || 'user'}`}></i>
-              <span className="minecraftFont">{member.role.name}</span>
-            </div>
-          )}
-
-          {member.servers?.map(server => (
-            <div 
-              key={server.id} 
-              className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm"
-              style={{ backgroundColor: server.color, color: getContrastColor(server.color) }}
-            >
-              <img
-                src={`/servers/${server.id}.webp`}
-                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/servers/${server.id}.png`; }}
-                alt={server.title}
-                className="w-5 h-5 object-contain"
-              />
-              <span className="minecraftFont">{server.title}</span>
-            </div>
-          ))}
+      {/* Контент з фіксованими висотами */}
+      <div 
+        className={`flex flex-col text-center md:text-left transition-all duration-500 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+      >
+        {/* Ім'я - фіксована висота */}
+        <div className="min-h-[44px] mb-3">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white minecraftFont">
+            {member.name}
+          </h3>
         </div>
 
-        <p className="text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0 mb-6">
-          {member.description}
-        </p>
-        
-        {member.socials?.length > 0 && (
-          <div className="flex gap-3 justify-center md:justify-start">
-            {member.socials.map(social => (
-              <a
-                key={social.platform}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={social.platform}
-                className="w-10 h-10 cornerCutSmall flex items-center justify-center transition-transform hover:scale-110"
-                style={{ backgroundColor: social.color }}
+        {/* Теги/ролі - фіксована висота для 1 рядка */}
+        <div className="min-h-[36px] mb-4">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
+            {member.role && (
+              <div
+                className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm font-bold"
+                style={{ backgroundColor: member.role.color, color: getContrastColor(member.role.color) }}
               >
-                <i className={`hn ${social.icon_class} text-white text-xl`}></i>
-              </a>
+                <i className={`hn hn-${member.role.icon || 'user'}`}></i>
+                <span className="minecraftFont">{member.role.name}</span>
+              </div>
+            )}
+
+            {member.servers?.map(server => (
+              <div 
+                key={server.id} 
+                className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm"
+                style={{ backgroundColor: server.color, color: getContrastColor(server.color) }}
+              >
+                <img
+                  src={`/servers/${server.id}.webp`}
+                  onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `/servers/${server.id}.png`; }}
+                  alt={server.title}
+                  className="w-5 h-5 object-contain"
+                />
+                <span className="minecraftFont">{server.title}</span>
+              </div>
             ))}
           </div>
-        )}
+        </div>
+
+        {/* Опис - фіксована висота для ~3-4 рядків */}
+        <div className="min-h-[96px] mb-6">
+          <p className="text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0 line-clamp-4">
+            {member.description}
+          </p>
+        </div>
+        
+        {/* Соціальні посилання - фіксована висота */}
+        <div className="min-h-[40px]">
+          {member.socials?.length > 0 && (
+            <div className="flex gap-3 justify-center md:justify-start">
+              {member.socials.map(social => (
+                <a
+                  key={social.platform}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={social.platform}
+                  className="w-10 h-10 cornerCutSmall flex items-center justify-center transition-transform hover:scale-110"
+                  style={{ backgroundColor: social.color }}
+                >
+                  <i className={`hn ${social.icon_class} text-white text-xl`}></i>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
+      {/* Avatar з glow ефектом - фіксований розмір */}
       <div className={`flex justify-center transition-all duration-500 ease-out ${visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
-        <img
-          src={`https://nmsr.nickac.dev/bust/${member.username}`}
-          alt={member.name}
-          className="w-48 h-64 sm:w-56 sm:h-72 object-contain drop-shadow-[0_0_20px_rgba(197,98,154,0.4)]"
-        />
+        <div className="relative w-72 h-72">
+          {/* Glow */}
+          <img
+            src={bustUrl}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-contain scale-x-[-1] pointer-events-none"
+            style={{
+              filter: 'blur(40px) saturate(1.8)',
+              opacity: 0.6,
+              transform: 'scaleX(-1) scale(1.15)',
+            }}
+          />
+          
+          {/* Основне зображення */}
+          <img
+            src={bustUrl}
+            alt={member.name}
+            className="relative w-full h-full object-contain scale-x-[-1]"
+          />
+        </div>
       </div>
     </div>
   );
@@ -148,10 +189,37 @@ export default function Team() {
               </p>
             )}
           </div>
+          
 
-          <div className="h-[2px] bg-gradient-to-r from-transparent via-[#c5629a] to-transparent mb-6"></div>
+          <div className="my-5 flex items-center gap-2">
+            <div className="flex-1 flex h-[3px]">
+              <div className="flex-1 bg-[#2a0a1a]"></div>
+              <div className="flex-1 bg-[#4a1a3a]"></div>
+              <div className="flex-1 bg-[#6a2a5a]"></div>
+              <div className="flex-1 bg-[#8a3a7a]"></div>
+              <div className="flex-1 bg-[#a54a8a]"></div>
+              <div className="flex-1 bg-[#c5629a]"></div>
+            </div>
+            <img 
+              src={mcTexture("nether_star")} 
+              alt="Nether Star" 
+              className="w-4 h-4"
+              style={{ imageRendering: 'pixelated' }}
+            />
+            <div className="flex-1 flex h-[3px]">
+              <div className="flex-1 bg-[#c5629a]"></div>
+              <div className="flex-1 bg-[#a54a8a]"></div>
+              <div className="flex-1 bg-[#8a3a7a]"></div>
+              <div className="flex-1 bg-[#6a2a5a]"></div>
+              <div className="flex-1 bg-[#4a1a3a]"></div>
+              <div className="flex-1 bg-[#2a0a1a]"></div>
+            </div>
+          </div>
 
-          <TeamSlide key={currentIndex} member={teamData[currentIndex]} />
+          {/* Контейнер зі стабільною висотою */}
+          <div className="min-h-[320px] md:min-h-[288px]">
+            <TeamSlide key={currentIndex} member={teamData[currentIndex]} />
+          </div>
 
           {isSlider && (
             <>
@@ -168,14 +236,14 @@ export default function Team() {
                   <button
                     key={idx}
                     onClick={() => { setCurrentIndex(idx); setProgress(0); }}
-                    className={`w-10 h-10 transition-all duration-300 border-2 ${
+                    className={`w-10 h-10 transition-all duration-300 ${
                       idx === currentIndex 
-                        ? "border-[#c5629a] scale-110" 
-                        : "border-transparent opacity-60 hover:opacity-100"
+                        ? "scale-110" 
+                        : "opacity-35 hover:opacity-100"
                     }`}
                   >
                     <img 
-                      src={`https://nmsr.nickac.dev/face/${teamData[idx].username}.png`} 
+                      src={`https://nmsr.nickac.dev/face/${teamData[idx].username}`} 
                       alt="avatar" 
                       className="w-full h-full object-cover" 
                     />

@@ -1,5 +1,6 @@
 // src/components/donate/components/HowItWorks.jsx
 import { PurchaseStats } from './PurchaseStats';
+import { BorderBox } from './BorderBox';
 
 export const HowItWorks = () => (
   <div className="mt-8 bg-gray-600 p-[2px]">
@@ -74,6 +75,38 @@ export const HowItWorks = () => (
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Open Source & Transparency Section */}
+        <div className="mt-8">
+          <BorderBox borderColor="bg-purple-500" innerBg="bg-[#12121f]" shine={true}>
+            <div className="p-6 text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <i className="hn hn-code text-purple-400 text-3xl"></i>
+                <h4 className="text-xl font-bold text-white minecraftFont">
+                  Відкритість та прозорість
+                </h4>
+                <i className="hn hn-heart-solid text-pink-400 text-2xl"></i>
+              </div>
+              
+              <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed mb-4">
+                Ми ведемо свою діяльність прозоро, тому публікуємо повну статистику нашого проєкту. 
+                Нашій команді близька культура відкритого коду — більшість того, що ми робимо в інтернеті, 
+                це <span className="text-purple-400 font-bold">open source</span> проєкти.
+              </p>
+              
+              <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2">
+                  <i className="hn hn-chart-line text-green-400"></i>
+                  <span>Публічна статистика</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <i className="hn hn-users text-blue-400"></i>
+                  <span>Спільнота</span>
+                </div>
+              </div>
+            </div>
+          </BorderBox>
         </div>
 
         {/* Purchase Statistics */}
