@@ -10,26 +10,49 @@ export const HowItWorks = () => (
           <i className="hn hn-edit"></i> Як це працює?
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {[
-            { step: "1", icon: "hn-shopping-cart", title: "Виберіть товар", desc: "Оберіть плащ, значок або набір зі списку" },
-            { step: "2", icon: "hn-credit-card", title: "Оплатіть", desc: "Перейдіть на Monobank та оплатіть покупку" },
-            { step: "3", icon: "hn-badge-check", title: "Отримайте!", desc: "Товар з'явиться автоматично протягом хвилини" },
-          ].map((item) => (
-            <div key={item.step} className="bg-gray-600 p-[3px]">
-              <div className="bg-[#12121f] text-center p-6">
-                <div className="text-5xl mb-4"><i className={`hn ${item.icon}`}></i></div>
-                <div className="bg-[#c5629a] p-[2px] inline-block mb-2">
-                  <div className="bg-[#130217] px-3 py-1">
-                    <span className="text-sm text-[#c5629a] minecraftFont">Крок {item.step}</span>
-                  </div>
-                </div>
-                <h4 className="font-bold text-white text-lg mb-2 minecraftFont">{item.title}</h4>
-                <p className="text-gray-400">{item.desc}</p>
-              </div>
-            </div>
-          ))}
+        <div 
+  className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+  style={{
+    // Батьківський grid визначає спільні ряди для всіх карток
+    gridTemplateRows: 'repeat(4, auto)'
+  }}
+>
+  {[
+    { step: "1", icon: "hn-shopping-cart", title: "Виберіть товар", desc: "Оберіть плащ, значок або набір зі списку" },
+    { step: "2", icon: "hn-credit-card", title: "Оплатіть", desc: "Перейдіть на Monobank та оплатіть покупку" },
+    { step: "3", icon: "hn-badge-check", title: "Отримайте!", desc: "Товар з'явиться автоматично протягом хвилини" },
+  ].map((item) => (
+    <BorderBox key={item.step} shine={false} borderColor="bg-[#c5629a]">
+      <div 
+        className="bg-[#12121f] text-center p-6 w-full h-full grid items-center justify-items-center"
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'subgrid',
+          gridRow: 'span 4', // Картка займає 4 ряди батька
+          gap: '8px'
+        }}
+      >
+        {/* Ряд 1: Іконка */}
+        <div className="text-5xl flex items-end">
+          <i className={`hn ${item.icon}`}></i>
         </div>
+        
+        {/* Ряд 2: Бейдж кроку */}
+        <div className="bg-[#c5629a] p-[2px] inline-block">
+          <div className="bg-[#130217] px-3 py-1">
+            <span className="text-sm text-[#c5629a] minecraftFont">Крок {item.step}</span>
+          </div>
+        </div>
+        
+        {/* Ряд 3: Заголовок */}
+        <h4 className="font-bold text-white text-lg minecraftFont">{item.title}</h4>
+        
+        {/* Ряд 4: Опис */}
+        <p className="text-gray-400 self-start">{item.desc}</p>
+      </div>
+    </BorderBox>
+  ))}
+</div>
 
         <div className="bg-gray-700 h-[2px] mb-8" />
         

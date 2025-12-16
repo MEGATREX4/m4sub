@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { BorderBox } from "./donate/components/BorderBox";
 
+import "../components/css/TeamIcons.css";
 
 
 function getContrastColor(hexColor) {
@@ -15,6 +16,7 @@ function getContrastColor(hexColor) {
 }
 
 const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
+const iconTexture = (name) => `https://raw.githubusercontent.com/MEGATREX4/m4sub_wiki/main/assets/icons/${name}.png`;
 
 function TeamSlide({ member }) {
   const [visible, setVisible] = useState(false);
@@ -47,10 +49,10 @@ function TeamSlide({ member }) {
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
             {member.role && (
               <div
-                className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm font-bold"
+                className="cornerCutSmall px-3 py-1.5 inline-flex items-center gap-2 text-sm"
                 style={{ backgroundColor: member.role.color, color: getContrastColor(member.role.color) }}
               >
-                <i className={`hn hn-${member.role.icon || 'user'}`}></i>
+                <i className="roleicon w-32 h-32 bg-contain bg-no-repeat bg-center flex-shrink-0 self-middle" style={{ backgroundImage: `url(${iconTexture(member.role.icon)})` }}></i>
                 <span className="minecraftFont">{member.role.name}</span>
               </div>
             )}
@@ -74,8 +76,8 @@ function TeamSlide({ member }) {
         </div>
 
         {/* Опис - фіксована висота для ~3-4 рядків */}
-        <div className="min-h-[96px] mb-6">
-          <p className="text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0 line-clamp-4">
+        <div className="min-h-[204px] mb-6">
+          <p className="text-gray-300 leading-relaxed max-w-lg mx-auto md:mx-0 line-clamp-10">
             {member.description}
           </p>
         </div>

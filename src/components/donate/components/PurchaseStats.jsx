@@ -135,7 +135,7 @@ export const PurchaseStats = () => {
   if (!stats) return null;
 
   return (
-    <div className="mt-8 max-w-full overflow-hidden">
+    <div className="mt-8">
       <div className="bg-gray-700 h-[2px] mb-8" />
       
       <h4 className="text-xl font-bold text-white minecraftFont mb-6 text-center">
@@ -212,15 +212,13 @@ export const PurchaseStats = () => {
         />
       </div>
 
-      {/* ВИПРАВЛЕНО: Додано min-w-0 для запобігання overflow */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 min-w-0">
-        <div className="lg:col-span-2 bg-gray-800/50 p-[2px] min-w-0">
-          <div className="bg-[#12121f] p-4 min-w-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div className="lg:col-span-2 bg-gray-800/50 p-[2px]">
+          <div className="bg-[#12121f] p-4">
             <h5 className="text-sm font-bold text-gray-300 minecraftFont mb-4">
               {chartType === 'revenue' ? 'Дохід за період' : 'Покупки за період'}
             </h5>
-            {/* ВИПРАВЛЕНО: Явно встановлено w-full та обмежено батьківським контейнером */}
-            <div className="h-64 w-full">
+            <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData}>
                   <defs>
@@ -256,13 +254,12 @@ export const PurchaseStats = () => {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 p-[2px] min-w-0">
-          <div className="bg-[#12121f] p-4 min-w-0">
+        <div className="bg-gray-800/50 p-[2px]">
+          <div className="bg-[#12121f] p-4">
             <h5 className="text-sm font-bold text-gray-300 minecraftFont mb-4">
               Розподіл за типом
             </h5>
-            {/* ВИПРАВЛЕНО: Додано w-full */}
-            <div className="h-64 w-full">
+            <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -292,24 +289,23 @@ export const PurchaseStats = () => {
         </div>
       </div>
 
-      {/* ВИПРАВЛЕНО: Обгорнуто таблицю в контейнер з обмеженою шириною */}
-      <div className="bg-gray-800/50 p-[2px] min-w-0 w-full">
-        <div className="bg-[#12121f] p-4 min-w-0">
+      <div className="bg-gray-800/50 p-[2px]">
+        <div className="bg-[#12121f] p-4">
           <h5 className="text-sm font-bold text-gray-300 minecraftFont mb-4">
             <i className="hn hn-clock mr-2"></i>
             Останні покупки
           </h5>
           
-          {/* ВИПРАВЛЕНО: Додано -mx-4 для компенсації padding */}
-          <div className="overflow-x-auto -mx-4 px-4">
-            <table className="w-full text-sm min-w-[600px]">
+          {/* Desktop table */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full text-sm">
               <thead>
                 <tr className="text-gray-400 border-b border-gray-700">
-                  <th className="text-left py-2 px-2 whitespace-nowrap">ID</th>
-                  <th className="text-left py-2 px-2 whitespace-nowrap">Гравець</th>
-                  <th className="text-left py-2 px-2 whitespace-nowrap">Товар</th>
-                  <th className="text-right py-2 px-2 whitespace-nowrap">Сума</th>
-                  <th className="text-right py-2 px-2 whitespace-nowrap">Дата</th>
+                  <th className="text-left py-2 px-2">ID</th>
+                  <th className="text-left py-2 px-2">Гравець</th>
+                  <th className="text-left py-2 px-2">Товар</th>
+                  <th className="text-right py-2 px-2">Сума</th>
+                  <th className="text-right py-2 px-2">Дата</th>
                 </tr>
               </thead>
               <tbody>
@@ -325,15 +321,15 @@ export const PurchaseStats = () => {
                     </td>
                     <td className="py-2 px-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 flex-shrink-0">
+                        <div className="w-5 h-5">
                           <PlayerAvatar size="fill" username={purchase.playerName} />
                         </div>
-                        <span className="text-white whitespace-nowrap">{purchase.playerName}</span>
+                        <span className="text-white">{purchase.playerName}</span>
                       </div>
                     </td>
                     <td className="py-2 px-2">
                       <span 
-                        className="px-2 py-0.5 text-xs rounded whitespace-nowrap inline-block"
+                        className="px-2 py-0.5 text-xs rounded"
                         style={{ 
                           backgroundColor: `${COLORS[purchase.itemType]}20`,
                           color: COLORS[purchase.itemType]
@@ -343,17 +339,58 @@ export const PurchaseStats = () => {
                       </span>
                     </td>
                     <td className="py-2 px-2 text-right">
-                      <span className="text-green-400 font-bold whitespace-nowrap">
+                      <span className="text-green-400 font-bold">
                         {purchase.price}₴
                       </span>
                     </td>
-                    <td className="py-2 px-2 text-right text-gray-400 whitespace-nowrap">
+                    <td className="py-2 px-2 text-right text-gray-400">
                       {formatDate(purchase.date)}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-3">
+            {stats.recentPurchases?.slice(0, 10).map((purchase) => (
+              <div 
+                key={purchase.id}
+                className="bg-gray-800/50 p-3 rounded"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6">
+                      <PlayerAvatar size="fill" username={purchase.playerName} />
+                    </div>
+                    <span className="text-white font-bold text-sm">{purchase.playerName}</span>
+                  </div>
+                  <span className="text-green-400 font-bold">
+                    {purchase.price}₴
+                  </span>
+                </div>
+                
+                <div className="flex items-center justify-between text-xs">
+                  <span 
+                    className="px-2 py-1 rounded"
+                    style={{ 
+                      backgroundColor: `${COLORS[purchase.itemType]}20`,
+                      color: COLORS[purchase.itemType]
+                    }}
+                  >
+                    {TYPE_LABELS[purchase.itemType]} - {purchase.itemId}
+                  </span>
+                  <span className="text-gray-400">
+                    {formatDate(purchase.date)}
+                  </span>
+                </div>
+                
+                <div className="text-gray-500 font-mono text-xs mt-2">
+                  ID: {purchase.anonymizedId}
+                </div>
+              </div>
+            ))}
           </div>
           
           {stats.recentPurchases?.length > 10 && (

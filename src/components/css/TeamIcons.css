@@ -1,7 +1,7 @@
 /* src/components/css/TeamIcons.css */
 
 /* Базовий клас для всіх іконок ролей */
-.role-icon {
+.roleicon {
   display: inline-block;
   /* --- ЗМІНА: Збільшуємо розмір іконок --- */
   width: 24px;

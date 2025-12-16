@@ -24,6 +24,7 @@ export default function PlayerAvatar({ username, size = 'default', className = '
       className={`${sizeClass} ${className} object-cover`}
       style={{ imageRendering: 'pixelated' }}
       loading="lazy"
+      decoding="async"
       onError={(e) => { 
         e.target.style.display = 'none'; 
       }}
