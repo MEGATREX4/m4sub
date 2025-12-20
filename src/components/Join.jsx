@@ -9,21 +9,23 @@ export default function Join() {
 
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/2/m4sub.click`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.online) {
-          setOnline(`${data.players.online}/${data.players.max} гравців`);
-          setIsOnline(true);
-        } else {
-          setOnline("Сервер офлайн");
-          setIsOnline(false);
-        }
-      })
-      .catch(() => {
-        setOnline("Помилка завантаження");
-        setIsOnline(false);
-      });
-  }, []);
+        .then(res => res.json())
+            .then(data => {
+                  if (data.online) {
+                          setOnline(`${data.players.online}/${data.players.max} гравців`);
+                                  setIsOnline(true);
+                                          setVersion(data.version || "1.21.4"); // <-- Оновлення версії
+                                                } else {
+                                                        setOnline("Сервер офлайн");
+                                                                setIsOnline(false);
+                                                                      }
+                                                                          })
+                                                                              .catch(() => {
+                                                                                    setOnline("Помилка завантаження");
+                                                                                          setIsOnline(false);
+                                                                                              });
+                                                                                              }, []);
+
 
   const copyIP = () => {
     navigator.clipboard.writeText("m4sub.click").then(() => {
@@ -61,7 +63,7 @@ export default function Join() {
               </div>
               <div className="bg-[#1a1a2e] px-3 py-1.5 flex items-center gap-2 text-sm text-gray-300">
                 <i className="hn hn-check-circle text-[#c5629a]"></i>
-                <span>Ліцензія 1.21.4</span>
+                <span>Ліцензія {version}</span>
               </div>
               <div className="bg-[#1a1a2e] px-3 py-1.5 flex items-center gap-2 text-sm text-gray-300">
                 <i className="hn hn-unlock text-[#c5629a]"></i>
