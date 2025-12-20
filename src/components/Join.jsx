@@ -6,26 +6,29 @@ export default function Join() {
   const [online, setOnline] = useState("Завантаження...");
   const [copied, setCopied] = useState(false);
   const [isOnline, setIsOnline] = useState(null);
+  
+  // 🌟 ВИПРАВЛЕННЯ: Оголошення стану 'version' та 'setVersion'
+  const [version, setVersion] = useState("1.21.4"); 
 
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/2/m4sub.click`)
-        .then(res => res.json())
-            .then(data => {
-                  if (data.online) {
-                          setOnline(`${data.players.online}/${data.players.max} гравців`);
-                                  setIsOnline(true);
-                                          setVersion(data.version || "1.21.4"); // <-- Оновлення версії
-                                                } else {
-                                                        setOnline("Сервер офлайн");
-                                                                setIsOnline(false);
-                                                                      }
-                                                                          })
-                                                                              .catch(() => {
-                                                                                    setOnline("Помилка завантаження");
-                                                                                          setIsOnline(false);
-                                                                                              });
-                                                                                              }, []);
-
+      .then(res => res.json())
+      .then(data => {
+        if (data.online) {
+          setOnline(`${data.players.online}/${data.players.max} гравців`);
+          setIsOnline(true);
+          // Рядок 17: setVersion тепер визначений
+          setVersion(data.version || "1.21.4");
+        } else {
+          setOnline("Сервер офлайн");
+          setIsOnline(false);
+        }
+      })
+      .catch(() => {
+        setOnline("Помилка завантаження");
+        setIsOnline(false);
+      });
+  }, []);
 
   const copyIP = () => {
     navigator.clipboard.writeText("m4sub.click").then(() => {
