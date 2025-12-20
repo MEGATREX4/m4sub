@@ -2,7 +2,7 @@ import MapEmbed from "./MapEmbed";
 
 export default function SubserverMap() {
   // Точне посилання на магазин/карту
-  const SHOP_URL = "http://sunrise.bubble.wtf:40010/api/shop";
+  const SHOP_URL = "http://sunrise.bubble.wtf:40000/";
 
   return (
     <div className="w-[calc(100vw-2rem)] max-w-7xl mx-auto px-4 py-12">
