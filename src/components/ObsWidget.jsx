@@ -439,7 +439,6 @@ export default function ObsWidget() {
                   <div className="flex justify-center gap-4 mt-6 mb-6">
                     {[
                       { icon: "hn-folder", text: "Без модів" },
-                      { icon: "hn-check-circle", text: "Версія 1.21.4" },
                       { icon: "hn-unlock", text: "Безкоштовно" },
                       { icon: "hn-users", text: "Спільнота" },
                     ].map((feature, idx) => (
