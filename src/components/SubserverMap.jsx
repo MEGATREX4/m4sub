@@ -1,8 +1,7 @@
 import MapEmbed from "./MapEmbed";
 
 export default function SubserverMap() {
-  // Точне посилання на магазин/карту
-  const SHOP_URL = "http://sunrise.bubble.wtf:40000/";
+  const SHOP_URL = "https://maps.m4sub.click/";
 
   return (
     <div className="w-[calc(100vw-2rem)] max-w-7xl mx-auto px-4 py-12">
@@ -18,7 +17,7 @@ export default function SubserverMap() {
           rel="noopener noreferrer"
           className="text-[#c5629a] hover:text-[#e078b4] transition text-sm"
         >
-          📍 Відкрити магазин в новому вікні
+          📍 Відкрити мапу в новому вікні
         </a>
       </div>
     </div>
