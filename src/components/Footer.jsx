@@ -1,12 +1,17 @@
 // Footer.jsx
+
 import React, { useState } from 'react';
 import { BorderBox } from './donate/components/BorderBox';
 
+
 // Простий helper для MC текстур
+
 const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
+
 
 const Footer = React.forwardRef((props, ref) => {
   const [copied, setCopied] = useState(false);
+
 
   const copyIP = async () => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -22,6 +27,7 @@ const Footer = React.forwardRef((props, ref) => {
       fallbackCopy();
     }
   };
+
 
   const fallbackCopy = () => {
     const textArea = document.createElement("textarea");
@@ -40,6 +46,7 @@ const Footer = React.forwardRef((props, ref) => {
     document.body.removeChild(textArea);
   };
 
+
   const socialLinks = [
     { href: "https://discord.gg/fxqnU9by3M", icon: "hn-discord", label: "Discord", color: "hover:text-[#5865F2]" },
     { href: "https://www.x.com/m4subclick", icon: "hn-x", label: "X", color: "hover:text-white" },
@@ -51,6 +58,7 @@ const Footer = React.forwardRef((props, ref) => {
     { href: "https://www.youtube.com/@m4sub", icon: "hn-youtube", label: "YouTube", color: "hover:text-[#FF0000]" },
   ];
 
+
   const techStack = [
     { name: "React", icon: "hn-react" },
     { name: "Node.js", icon: "hn-nodejs" },
@@ -58,15 +66,18 @@ const Footer = React.forwardRef((props, ref) => {
     { name: "Tailwind", icon: "hn-tailwindcss" },
   ];
 
+
   return (
     <footer ref={ref} className="mt-6 md:mt-8">
       <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#130217]">
         <div className="p-4 sm:p-6 md:p-8">
           
           {/* Main Content - Compact 3 Columns Layout */}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
             
             {/* Left - Branding */}
+
             <div className="text-center md:text-left sm:col-span-2 md:col-span-1">
               <h3 className="text-lg md:text-xl font-bold text-[#c5629a] minecraftFont mb-2 flex items-center justify-center md:justify-start gap-2">
                 <img 
@@ -88,7 +99,9 @@ const Footer = React.forwardRef((props, ref) => {
               </p>
             </div>
 
+
             {/* Center - Tech Stack */}
+
             <div className="text-center">
               <h4 className="text-xs md:text-sm font-bold text-gray-400 minecraftFont mb-2 md:mb-3 flex items-center justify-center gap-1.5 md:gap-2">
                 <img 
@@ -117,7 +130,9 @@ const Footer = React.forwardRef((props, ref) => {
               </div>
             </div>
 
+
             {/* Right - Social Links */}
+
             <div className="text-center md:text-right">
               <h4 className="text-xs md:text-sm font-bold text-gray-400 minecraftFont mb-2 md:mb-3 flex items-center justify-center md:justify-end gap-1.5 md:gap-2">
                 <img 
@@ -145,7 +160,9 @@ const Footer = React.forwardRef((props, ref) => {
             </div>
           </div>
 
+
           {/* Divider with MC icon */}
+
           <div className="my-4 sm:my-5 flex items-center gap-2">
             <div className="flex-1 flex h-[2px] md:h-[3px]">
               <div className="flex-1 bg-[#2a0a1a]"></div>
@@ -171,9 +188,13 @@ const Footer = React.forwardRef((props, ref) => {
             </div>
           </div>
 
+
           {/* Quick Actions Bar - Equal width buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl mx-auto mb-5">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full max-w-3xl mx-auto mb-5">
+
             {/* Status Button */}
+
             <a 
               href="/health"
               className="flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border border-[#c5629a]/30 hover:border-[#c5629a] text-[#c5629a] hover:text-[#f390d0] font-bold minecraftFont text-xs sm:text-sm transition-colors rounded-sm"
@@ -182,7 +203,20 @@ const Footer = React.forwardRef((props, ref) => {
               <span>Статус</span>
             </a>
 
+
+            {/* Roadmap Button */}
+
+            <a 
+              href="/roadmap"
+              className="flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border border-[#c5629a]/30 hover:border-[#c5629a] text-[#c5629a] hover:text-[#f390d0] font-bold minecraftFont text-xs sm:text-sm transition-colors rounded-sm"
+            >
+              <i className="hn hn-map-signs text-sm"></i>
+              <span>Дорожня карта</span>
+            </a>
+
+
             {/* IP Button */}
+
             <button
               onClick={copyIP}
               className={`
@@ -197,7 +231,9 @@ const Footer = React.forwardRef((props, ref) => {
               <span>{copied ? "Скопійовано!" : "m4sub.click"}</span>
             </button>
 
+
             {/* Discord Button */}
+
             <a
               href="https://discord.gg/fxqnU9by3M"
               target="_blank"
@@ -209,7 +245,9 @@ const Footer = React.forwardRef((props, ref) => {
             </a>
           </div>
 
+
           {/* Legal Text */}
+
           <div className="text-center">
             <p className="text-gray-600 text-[9px] sm:text-[10px] font-bold minecraftFont tracking-wide">
               NOT AN OFFICIAL MINECRAFT SERVICE
@@ -224,6 +262,8 @@ const Footer = React.forwardRef((props, ref) => {
   );
 });
 
+
 Footer.displayName = 'Footer';
+
 
 export default Footer;
