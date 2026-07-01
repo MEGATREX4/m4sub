@@ -41,7 +41,7 @@ export default function Donate() {
   } = useNickname();
 
   // Selection state
-  const [selectedCategory, setSelectedCategory] = useState("capes");
+  const [selectedCategory, setSelectedCategory] = useState("cosmetics");
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [supportAmount, setSupportAmount] = useState(SUPPORT_ITEM.price);
@@ -57,22 +57,22 @@ export default function Donate() {
 
   // Current items based on category
   const currentItems = useMemo(() => {
-    if (!shopData) return [SUPPORT_ITEM]; // Always include support item
-    
-    let items = [];
-    switch (selectedCategory) {
-      case "capes":
-        items = shopData.capes || [];
-        break;
-      case "icons":
-        items = shopData.icons || [];
-        break;
-      case "bundles":
-        items = shopData.bundles || [];
-        break;
-      default:
-        items = [];
-    }
+  if (!shopData) return [SUPPORT_ITEM];
+
+  let items = [];
+  switch (selectedCategory) {
+    case "cosmetics":
+      items = shopData.cosmetics || [];
+      break;
+    case "icons":
+      items = shopData.icons || [];
+      break;
+    case "bundles":
+      items = shopData.bundles || [];
+      break;
+    default:
+      items = [];
+  }
     
     // Always add support item to the end of each category
     return [...items, SUPPORT_ITEM];
@@ -138,10 +138,10 @@ export default function Donate() {
 
   // Handle category change
   const handleCategoryChange = useCallback((category) => {
-    setSelectedCategory(category);
-    setSelectedItem(null);
-    setSelectedType(null);
-    clearPurchaseStatus();
+  setSelectedCategory(category);
+  setSelectedItem(null);
+  setSelectedType(null);
+  clearPurchaseStatus();
   }, [clearPurchaseStatus]);
 
   // Handle purchase click
@@ -183,7 +183,7 @@ export default function Donate() {
                 Магазин Косметики
               </h2>
               <p className="text-gray-400 text-lg">
-                Підтримай сервер та отримай ексклюзивні плащі, значки та набори!
+                Підтримай сервер та отримай ексклюзивна косметика над головою, значки та набори!
               </p>
             </div>
 
@@ -221,11 +221,11 @@ export default function Donate() {
                 {/* Category Tabs */}
                 <div className="flex">
                   <CategoryTab
-                    label="Плащі"
-                    icon="hn-users-crown-solid"
-                    isActive={selectedCategory === "capes"}
-                    onClick={() => handleCategoryChange("capes")}
-                    count={shopData?.capes?.length || 0}
+                    label="Косметика"
+                    icon="hn-sparkles"
+                    isActive={selectedCategory === "cosmetics"}
+                    onClick={() => handleCategoryChange("cosmetics")}
+                    count={shopData?.cosmetics?.length || 0}
                   />
                   <div className="bg-gray-700 w-[2px]" />
                   <CategoryTab

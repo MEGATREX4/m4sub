@@ -19,7 +19,7 @@ export default function RulesMenu() {
   ];
 
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       <h2 className="text-2xl font-bold text-gray-200 mb-6 text-center">
         Виберіть правила для вашого режиму
       </h2>

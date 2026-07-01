@@ -74,7 +74,7 @@ export default function FeatureCard({
   );
 
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       {showBackground ? (
         <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-center">

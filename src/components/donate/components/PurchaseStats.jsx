@@ -21,14 +21,14 @@ import { ServerFundingProgress } from './ServerFundingProgress';
 const SERVER_COST = 900;
 
 const COLORS = {
-  cape: '#c5629a',
+  cosmetic: '#c5629a',
   icon: '#5865f2',
   bundle: '#f59e0b',
   support: '#ec4899'
 };
 
 const TYPE_LABELS = {
-  cape: 'Плащі',
+  cosmetic: 'Косметика',
   icon: 'Значки',
   bundle: 'Набори',
   support: 'Підтримка'

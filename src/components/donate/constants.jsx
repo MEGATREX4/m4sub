@@ -7,7 +7,7 @@ export const MONOBANK_JAR_URL = "https://send.monobank.ua/jar/85Ui7vsyCD";
 export const IMAGES_BASE_URL = "";
 
 export const TYPE_ICONS = {
-  cape: { icon: "hn-users-crown-solid", label: "Плащ" },
+  cosmetic: { icon: "hn-users-crown-solid", label: "Косметика" },
   icon: { icon: "hn-star-solid", label: "Значок" },
   bundle: { icon: "hn-users-solid", label: "Набір" },
   support: { icon: "hn-heart-solid", label: "Підтримка" }

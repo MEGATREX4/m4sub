@@ -9,7 +9,10 @@ export const getItemNameFromReference = (itemRef, shopData) => {
   const [refType, refId] = itemRef.split(':');
   if (!refType || !refId) return itemRef;
   
-  const dataKey = refType === 'bundle' ? 'bundles' : refType + 's';
+  // Підтримка старого "cape" і нового "cosmetic"
+  const dataKey = refType === 'cape' || refType === 'cosmetic' ? 'cosmetics' : 
+                 refType === 'bundle' ? 'bundles' : refType + 's';
+  
   const items = shopData[dataKey] || [];
   const foundItem = items.find(item => item.id === refId);
   
@@ -38,7 +41,9 @@ export const generatePurchaseId = () => {
  */
 export const isItemOwned = (itemId, itemType, ownedItems) => {
   if (!ownedItems || !Array.isArray(ownedItems)) return false;
-  return ownedItems.some(owned => owned.id === itemId && owned.type === itemType);
+  // Підтримка старого типу "cape"
+  const normalizedType = itemType === 'cape' ? 'cosmetic' : itemType;
+  return ownedItems.some(owned => owned.id === itemId && owned.type === normalizedType);
 };
 
 /**

@@ -3,7 +3,7 @@ import { BorderBox } from "./donate/components/BorderBox";
 
 export default function Discord() {
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       <BorderBox borderColor="bg-[#5865f2]" innerBg="bg-[#0a0a12]">
         <div className="p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-[#5865f2]/20 cornerCutSmall mb-4">

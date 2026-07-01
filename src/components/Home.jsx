@@ -1,100 +1,9 @@
-// Home.jsx
 import { useState, useEffect } from "react";
 import Detailed from "./Detailed";
 import News from "./News";
 import Team from "./Team";
 import { BorderBox } from "./donate/components/BorderBox";
 import Join from "./Join";
-
-// Компактний Join для хедера
-function JoinCompact() {
-  const [online, setOnline] = useState("...");
-  const [copied, setCopied] = useState(false);
-  const [isOnline, setIsOnline] = useState(null);
-
-  useEffect(() => {
-    fetch(`https://api.mcsrvstat.us/2/m4sub.click`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.online) {
-          setOnline(`${data.players.online} онлайн`);
-          setIsOnline(true);
-        } else {
-          setOnline("Офлайн");
-          setIsOnline(false);
-        }
-      })
-      .catch(() => setIsOnline(false));
-  }, []);
-
-  const copyIP = async () => {
-    // Перевірка чи clipboard API доступний
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      try {
-        await navigator.clipboard.writeText("m4sub.click");
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (err) {
-        console.error("Failed to copy:", err);
-        fallbackCopy();
-      }
-    } else {
-      fallbackCopy();
-    }
-  };
-
-  // Fallback для старих браузерів або HTTP
-  const fallbackCopy = () => {
-    const textArea = document.createElement("textarea");
-    textArea.value = "m4sub.click";
-    textArea.style.position = "fixed";
-    textArea.style.left = "-999999px";
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand("copy");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Fallback copy failed:", err);
-    }
-    document.body.removeChild(textArea);
-  };
-
-  return (
-    <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]" shine>
-      <div className="p-6 flex flex-col items-center justify-center text-center h-full min-w-[200px]">
-        <img 
-          src="/search.png" 
-          alt="Server" 
-          className="w-16 h-16 mb-3 drop-shadow-[0_0_10px_rgba(197,98,154,0.4)]" 
-        />
-        
-        <button 
-          onClick={copyIP} 
-          className={`
-            flex items-center gap-2 px-4 py-2 font-bold minecraftFont text-sm transition-all
-            ${copied 
-              ? 'bg-green-600 text-white' 
-              : 'bg-[#c5629a] hover:bg-[#f390d0] text-white'
-            }
-          `}
-        >
-          <i className={`hn ${copied ? 'hn-check' : 'hn-copy'}`}></i>
-          {copied ? "Скопійовано!" : "m4sub.click"}
-        </button>
-        
-        <div className={`
-          flex items-center gap-1.5 text-xs mt-2
-          ${isOnline ? 'text-green-400' : 'text-gray-400'}
-        `}>
-          <span className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}></span>
-          {online}
-        </div>
-      </div>
-    </BorderBox>
-  );
-}
 
 export default function Home() {
   const serverInfoItems = [
@@ -119,82 +28,133 @@ export default function Home() {
   ];
 
   return (
-    <div className="space-y-8">
-      {/* 1. Банер + Join в одному ряду на десктопі */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-6 items-stretch">
-        {/* Банер */}
-        <BorderBox borderColor="bg-orange-500" innerBg="bg-[#0a0a12]">
-          <div className="p-6 flex flex-col items-center justify-center">
-            <div className="flex items-center gap-4">
-              <i className="hn hn-alert-triangle text-orange-400 text-3xl flex-shrink-0 mt-1"></i>
-              <div>
-                <h2 className="text-xl font-bold text-orange-400 minecraftFont mb-2">
-                  Початок сезону
-                </h2>
-                <p className="text-gray-300 leading-relaxed">
-                  Шановні гравці! Нагадуємо, що з 20-го грудня розпочинається новий сезон на нашому сервері.
-                  Будь ласка, ознайомтесь з оновленими правилами та підготуйтеся до нових пригод у світі Minecraft!
-                  також можете прочитати статтю з детальною інформацією про зміни та нововведення. <a href="/news/season6_announcement" className="text-orange-400 underline hover:text-orange-300">Детальніше...</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </BorderBox>
+    // Зменшено загальний вертикальний відступ між блоками
+    <div className="space-y-10 sm:space-y-14 pb-16 overflow-hidden">
 
-        {/* Міні Join */}
-        
-      </div>
-
-      {/* 2. Швидкі посилання */}
+      {/* 1. Швидкі посилання */}
       <Detailed items={serverInfoItems} />
 
       <Join></Join>
 
-      {/* 3. Features - більш компактно */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <BorderBox borderColor="bg-[#c5629a]/50" innerBg="bg-[#0a0a12]">
-          <div className="p-6 flex gap-4">
-            <img 
-              src="/axo.png" 
-              alt="Vanilla" 
-              className="w-20 h-20 object-contain flex-shrink-0 hidden sm:block"
-            />
-            <div>
-              <h3 className="text-lg font-bold text-white minecraftFont mb-2 flex items-center gap-2">
-                <i className="hn hn-cube-solid text-[#c5629a]"></i>
-                Справжній ванільний досвід
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Класичний геймплей Minecraft без складних плагінів. Будуйте, досліджуйте та виживайте разом з друзями.
-              </p>
+      {/* 2. Секція: Всесвіт M4SUB */}
+      <section className="px-2">
+        <div className="flex flex-col mb-6">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white minecraftFont leading-none uppercase tracking-tighter italic">
+                Всесвіт <span className="text-[#c5629a]">M4SUB</span>
+            </h2>
+            <div className="h-1 w-20 bg-[#c5629a] mt-2"></div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 bg-[#c5629a]/20 border-2 border-[#c5629a]/20">
+          {[
+            { 
+              title: "Ваніль 2.0", 
+              desc: "Вхід з будь-якого клієнта 1.21+. Жодних модів чи лаунчерів, тільки чиста гра.",
+              icon: "hn-bullhorn-solid",
+              color: "text-[#c5629a]"
+            },
+            { 
+              title: "High-Tech", 
+              desc: "Система Polymer забезпечує ідеальний TPS та стабільність при високому онлайні.",
+              icon: "hn-bolt",
+              color: "text-yellow-400"
+            },
+            { 
+              title: "Еволюція", 
+              desc: "Ми не просто виживаємо, ми створюємо нові виміри, босів та унікальні механіки.",
+              icon: "hn-sparkles",
+              color: "text-blue-400"
+            }
+          ].map((item, i) => (
+            <div key={i} className="bg-[#0a0a12] p-6 sm:p-8 hover:bg-[#130217] transition-colors">
+              <i className={`hn ${item.icon} ${item.color} text-3xl mb-4 block`}></i>
+              <h3 className="text-white minecraftFont text-lg mb-2 uppercase">{item.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
             </div>
-          </div>
-        </BorderBox>
+          ))}
+        </div>
+      </section>
 
-        <BorderBox borderColor="bg-[#c5629a]/50" innerBg="bg-[#0a0a12]">
-          <div className="p-6 flex gap-4">
+      {/* 3. Галерея Оновлення */}
+      <section className="px-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+          
+          {/* Велика плитка: Прірва */}
+          <div className="relative overflow-hidden border-2 border-white/5 bg-[#130217] md:row-span-2">
             <img 
-              src="/def.png" 
-              alt="Vanilla+" 
-              className="w-20 h-20 object-contain flex-shrink-0 hidden sm:block"
+              src="/turbo_update.png" 
+              className="w-full h-full object-cover opacity-50" 
+              style={{ minHeight: '350px', imageRendering: 'pixelated' }}
             />
-            <div>
-              <h3 className="text-lg font-bold text-white minecraftFont mb-2 flex items-center gap-2">
-                <i className="hn hn-bolt text-[#c5629a]"></i>
-                Покращення Vanilla+
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Незначні QoL покращення без ламання геймплею. Ванільна атмосфера + комфорт.
-              </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 sm:p-8 flex flex-col justify-end">
+              <span className="text-blue-400 minecraftFont text-[10px] uppercase mb-1">Новий вимір</span>
+              <h3 className="text-2xl sm:text-4xl font-bold text-white minecraftFont mb-2 uppercase tracking-tighter">Прірва мороку</h3>
+              <p className="text-gray-300 text-xs sm:text-sm max-w-md">Дослідіть 6 унікальних біомів, де темрява — це не просто відсутність світла, а справжня небезпека.</p>
             </div>
           </div>
+
+          {/* Плитка: Ретро-ігри */}
+          <div className="relative border-2 border-white/5 bg-[#130217] p-6 sm:p-8 flex items-center justify-between overflow-hidden">
+            <div className="relative z-10">
+              <span className="text-[#c5629a] minecraftFont text-[10px] uppercase mb-1 block">Колаборація</span>
+              <h3 className="text-xl font-bold text-white minecraftFont mb-1 uppercase">Siga 69 & ТУРБОЦИЦЬКАР</h3>
+              <p className="text-gray-500 text-[10px] max-w-xs uppercase tracking-wider leading-tight">
+                Квести від Турбоцицькаря та консоль прямо в Minecraft. 
+                <span className="text-[#c5629a] block mt-1 opacity-80 italic"> (це декоративний блок, на ньому не можна грати) </span>
+              </p>
+            </div>
+            <i className="hn hn-gamepad text-white/5 text-6xl absolute right-[-5px] bottom-[-5px]"></i>
+          </div>
+
+          {/* Плитка: Аксесуари */}
+          <div className="relative border-2 border-white/5 bg-[#130217] p-6 sm:p-8 flex items-center justify-between overflow-hidden">
+            <div className="relative z-10">
+              <span className="text-yellow-400 minecraftFont text-[10px] uppercase mb-1 block">Арсенал</span>
+              <h3 className="text-xl font-bold text-white minecraftFont mb-1 uppercase tracking-tighter text-yellow-50/90">Унікальні предмети</h3>
+              <p className="text-gray-500 text-[10px] max-w-xs uppercase tracking-wider leading-tight">Магніти, амулети та 50+ нових зачарувань для вашого виживання.</p>
+            </div>
+            <i className="hn hn-package text-white/5 text-6xl absolute right-[-5px] bottom-[-5px]"></i>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 4. CTA Банер */}
+      <div className="px-2">
+        <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#130217]">
+            <div className="p-8 sm:p-12 text-center relative overflow-hidden group">
+                <h3 className="text-3xl sm:text-5xl font-bold text-[#c5629a] minecraftFont mb-4 uppercase tracking-tighter drop-shadow-lg">
+                    Оновлення вже тут!
+                </h3>
+                <p className="text-xs sm:text-base text-gray-400 mb-8 max-w-xl mx-auto uppercase tracking-widest leading-loose">
+                    Дізнайтеся, як ми обманули гру заради оптимізації, додали ретро-ігри та створили новий світ.
+                </p>
+                <a 
+                    href="/news/turbo_update"
+                    className="inline-flex items-center gap-4 px-8 py-4 bg-[#c5629a] hover:bg-[#d47bb0] text-white font-bold minecraftFont text-lg sm:text-xl uppercase shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                >
+                    <i className="hn hn-file-text"></i>
+                    Читати статтю
+                </a>
+            </div>
         </BorderBox>
       </div>
 
-      {/* 4. News + Team один під одним */}
-      <div className="space-y-6">
-        <News compact />
-        <Team compact />
+      {/* 5. News + Team (Зменшено інтервали) */}
+      <div className="space-y-12 px-2">
+        <div className="space-y-6">
+            <h3 className="minecraftFont text-white text-3xl uppercase tracking-tighter flex items-center gap-4">
+                <span className="w-2 h-7 bg-[#c5629a]"></span> Новини
+            </h3>
+            <News compact />
+        </div>
+        
+        <div className="space-y-6 border-t border-white/5 pt-12">
+            <h3 className="minecraftFont text-white text-3xl uppercase tracking-tighter flex items-center gap-4">
+                <span className="w-2 h-7 bg-gray-600"></span> Команда
+            </h3>
+            <Team compact />
+        </div>
       </div>
     </div>
   );

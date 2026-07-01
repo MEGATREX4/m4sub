@@ -14,13 +14,20 @@ export const useShopData = () => {
     try {
       const response = await fetch(SHOP_API_URL);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
       const data = await response.json();
       
-      console.log("Shop data received:", data);
+      // Перетворюємо ключ "capes" на "cosmetics" для сумісності з новою системою
+      if (data.capes && !data.cosmetics) {
+        data.cosmetics = data.capes;
+        delete data.capes;
+      }
+      
+      console.log("Shop data received (cosmetics):", data);
       setShopData(data);
     } catch (err) {
       console.error("Failed to fetch shop data:", err);
-      setError("Не вдалося завантажити магазин. Сервер недоступний.");
+      setError("Не вдалося завантажити магазин. Сервер тимчасово недоступний.");
     } finally {
       setLoading(false);
     }

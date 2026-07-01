@@ -7,7 +7,7 @@ export default function Features({ items, title = "Переваги гри на 
   const features = items.map(item => typeof item === 'string' ? item : item.title);
 
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 sm:p-8">
           {/* Image */}

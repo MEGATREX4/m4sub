@@ -24,7 +24,7 @@ export default function News() {
   }, []);
 
   return (
-    <section className="mt-12">
+    <section className="mt-2">
       <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
         <div className="p-6 sm:p-8">
           {/* Header */}

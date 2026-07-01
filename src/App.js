@@ -15,6 +15,9 @@ import RulesMenu from "./components/RulesMenu";
 import Page from "./components/Page";
 import Faq from "./components/Faq";
 import Home from "./components/Home";
+import HealthPage from "./components/HealthPage";
+
+import Roadmap from "./components/Roadmap";
 
 import Obs from "./components/pages/Obs";
 
@@ -75,6 +78,35 @@ function AppContent() {
               <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
                 <Page title="M4SUB — Minecraft Сервер">
                   <Home />
+                </Page>
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/health"
+          element={
+            <>
+              <Hero title="Статус серверу" subtitle="Реальна інформація про продуктивність" />
+              <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                <Page title="M4SUB — Статус серверу">
+                  <HealthPage />
+                </Page>
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/roadmap"
+          element={
+            <>
+              <Hero title="Дорожня карта" subtitle="Плани розвитку M4SUB" />
+              <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                <Page title="M4SUB — Дорожня карта">
+                  <Roadmap />
+                  <Discord />
                 </Page>
               </div>
             </>

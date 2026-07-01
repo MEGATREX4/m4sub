@@ -365,9 +365,26 @@ h4: ({ node, children, ...props }) => (
                     );
                   },
 
-                  code: ({ node, inline, ...props }) => inline
-                    ? <code {...props} className="font-mono bg-[#2d1a23] px-1.5 py-0.5 text-[#f390d0] text-sm" />
-                    : <pre className="block overflow-x-auto whitespace-pre-wrap break-words"><code {...props} /></pre>,
+                  code: ({ node, className, children, ...props }) => {
+                    const isBlock = className && className.startsWith('language-');
+
+                    if (!isBlock) {
+                      return (
+                        <code
+                          {...props}
+                          className="font-mono bg-[#2d1a23] px-1.5 py-0.5 text-[#f390d0] text-sm break-all"
+                        >
+                          {children}
+                        </code>
+                      );
+                    }
+                  
+                    return (
+                      <code {...props} className={className}>
+                        {children}
+                      </code>
+                    );
+                  },
                   
                   gallery: ({ node, ...props }) => <ImageGallery path={props.path} />,
                   

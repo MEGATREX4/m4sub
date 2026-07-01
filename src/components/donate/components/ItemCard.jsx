@@ -218,6 +218,7 @@ export const ItemCard = ({
                             {itemName}
                             {itemIsOwned && <i className="hn hn-check text-green-400"></i>}
                           </span>
+                          
                         </div>
                       </div>
                     );
@@ -233,7 +234,17 @@ export const ItemCard = ({
                   )}
                 </div>
               )}
-
+                {type === 'cosmetic' && (
+                <p className="text-xs text-purple-400 mb-2 font-medium">
+                  Косметика над головою персонажа
+                </p>
+              )}
+              {type === 'icon' && (
+                <p className="text-xs text-purple-400 mb-2 font-medium">
+                  Значок біля ніку в чаті
+                </p>
+              )}
+              
               {/* Support Benefits */}
               {type === 'support' && item.benefits && (
                 <div className="mb-3">
@@ -259,6 +270,7 @@ export const ItemCard = ({
                       {item.originalPrice}₴
                     </span>
                   )}
+                  
                   <span className={`text-xl font-bold minecraftFont ${
                     isOwned ? "text-green-400" :
                     type === 'support' ? "text-pink-400" :
