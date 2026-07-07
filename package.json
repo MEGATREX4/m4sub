@@ -6,7 +6,7 @@
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
     "@craco/craco": "^7.1.0",
-    "@hackernoon/pixel-icon-library": "^1.0.6",
+    "@hackernoon/pixel-icon-library": "^1.1.0",
     "@headlessui/react": "^2.2.2",
     "@heroicons/react": "^2.2.0",
     "@klashdevelopment/mcicons": "^1.0.1",

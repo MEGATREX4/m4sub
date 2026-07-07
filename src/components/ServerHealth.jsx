@@ -1,6 +1,7 @@
 // src/components/ServerHealth.jsx
 import { useState, useEffect } from "react";
 import { BorderBox } from "./donate/components/BorderBox";
+import { SERVER_HEALTH_API_URL } from "./donate/constants";
 
 const HealthBar = ({ value, max = 100, color = "bg-green-500", label }) => {
   const percentage = (value / max) * 100;
@@ -72,7 +73,7 @@ export default function ServerHealth() {
 
   const fetchHealth = async () => {
     try {
-      const response = await fetch("/.netlify/functions/server-health");
+      const response = await fetch(SERVER_HEALTH_API_URL);
       if (!response.ok) throw new Error("Failed to fetch health");
       const data = await response.json();
       setHealth(data);
@@ -91,6 +92,26 @@ export default function ServerHealth() {
     const interval = setInterval(fetchHealth, 10000); // Update every 10 seconds
     return () => clearInterval(interval);
   }, []);
+
+  const performance = health?.performance || {};
+  const players = health?.players || {};
+  const memory = health?.memory || {};
+  const uptime = health?.uptime || {};
+  const system = health?.system || {};
+  const playerList = Array.isArray(players.list) ? players.list : [];
+  const tps = Number(performance.tps ?? 0);
+  const mspt = Number(performance.mspt ?? 0);
+  const msptMin = Number(performance.mspt_min ?? 0);
+  const msptMax = Number(performance.mspt_max ?? 0);
+  const onlinePlayers = Number(players.online ?? 0);
+  const maxPlayers = Number(players.max ?? 0);
+  const usedMemory = Number(memory.used_mb ?? 0);
+  const totalMemory = Number(memory.total_mb ?? 0);
+  const freeMemory = Number(memory.free_mb ?? 0);
+  const maxMemory = Number(memory.max_mb ?? 0);
+  const memoryUsage = Number(memory.usage_percent ?? 0);
+  const uptimeFormatted = uptime?.formatted || "Н/Д";
+  const minecraftVersion = health?.minecraftVersion || "Н/Д";
 
   if (loading) {
     return (
@@ -152,36 +173,36 @@ export default function ServerHealth() {
             <StatBox
               icon="hn-gauge"
               label="TPS"
-              value={health.performance.tps}
-              color={getTPSColor(health.performance.tps)}
+              value={tps}
+              color={getTPSColor(tps)}
             />
             <StatBox
               icon="hn-hourglass"
               label="MSPT"
-              value={health.performance.mspt}
+              value={mspt}
               unit="ms"
-              color={getMSPTColor(health.performance.mspt)}
+              color={getMSPTColor(mspt)}
             />
             <StatBox
               icon="hn-trending-down"
               label="Мін MSPT"
-              value={health.performance.mspt_min}
+              value={msptMin}
               unit="ms"
               color="text-blue-400"
             />
             <StatBox
               icon="hn-trending-up"
               label="Макс MSPT"
-              value={health.performance.mspt_max}
+              value={msptMax}
               unit="ms"
               color="text-purple-400"
             />
           </div>
           <HealthBar
-            value={health.performance.tps}
+            value={tps}
             max={20}
             label="TPS (цільове значення: 20)"
-            color={getTPSColor(health.performance.tps)}
+            color={getTPSColor(tps)}
           />
         </div>
 
@@ -189,17 +210,17 @@ export default function ServerHealth() {
         <div>
           <h3 className="text-sm font-bold text-gray-400 minecraftFont mb-3 flex items-center gap-2">
             <i className="hn hn-users text-[#c5629a]"></i>
-            Гравці ({health.players.online}/{health.players.max})
+            Гравці ({onlinePlayers}/{maxPlayers})
           </h3>
           <HealthBar
-            value={health.players.online}
-            max={health.players.max}
+            value={onlinePlayers}
+            max={maxPlayers}
             label="Онлайн гравців"
           />
-          {health.players.list.length > 0 ? (
+          {playerList.length > 0 ? (
             <div className="bg-[#1a1a2e] border border-[#c5629a]/20 p-3 rounded-sm">
               <div className="flex flex-wrap gap-2">
-                {health.players.list.map((player) => (
+                {playerList.map((player) => (
                   <span
                     key={player}
                     className="px-2 py-1 bg-[#0a0a12] border border-[#c5629a]/30 text-xs text-gray-300 rounded-sm flex items-center gap-1.5"
@@ -228,31 +249,31 @@ export default function ServerHealth() {
             <StatBox
               icon="hn-database"
               label="Використано"
-              value={health.memory.used_mb}
+              value={usedMemory}
               unit="MB"
             />
             <StatBox
               icon="hn-hard-drive"
               label="Всього"
-              value={health.memory.total_mb}
+              value={totalMemory}
               unit="MB"
             />
             <StatBox
               icon="hn-trash-2"
               label="Вільно"
-              value={health.memory.free_mb}
+              value={freeMemory}
               unit="MB"
               color="text-green-400"
             />
             <StatBox
               icon="hn-maximize-2"
               label="Максимум"
-              value={health.memory.max_mb}
+              value={maxMemory}
               unit="MB"
             />
           </div>
           <HealthBar
-            value={health.memory.usage_percent}
+            value={memoryUsage}
             max={100}
             label="Використання пам'яті"
           />
@@ -316,41 +337,41 @@ export default function ServerHealth() {
             </div>
             <span className="font-bold text-white flex items-center gap-1.5">
               <i className="hn hn-check-circle-solid text-green-400"></i>
-              {health.uptime.formatted}
+              {uptimeFormatted}
             </span>
           </div>
         </div>
 
         {/* System Info */}
-        {health.system && (
+        {Object.keys(system).length > 0 && (
           <div>
             <h3 className="text-sm font-bold text-gray-400 minecraftFont mb-3 flex items-center gap-2">
-              <i className="hn hn-cpu text-[#c5629a]"></i>
+              <i className="text-[#c5629a]"></i>
               Системна інформація
             </h3>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="text-gray-500 flex items-center gap-1.5">
-                <i className="hn hn-monitor text-[#c5629a]/50"></i>
+                <i className="text-[#c5629a]/50"></i>
                 <div>
-                  ОС: <span className="text-gray-300">{health.system.os}</span>
+                  ОС: <span className="text-gray-300">{system.os || "Н/Д"}</span>
                 </div>
               </div>
               <div className="text-gray-500 flex items-center gap-1.5">
-                <i className="hn hn-code text-[#c5629a]/50"></i>
+                <i className="text-[#c5629a]/50"></i>
                 <div>
-                  Java: <span className="text-gray-300">{health.system.java_version}</span>
+                  Java: <span className="text-gray-300">{system.java_version || "Н/Д"}</span>
                 </div>
               </div>
               <div className="text-gray-500 flex items-center gap-1.5">
-                <i className="hn hn-cpu text-[#c5629a]/50"></i>
+                <i className="text-[#c5629a]/50"></i>
                 <div>
-                  CPU: <span className="text-gray-300">{health.system.available_processors}</span>
+                  CPU: <span className="text-gray-300">{system.available_processors || "Н/Д"}</span>
                 </div>
               </div>
               <div className="text-gray-500 flex items-center gap-1.5">
-                <i className="hn hn-cube-solid text-[#c5629a]/50"></i>
+                <i className="text-[#c5629a]/50"></i>
                 <div>
-                  MC: <span className="text-gray-300">{health.minecraftVersion}</span>
+                  MC: <span className="text-gray-300">{minecraftVersion}</span>
                 </div>
               </div>
             </div>

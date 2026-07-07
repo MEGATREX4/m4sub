@@ -17,6 +17,7 @@ import { format, parseISO } from 'date-fns';
 import { uk } from 'date-fns/locale';
 import PlayerAvatar from '../../PlayerAvatar';
 import { ServerFundingProgress } from './ServerFundingProgress';
+import { PURCHASE_STATS_API_URL } from '../constants';
 
 const SERVER_COST = 900;
 
@@ -58,7 +59,7 @@ export const PurchaseStats = () => {
     
     try {
       const response = await fetch(
-        `/.netlify/functions/purchase-stats?days=${period}&groupBy=day`
+        `${PURCHASE_STATS_API_URL}?days=${period}&groupBy=day`
       );
       
       if (!response.ok) {

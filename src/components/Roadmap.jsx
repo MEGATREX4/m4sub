@@ -16,7 +16,7 @@ const roadmapData = [
     ],
   },
   {
-    version: "Невелике оновлення",
+    version: "Кулінарне оновлення",
     status: "done",
     size: "small",
     date: "Випущено",
