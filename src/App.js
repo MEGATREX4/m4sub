@@ -37,6 +37,9 @@ import Dominion from "./components/Dominion";
 import NotFound from "./components/NotFound";
 
 import Discord from "./components/Discord";
+import TermsOfService from "./components/pages/TermsOfService";
+import PrivacyPolicy from "./components/pages/PrivacyPolicy";
+import MaterialsUsed from "./components/pages/MaterialsUsed";
 
 import ScrollToTopButton from './components/ScrollToTopButton';
 
@@ -83,7 +86,7 @@ function AppContent() {
             </>
           }
         />
-
+/
         <Route
           path="/health"
           element={
@@ -138,6 +141,42 @@ function AppContent() {
                   <Faq />
                   <Discord />
                 </Page>
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/terms"
+          element={
+            <>
+              <Hero title="Умови користування" subtitle="Правила та умови взаємодії з сервером" />
+              <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                <TermsOfService />
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/privacy"
+          element={
+            <>
+              <Hero title="Політика конфіденційності" subtitle="Інформація про обробку даних" />
+              <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                <PrivacyPolicy />
+              </div>
+            </>
+          }
+        />
+
+        <Route
+          path="/materials"
+          element={
+            <>
+              <Hero title="Матеріали та технології" subtitle="Що використовується у проекті" />
+              <div className="flex-grow max-w-7xl mx-auto px-4 py-12">
+                <MaterialsUsed />
               </div>
             </>
           }

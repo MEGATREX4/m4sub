@@ -149,10 +149,7 @@ export default function Home() {
             <News compact />
         </div>
         
-        <div className="space-y-6 border-t border-white/5 pt-12">
-            <h3 className="minecraftFont text-white text-3xl uppercase tracking-tighter flex items-center gap-4">
-                <span className="w-2 h-7 bg-gray-600"></span> Команда
-            </h3>
+        <div className="space-y-1">
             <Team compact />
         </div>
       </div>

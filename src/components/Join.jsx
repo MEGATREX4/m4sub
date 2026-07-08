@@ -5,7 +5,7 @@ export default function Join() {
   const [online, setOnline] = useState("Завантаження...");
   const [copied, setCopied] = useState(false);
   const [isOnline, setIsOnline] = useState(null);
-  const [version, setVersion] = useState("1.21.4"); 
+  const [version, setVersion] = useState("1.21.11"); 
 
   useEffect(() => {
     fetch(`https://api.mcsrvstat.us/2/m4sub.click`)
@@ -14,7 +14,7 @@ export default function Join() {
         if (data.online) {
           setOnline(`${data.players.online}/${data.players.max} ГРАВЦІВ`);
           setIsOnline(true);
-          setVersion(data.version || "1.21.4");
+          setVersion(data.version || "1.21.11");
         } else {
           setOnline("СЕРВЕР ОФЛАЙН");
           setIsOnline(false);

@@ -3,9 +3,9 @@ authors:
   - name: MEGATREX4
     mc: Yevhen4
 date: 2026-04-12
-preview: /images/turbo_update_m4sub.png
+preview: https://kutok.s3.eu-central-1.amazonaws.com/uploads/articles/srmgbpulns122ua91pv0.png
 page-link: turbo_update
-title: "Турбо-оновлення: Прірва мороку, Турбоцицькар та магія підміни пакетів"
+title: "Турбоквест: Прірва мороку, Турбоцицькар та магія підміни пакетів"
 description: "Величезне оновлення M4SUB! Новий вимір, ретро-консолі Siga69 та повна переробка технічної частини сервера. Читайте, як ми обманули гру заради оптимізації."
 generateTOC: true
 tags: ["Оновлення", "Саб", "Технічне", "Лор"]

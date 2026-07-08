@@ -82,7 +82,7 @@ export const ItemCard = ({
     <div
       onClick={() => !isDisabled && onSelect(item, type)}
       className={`
-        group relative transition-all duration-200
+        group relative transition-all duration-200 row-span-4
         ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:translate-y-[-2px]"}
       `}
     >
@@ -113,12 +113,10 @@ export const ItemCard = ({
       )}
 
       {/* Outer Border */}
-      <div className={`${borderColor} p-[3px] transition-colors h-full ${isLarge ? 'grid grid-rows-subgrid' : ''}`} style={isLarge ? { display: 'grid', gridTemplateRows: 'subgrid' } : {}}>
+      <div className={`${borderColor} p-[3px] transition-colors h-full`}>
         <div className="bg-gray-800 p-[2px] h-full">
-          <div className="bg-[#1a1a2e] h-full flex flex-col">
-            {/* Image Section - Hidden for large support items */}
-            {!isLarge && (
-              <div className="relative bg-[#0a0a12]" style={{ height: '224px' }}>
+          <div className="bg-[#1a1a2e] h-full min-h-full grid grid-rows-subgrid" style={{ display: 'grid', gridTemplateRows: 'subgrid' }}>
+            <div className="relative bg-[#0a0a12]" style={{ gridRow: '1', minHeight: '180px' }}>
               {type === 'support' && (
                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-pink-900/50 to-purple-900/50 z-10">
                   <div className="text-7xl animate-pulse">
@@ -126,7 +124,7 @@ export const ItemCard = ({
                   </div>
                 </div>
               )}
-              
+
               {isFeatured && !isOwned && type !== 'support' && (
                 <div className="absolute bottom-3 right-3 z-10">
                   <Badge bgColor="bg-yellow-600">
@@ -135,7 +133,7 @@ export const ItemCard = ({
                   </Badge>
                 </div>
               )}
-              
+
               {isPartiallyOwned && (
                 <div className="absolute top-3 right-3 z-10">
                   <Badge bgColor="bg-orange-600">
@@ -144,7 +142,7 @@ export const ItemCard = ({
                   </Badge>
                 </div>
               )}
-              
+
               {type !== 'support' && (
                 <div className="bg-gray-700 p-[2px] h-full">
                   <div className="bg-[#0a0a12] h-full">
@@ -157,7 +155,7 @@ export const ItemCard = ({
                   </div>
                 </div>
               )}
-              
+
               <div className="absolute bottom-3 left-3 z-20">
                 <Badge bgColor={type === 'support' ? "bg-pink-600" : "bg-gray-800"}>
                   <i className={`hn ${TYPE_ICONS[type]?.icon}`}></i>
@@ -165,13 +163,9 @@ export const ItemCard = ({
                 </Badge>
               </div>
             </div>
-            )}
 
-            {/* Content Section */}
-            <div className={`p-4 flex flex-col ${isLarge ? 'flex-1 justify-between' : ''}`}>
-              <h3 className={`font-bold mb-2 minecraftFont ${
-                isLarge ? 'text-2xl' : 'text-lg'
-              } ${
+            <div className="p-3" style={{ gridRow: '2' }}>
+              <h3 className={`font-bold mb-2 minecraftFont text-lg ${
                 isOwned ? "text-green-400" : type === 'support' ? "text-pink-400" : isFeatured ? "text-yellow-400" : "text-white"
               }`}>
                 {item.name}
@@ -192,22 +186,24 @@ export const ItemCard = ({
                   </div>
                 </div>
               )}
+            </div>
 
+            <div className="p-3 flex flex-col gap-3" style={{ gridRow: '3' }}>
               {item.description && (
-                <p className={`text-gray-400 mb-3 ${isLarge ? 'text-sm line-clamp-4' : 'text-sm line-clamp-2'}`}>
+                <p className="text-gray-400 mb-0 text-sm line-clamp-3">
                   {item.description}
                 </p>
               )}
 
               {type === "bundle" && item.items && item.items.length > 0 && (
-                <div className="mb-3 flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1">
                   {item.items.slice(0, 4).map((bundleItem, idx) => {
                     const parts = bundleItem.split(":");
                     const itemType = parts[0];
                     const itemId = parts[1];
                     const itemName = getItemNameFromReference(bundleItem, shopData);
                     const itemIsOwned = isItemOwned(itemId, itemType, ownedItems);
-                    
+
                     return (
                       <div key={idx} className={`${itemIsOwned ? 'bg-green-600' : 'bg-gray-700'} p-[1px]`}>
                         <div className="bg-gray-800/50 px-2 py-0.5">
@@ -218,7 +214,6 @@ export const ItemCard = ({
                             {itemName}
                             {itemIsOwned && <i className="hn hn-check text-green-400"></i>}
                           </span>
-                          
                         </div>
                       </div>
                     );
@@ -234,20 +229,20 @@ export const ItemCard = ({
                   )}
                 </div>
               )}
-                {type === 'cosmetic' && (
-                <p className="text-xs text-purple-400 mb-2 font-medium">
+
+              {type === 'cosmetic' && (
+                <p className="text-xs text-purple-400 font-medium">
                   Косметика над головою персонажа
                 </p>
               )}
               {type === 'icon' && (
-                <p className="text-xs text-purple-400 mb-2 font-medium">
+                <p className="text-xs text-purple-400 font-medium">
                   Значок біля ніку в чаті
                 </p>
               )}
-              
-              {/* Support Benefits */}
+
               {type === 'support' && item.benefits && (
-                <div className="mb-3">
+                <div>
                   <div className="text-xs text-gray-400 mb-1 minecraftFont">Що ви отримаєте:</div>
                   <div className="grid grid-cols-2 gap-1">
                     {item.benefits.slice(0, 4).map((benefit, idx) => (
@@ -259,10 +254,11 @@ export const ItemCard = ({
                   </div>
                 </div>
               )}
+            </div>
 
+            <div className="p-3" style={{ gridRow: '4' }}>
               <div className="bg-gray-700 h-[2px] mb-3" />
 
-              {/* Price Section */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {hasSavings && item.originalPrice && type !== 'support' && (
@@ -270,7 +266,7 @@ export const ItemCard = ({
                       {item.originalPrice}₴
                     </span>
                   )}
-                  
+
                   <span className={`text-xl font-bold minecraftFont ${
                     isOwned ? "text-green-400" :
                     type === 'support' ? "text-pink-400" :

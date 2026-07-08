@@ -1,44 +1,74 @@
-export default function Hero({ title, subtitle, icon }) {
+const TOP_STEPS = [
+  'bg-[#0a0a12]/80',
+  'bg-[#0a0a12]/50',
+  'bg-[#0a0a12]/25',
+  'bg-[#0a0a12]/10',
+];
+
+const BOTTOM_STEPS = [
+  'bg-[#0e0e10]/10',
+  'bg-[#0e0e10]/25',
+  'bg-[#0e0e10]/50',
+  'bg-[#0e0e10]/80',
+];
+
+const PIXEL_TEXT_SHADOW = '2px 2px 0 #000, 4px 4px 0 rgba(0,0,0,0.6)';
+
+export default function Hero({ title, subtitle, icon, label }) {
   return (
-    <section className="relative w-full h-[calc(100vh-500px)] min-h-[280px] flex items-center justify-center overflow-hidden border-b-4 border-[#c5629a]">
-      {/* Фонове зображення з легким ефектом наближення */}
-      <img
-        src="/hero.png"
-        alt="Головне зображення"
-        className="absolute inset-0 w-full h-full object-cover scale-105"
-        style={{ 
-          filter: "brightness(0.3) saturate(1.2)",
-          imageRendering: "pixelated"
-        }}
-      />
+    <div className="relative w-full bg-[#0e0e10]">
+      <div className="relative min-h-[300px] sm:min-h-[350px] overflow-hidden flex items-center justify-center">
+        <img
+          src="https://kutok.s3.eu-central-1.amazonaws.com/uploads/articles/6he1rnz5cays4iqeg515.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{
+            filter: 'saturate(1.1)',
+            imageRendering: 'pixelated',
+          }}
+        />
 
-      {/* Градієнт для глибини */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-transparent to-[#0a0a12]/60"></div>
+        <div className="absolute top-0 inset-x-0 flex flex-col pointer-events-none">
+          {TOP_STEPS.map((stepClass, index) => (
+            <div key={index} className={`h-2.5 sm:h-3 ${stepClass}`} />
+          ))}
+        </div>
 
-      {/* Текст поверх зображення */}
-      <div className="relative text-center px-6 z-10 max-w-4xl">
-        {/* Маленький префікс над заголовком */}
-        <span className="block text-[#c5629a] minecraftFont text-[10px] sm:text-xs uppercase tracking-[0.3em] mb-2 sm:mb-4 drop-shadow-md">
-          Офіційний запуск
-        </span>
+        <div className="absolute bottom-0 inset-x-0 flex flex-col pointer-events-none">
+          {BOTTOM_STEPS.map((stepClass, index) => (
+            <div key={index} className={`h-2.5 sm:h-3 ${stepClass}`} />
+          ))}
+        </div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white minecraftFont mb-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 uppercase tracking-tighter">
-          {icon && <i className={`hn ${icon} text-[#c5629a] text-2xl sm:text-4xl`}></i>}
-          <span className="drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)] leading-none">
-            {title}
-          </span>
-        </h1>
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-10 py-10 sm:py-12 text-center">
+          {label && (
+            <p
+              className="text-[#c5629a] minecraftFont text-sm uppercase tracking-widest mb-4"
+              style={{ textShadow: PIXEL_TEXT_SHADOW }}
+            >
+              {label}
+            </p>
+          )}
 
-        {subtitle && (
-          <p className="text-sm sm:text-xl text-gray-300 max-w-2xl mx-auto drop-shadow-md leading-relaxed uppercase tracking-wide opacity-90">
-            {subtitle}
-          </p>
-        )}
+          <h1
+            className="text-3xl sm:text-5xl md:text-6xl font-bold text-white minecraftFont leading-tight flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
+            style={{ textShadow: PIXEL_TEXT_SHADOW }}
+          >
+            {icon && <i className={`hn ${icon} text-[#c5629a] text-3xl sm:text-4xl`}></i>}
+            <span>{title}</span>
+          </h1>
+
+          {subtitle && (
+            <p
+              className="mt-4 sm:mt-5 text-base sm:text-lg text-gray-200 max-w-2xl mx-auto leading-relaxed minecraftFont"
+              style={{ textShadow: PIXEL_TEXT_SHADOW }}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
-
-      {/* Декоративні елементи по боках (піксельні кути) */}
-      <div className="absolute bottom-4 left-4 w-2 h-2 bg-[#c5629a]/20"></div>
-      <div className="absolute bottom-4 right-4 w-2 h-2 bg-[#c5629a]/20"></div>
-    </section>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Новини', href: '/news', icon: 'hn-newspaper' },
-  { name: 'Правила', href: '/subserver/rules', icon: ' hn-writing' },
+  { name: 'Правила', href: '/subserver/rules', icon: 'hn-writing' },
   { name: 'FAQ', href: '/faq', icon: 'hn-question-solid' },
   { name: 'Донат', href: '/donate', icon: 'hn-heart-solid' },
 ]
@@ -15,7 +15,7 @@ const Header = () => {
   const isActive = (href) => location.pathname === href
 
   return (
-    <Disclosure as="nav" className="bg-[#0a0a12] border-b-[3px] border-[#c5629a]/30 z-50 relative">
+    <Disclosure as="nav" className="bg-[#0a0a12] z-50 relative">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 flex justify-between items-center py-3">
@@ -104,5 +104,4 @@ const Header = () => {
     </Disclosure>
   )
 }
-
 export default Header

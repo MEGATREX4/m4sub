@@ -176,9 +176,9 @@ export default function Donate() {
                 </div>
                 <div className="bg-gray-700 h-[3px]" />
                 <div className="p-6 bg-[#12121f]">
-                  <div className="grid gap-6" style={{
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gridAutoRows: 'max-content'
+                  <div className="grid gap-4" style={{
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gridTemplateRows: 'auto auto 1fr auto'
                   }}>
                     {currentItems.map((item) => {
                       const itemType = item.type === 'support' ? 'support' : selectedCategory.slice(0, -1);

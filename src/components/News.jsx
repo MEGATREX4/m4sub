@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllNews } from '../utils/frontmatter';
-import ArticleMeta from './ArticleMeta';
+import NewsCard, { NEWS_GRID_ROWS } from './NewsCard';
 import { BorderBox } from './donate/components/BorderBox';
+import CascadeLoader from './CascadeLoader';
 
 export default function News() {
   const [articles, setArticles] = useState([]);
@@ -39,16 +40,16 @@ export default function News() {
               </h2>
               <p className="text-gray-300 mb-6">Слідкуйте за останніми подіями на нашому сервері</p>
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                <Link 
-                  to="/news" 
+                <Link
+                  to="/news"
                   className="inline-flex items-center gap-2 px-6 py-2 bg-[#c5629a] hover:bg-[#f390d0] text-white font-bold minecraftFont cornerCutSmall transition-colors"
                 >
                   <i className="hn hn-list"></i>
                   Усі новини
                 </Link>
-                <a 
+                <a
                   href="https://discord.gg/fxqnU9by3M"
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-2 bg-[#5865f2] hover:bg-[#4752c4] text-white font-bold minecraftFont cornerCutSmall transition-colors"
                 >
@@ -60,46 +61,14 @@ export default function News() {
           </div>
 
           {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <i className="hn hn-spinner text-4xl text-[#c5629a] animate-spin"></i>
-            </div>
+            <CascadeLoader label="Завантаження новин..." className="py-8" />
           ) : articles.length > 0 && (
-            /* Subgrid container */
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" style={{ gridTemplateRows: 'auto auto 1fr auto' }}>
+            <div
+              className="grid gap-x-6 gap-y-4 md:grid-cols-2 lg:grid-cols-3"
+              style={{ gridTemplateRows: NEWS_GRID_ROWS }}
+            >
               {articles.map((article) => (
-                <Link
-                  key={article['page-link']}
-                  to={`/news/${article['page-link']}`}
-                  className="group grid grid-rows-subgrid row-span-4 bg-[#1a1a2e] hover:bg-[#2a1a3e] border border-[#c5629a]/30 hover:border-[#c5629a] transition-all overflow-hidden"
-                >
-                  {/* Row 1: Image */}
-                  {article.preview ? (
-                    <img src={article.preview} alt={article.title} className="w-full h-40 object-cover" />
-                  ) : (
-                    <div className="w-full h-40 bg-[#130217]" />
-                  )}
-                  
-                  {/* Row 2: Title */}
-                  <h3 className="text-lg font-bold text-white minecraftFont px-4 pt-4 group-hover:text-[#c5629a] transition-colors">
-                    {article.title}
-                  </h3>
-                  
-                  {/* Row 3: Description (flex-grows) */}
-                  <p className="text-gray-400 text-sm px-4 line-clamp-3">
-                    {article.description}
-                  </p>
-                  
-                  {/* Row 4: Meta */}
-                  <div className="px-4 pb-4 mt-auto">
-                    <ArticleMeta
-                      authors={article.authors}
-                      author={article.author}
-                      authorImg={article['author-img']}
-                      date={article.date}
-                      tags={article.tags}
-                    />
-                  </div>
-                </Link>
+                <NewsCard key={article['page-link']} article={article} />
               ))}
             </div>
           )}

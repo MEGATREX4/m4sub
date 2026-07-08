@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { BorderBox } from "./donate/components/BorderBox";
+import CascadeLoader from "./CascadeLoader";
 
 const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
 
@@ -19,14 +20,7 @@ const Rules = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0a0a12] flex items-center justify-center p-4">
-        <div className="text-center">
-            <div className="w-12 h-12 border-4 border-[#c5629a] border-t-transparent animate-spin mx-auto mb-4"></div>
-            <p className="minecraftFont text-[#c5629a] uppercase tracking-widest text-sm">Зчитування кодексу...</p>
-        </div>
-      </div>
-    );
+    return <CascadeLoader label="Зчитування кодексу..." className="min-h-[50vh]" />;
   }
 
   return (

@@ -1,7 +1,14 @@
-// src/components/RulesMenu.jsx
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CascadeLoader from "./CascadeLoader";
 
 export default function RulesMenu() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
   const ruleCards = [
     {
       title: "Сабсервер",
@@ -15,12 +22,15 @@ export default function RulesMenu() {
       image: "/servers/dominion.webp",
       link: "/dominion/rules",
     },
-    // Якщо додадуться інші режими, просто допишіть сюди
   ];
 
+  if (!ready) {
+    return <CascadeLoader label="Завантаження меню правил..." className="min-h-[40vh]" />;
+  }
+
   return (
-    <section className="mt-2">
-      <h2 className="text-2xl font-bold text-gray-200 mb-6 text-center">
+    <div className="mt-2">
+      <h2 className="text-2xl font-bold text-gray-200 mb-6 text-center minecraftFont">
         Виберіть правила для вашого режиму
       </h2>
       <div className="flex flex-wrap justify-center gap-6">
@@ -35,8 +45,9 @@ export default function RulesMenu() {
               src={item.image}
               alt={item.title}
               className="w-40 h-40 object-contain mx-auto"
+              style={{ imageRendering: "pixelated" }}
             />
-            <h3 className="text-lg font-bold mt-2">{item.title}</h3>
+            <h3 className="text-lg font-bold mt-2 minecraftFont">{item.title}</h3>
             <p
               className="text-sm mt-1"
               dangerouslySetInnerHTML={{
@@ -46,6 +57,6 @@ export default function RulesMenu() {
           </Link>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

@@ -37,7 +37,7 @@ export default function ArticleTags({ tags }) {
 
   return (
 
-    <div className="flex items-center flex-wrap gap-x-3 gap-y-2 text-sm text-gray-400">
+    <div className="flex items-center flex-wrap gap-x-3 gap-y-2 text-sm text-gray-400 minecraftFont">
       <i className="hn hn-tag-solid text-base flex-shrink-0"></i>
       
       {tags.map((tag, index) => {
@@ -48,7 +48,7 @@ export default function ArticleTags({ tags }) {
             key={index}
             to={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
 
-            className={`${bgColorClass} p-3 cornerCutSmall text-xs text-gray-200 no-underline`}
+            className={`${bgColorClass} p-3 cornerCutSmall text-xs text-gray-200 no-underline minecraftFont`}
           >
             {tag}
           </div>

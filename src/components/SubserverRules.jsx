@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { BorderBox } from "./donate/components/BorderBox";
+import CascadeLoader from "./CascadeLoader";
 import ViolationMark from "./ViolationMark";
-import Hero from "./Hero";
 
 export default function SubserverRules() {
   const [content, setContent] = useState("");
@@ -27,9 +27,7 @@ export default function SubserverRules() {
       
       <div className="max-w-4xl mx-auto px-4 py-8">
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <i className="hn hn-spinner text-4xl text-[#c5629a] animate-spin"></i>
-          </div>
+          <CascadeLoader label="Зчитування правил сабсервера..." className="min-h-[50vh]" />
         ) : (
           <>
             {/* Legend */}

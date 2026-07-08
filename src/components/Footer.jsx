@@ -1,35 +1,46 @@
-// Footer.jsx
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import React, { useState } from 'react';
-import { BorderBox } from './donate/components/BorderBox';
+const socialLinks = [
+  { href: "https://discord.gg/fxqnU9by3M", icon: "hn-discord", label: "Discord", color: "hover:text-[#5865F2]" },
+  { href: "https://www.x.com/m4subclick", icon: "hn-x", label: "X", color: "hover:text-white" },
+  { href: "https://soc.ua-fediland.de/@m4subclick", icon: "hn-mastodon", label: "Mastodon", color: "hover:text-[#6364FF]" },
+  { href: "https://bsky.app/profile/m4sub.bsky.social", icon: "hn-bluesky", label: "Bluesky", color: "hover:text-[#0085ff]" },
+  { href: "https://www.instagram.com/m4sub.click/", icon: "hn-instagram", label: "Instagram", color: "hover:text-[#E4405F]" },
+  { href: "https://www.threads.com/@m4sub.click", icon: "hn-threads", label: "Threads", color: "hover:text-white" },
+  { href: "https://www.tiktok.com/@m4sub.click", icon: "hn-tiktok", label: "TikTok", color: "hover:text-[#E4405F]" },
+  { href: "https://www.youtube.com/@m4sub", icon: "hn-youtube", label: "YouTube", color: "hover:text-[#FF0000]" },
+];
 
+const documentLinks = [
+  { to: "/terms", label: "Умови" },
+  { to: "/privacy", label: "Конфіденційність" },
+  { to: "/materials", label: "Матеріали" },
+];
 
-// Простий helper для MC текстур
+const navLinks = [
+  { to: "/health", label: "Статус" },
+  { to: "/roadmap", label: "Дорожня карта" },
+  { to: "/donate", label: "Магазин" },
+];
 
-const mcTexture = (name) => `https://mc.nerothe.com/img/1.21.11/minecraft_${name}.png`;
-
+const linkClass = "text-gray-500 hover:text-[#c5629a] transition-colors !text-sm leading-snug";
 
 const Footer = React.forwardRef((props, ref) => {
   const [copied, setCopied] = useState(false);
 
-
   const copyIP = async () => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
+    if (navigator.clipboard?.writeText) {
       try {
         await navigator.clipboard.writeText("m4sub.click");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        return;
       } catch (err) {
         console.error("Failed to copy:", err);
-        fallbackCopy();
       }
-    } else {
-      fallbackCopy();
     }
-  };
 
-
-  const fallbackCopy = () => {
     const textArea = document.createElement("textarea");
     textArea.value = "m4sub.click";
     textArea.style.position = "fixed";
@@ -46,224 +57,91 @@ const Footer = React.forwardRef((props, ref) => {
     document.body.removeChild(textArea);
   };
 
-
-  const socialLinks = [
-    { href: "https://discord.gg/fxqnU9by3M", icon: "hn-discord", label: "Discord", color: "hover:text-[#5865F2]" },
-    { href: "https://www.x.com/m4subclick", icon: "hn-x", label: "X", color: "hover:text-white" },
-    { href: "https://soc.ua-fediland.de/@m4subclick", icon: "hn-mastodon", label: "Mastodon", color: "hover:text-[#6364FF]" },
-    { href: "https://bsky.app/profile/m4sub.bsky.social", icon: "hn-bluesky", label: "Bluesky", color: "hover:text-[#0085ff]" },
-    { href: "https://www.instagram.com/m4sub.click/", icon: "hn-instagram", label: "Instagram", color: "hover:text-[#E4405F]" },
-    { href: "https://www.threads.com/@m4sub.click", icon: "hn-threads", label: "Threads", color: "hover:text-white" },
-    { href: "https://www.tiktok.com/@m4sub.click", icon: "hn-tiktok", label: "TikTok", color: "hover:text-[#E4405F]" },
-    { href: "https://www.youtube.com/@m4sub", icon: "hn-youtube", label: "YouTube", color: "hover:text-[#FF0000]" },
-  ];
-
-
-  const techStack = [
-    { name: "React", icon: "hn-react" },
-    { name: "Node.js", icon: "hn-nodejs" },
-    { name: "MongoDB", icon: "hn-mongodb" },
-    { name: "Tailwind", icon: "hn-tailwindcss" },
-  ];
-
-
   return (
-    <footer ref={ref} className="mt-6 md:mt-8">
-      <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#130217]">
-        <div className="p-4 sm:p-6 md:p-8">
-          
-          {/* Main Content - Compact 3 Columns Layout */}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
-            
-            {/* Left - Branding */}
-
-            <div className="text-center md:text-left sm:col-span-2 md:col-span-1">
-              <h3 className="text-lg md:text-xl font-bold text-[#c5629a] minecraftFont mb-2 flex items-center justify-center md:justify-start gap-2">
-                <img 
-                  src={mcTexture("grass_block")} 
-                  alt="Grass Block" 
-                  className="w-5 h-5 md:w-6 md:h-6"
-                  style={{ imageRendering: 'pixelated' }}
-                />
-                M4SUB
-              </h3>
-              <p className="text-gray-400 text-xs md:text-sm mb-2 md:mb-3">
-                Minecraft Сервер
-              </p>
-              <p className="text-gray-500 text-[10px] md:text-xs">
-                Розроблено з <i className="hn hn-heart-solid text-[#c5629a]"></i> MEGATREX4
-              </p>
-              <p className="text-gray-600 text-[10px] md:text-xs mt-1">
-                © 2025
-              </p>
-            </div>
-
-
-            {/* Center - Tech Stack */}
-
-            <div className="text-center">
-              <h4 className="text-xs md:text-sm font-bold text-gray-400 minecraftFont mb-2 md:mb-3 flex items-center justify-center gap-1.5 md:gap-2">
-                <img 
-                  src={mcTexture("diamond")} 
-                  alt="Diamond" 
-                  className="w-3 h-3 md:w-4 md:h-4"
-                  style={{ imageRendering: 'pixelated' }}
-                />
-                Технології
-              </h4>
-              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
-                {techStack.map((tech) => (
-                  <div 
-                    key={tech.name}
-                    className="bg-[#1a1a2e] border border-[#c5629a]/20 px-1.5 md:px-2 py-0.5 md:py-1 flex items-center gap-1 md:gap-1.5 text-gray-400 text-[10px] md:text-xs hover:border-[#c5629a]/50 transition-colors"
-                  >
-                    <i className={`hn ${tech.icon} text-[#c5629a]`}></i>
-                    <span>{tech.name}</span>
-                  </div>
-                ))}
+    <footer ref={ref} className="mt-5 md:mt-8 text-sm">
+      <div className="bg-[#c5629a] p-[2px]">
+        <div className="bg-gray-700 p-[2px]">
+          <div className="bg-[#130217] px-5 py-6 sm:px-8 sm:py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6 max-w-5xl mx-auto">
+              {/* Brand */}
+              <div className="col-span-2 md:col-span-1">
+                <p className="text-[#c5629a] minecraftFont font-bold text-lg mb-1.5">M4SUB</p>
+                <p className="text-gray-500 !text-sm mb-2.5">Minecraft Сервер</p>
+                <button
+                  type="button"
+                  onClick={copyIP}
+                  className={`
+                    inline-flex items-center gap-1.5 px-2.5 py-1 border text-sm minecraftFont transition-colors
+                    ${copied
+                      ? "border-green-500/40 text-green-400"
+                      : "border-[#c5629a]/30 text-[#c5629a] hover:border-[#c5629a]/60 hover:text-[#f390d0]"
+                    }
+                  `}
+                >
+                  <i className={`hn ${copied ? "hn-check" : "hn-copy"} text-xs`}></i>
+                  {copied ? "Скопійовано" : "m4sub.click"}
+                </button>
               </div>
-              <div className="mt-2 md:mt-3 flex flex-wrap justify-center gap-x-2 md:gap-x-3 gap-y-1 text-gray-600 text-[9px] md:text-[10px]">
-                <span>Netlify</span>
-                <span className="text-[#c5629a]/50">•</span>
-                <span>Hackernoon Icons</span>
+
+              {/* Documents */}
+              <div>
+                <p className="text-gray-600 uppercase tracking-wider text-xs mb-2.5">Документи</p>
+                <nav className="flex flex-col gap-1.5">
+                  {documentLinks.map((item) => (
+                    <Link key={item.to} to={item.to} className={linkClass}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
               </div>
-            </div>
 
+              {/* Navigation */}
+              <div>
+                <p className="text-gray-600 uppercase tracking-wider text-xs mb-2.5">Сервер</p>
+                <nav className="flex flex-col gap-1.5">
+                  {navLinks.map((item) => (
+                    <Link key={item.to} to={item.to} className={linkClass}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
 
-            {/* Right - Social Links */}
-
-            <div className="text-center md:text-right">
-              <h4 className="text-xs md:text-sm font-bold text-gray-400 minecraftFont mb-2 md:mb-3 flex items-center justify-center md:justify-end gap-1.5 md:gap-2">
-                <img 
-                  src={mcTexture("ender_pearl")} 
-                  alt="Ender Pearl" 
-                  className="w-3 h-3 md:w-4 md:h-4"
-                  style={{ imageRendering: 'pixelated' }}
-                />
-                Соціальні мережі
-              </h4>
-              <div className="flex justify-center md:justify-end gap-2.5 md:gap-3 flex-wrap">
-                {socialLinks.map((social) => (
-                  <a 
-                    key={social.label}
-                    href={social.href} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className={`text-gray-500 ${social.color} transition-colors text-lg md:text-xl`}
-                    aria-label={social.label}
-                  >
-                    <i className={`hn ${social.icon}`}></i>
-                  </a>
-                ))}
+              {/* Social */}
+              <div className="col-span-2 md:col-span-1">
+                <p className="text-gray-600 uppercase tracking-wider text-xs mb-2.5">Соцмережі</p>
+                <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`text-gray-600 ${social.color} transition-colors`}
+                      aria-label={social.label}
+                    >
+                      <i className={`hn ${social.icon} text-base`}></i>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-
-          {/* Divider with MC icon */}
-
-          <div className="my-4 sm:my-5 flex items-center gap-2">
-            <div className="flex-1 flex h-[2px] md:h-[3px]">
-              <div className="flex-1 bg-[#2a0a1a]"></div>
-              <div className="flex-1 bg-[#4a1a3a]"></div>
-              <div className="flex-1 bg-[#6a2a5a]"></div>
-              <div className="flex-1 bg-[#8a3a7a]"></div>
-              <div className="flex-1 bg-[#a54a8a]"></div>
-              <div className="flex-1 bg-[#c5629a]"></div>
+            <div className="border-t border-[#c5629a]/10 mt-6 pt-5 text-center space-y-2">
+              <p className="text-gray-600 text-[11px] uppercase tracking-wide">
+                Not an official Minecraft service · Not affiliated with Mojang or Microsoft
+              </p>
+              <p className="text-gray-600 text-xs">
+                © 2026 M4SUB · Розроблено з <i className="hn hn-heart-solid text-[#c5629a] text-[11px]"></i> MEGATREX4
+              </p>
             </div>
-            <img 
-              src={mcTexture("nether_star")} 
-              alt="Nether Star" 
-              className="w-3 h-3 md:w-4 md:h-4"
-              style={{ imageRendering: 'pixelated' }}
-            />
-            <div className="flex-1 flex h-[2px] md:h-[3px]">
-              <div className="flex-1 bg-[#c5629a]"></div>
-              <div className="flex-1 bg-[#a54a8a]"></div>
-              <div className="flex-1 bg-[#8a3a7a]"></div>
-              <div className="flex-1 bg-[#6a2a5a]"></div>
-              <div className="flex-1 bg-[#4a1a3a]"></div>
-              <div className="flex-1 bg-[#2a0a1a]"></div>
-            </div>
-          </div>
-
-
-          {/* Quick Actions Bar - Equal width buttons */}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full max-w-3xl mx-auto mb-5">
-
-            {/* Status Button */}
-
-            <a 
-              href="/health"
-              className="flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border border-[#c5629a]/30 hover:border-[#c5629a] text-[#c5629a] hover:text-[#f390d0] font-bold minecraftFont text-xs sm:text-sm transition-colors rounded-sm"
-            >
-              <i className="hn hn-activity text-sm"></i>
-              <span>Статус</span>
-            </a>
-
-
-            {/* Roadmap Button */}
-
-            <a 
-              href="/roadmap"
-              className="flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border border-[#c5629a]/30 hover:border-[#c5629a] text-[#c5629a] hover:text-[#f390d0] font-bold minecraftFont text-xs sm:text-sm transition-colors rounded-sm"
-            >
-              <i className="hn hn-map-signs text-sm"></i>
-              <span>Дорожня карта</span>
-            </a>
-
-
-            {/* IP Button */}
-
-            <button
-              onClick={copyIP}
-              className={`
-                flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border font-bold minecraftFont text-xs sm:text-sm transition-all rounded-sm
-                ${copied 
-                  ? 'border-green-500/50 text-green-400' 
-                  : 'border-[#c5629a]/30 hover:border-[#c5629a] text-[#c5629a] hover:text-[#f390d0]'
-                }
-              `}
-            >
-              <i className={`hn ${copied ? 'hn-check-circle-solid' : 'hn-copy'} text-sm`}></i>
-              <span>{copied ? "Скопійовано!" : "m4sub.click"}</span>
-            </button>
-
-
-            {/* Discord Button */}
-
-            <a
-              href="https://discord.gg/fxqnU9by3M"
-              target="_blank"
-              rel="noreferrer"
-              className="flex justify-center items-center gap-1.5 px-4 py-2 bg-[#1a1a2e] border border-[#5865f2]/30 hover:border-[#5865f2] text-[#5865f2] hover:text-[#7289da] font-bold minecraftFont text-xs sm:text-sm transition-colors rounded-sm"
-            >
-              <i className="hn hn-discord text-sm"></i>
-              <span>Спільнота</span>
-            </a>
-          </div>
-
-
-          {/* Legal Text */}
-
-          <div className="text-center">
-            <p className="text-gray-600 text-[9px] sm:text-[10px] font-bold minecraftFont tracking-wide">
-              NOT AN OFFICIAL MINECRAFT SERVICE
-            </p>
-            <p className="text-gray-700 text-[8px] sm:text-[9px] mt-1">
-              NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT
-            </p>
           </div>
         </div>
-      </BorderBox>
+      </div>
     </footer>
   );
 });
 
-
-Footer.displayName = 'Footer';
-
+Footer.displayName = "Footer";
 
 export default Footer;

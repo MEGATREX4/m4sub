@@ -15,6 +15,7 @@ import { newsManifest } from '../utils/newsManifest';
 import Page from './Page';
 import ArticleMeta from './ArticleMeta';
 import { BorderBox } from './donate/components/BorderBox';
+import CascadeLoader from './CascadeLoader';
 
 // Custom components
 import ImageGallery from './ImageGallery';
@@ -109,16 +110,7 @@ export default function NewsArticle() {
     return (
       <Page title="Завантаження...">
         <div className="max-w-4xl mx-auto py-8 px-4">
-          <BorderBox borderColor="bg-[#c5629a]" innerBg="bg-[#0a0a12]">
-            <div className="p-8 flex flex-col items-center justify-center min-h-[50vh] gap-4">
-              <div className="animate-pulse flex flex-col items-center gap-4 w-full max-w-md">
-                <div className="h-8 bg-gray-700/50 w-3/4"></div>
-                <div className="h-4 bg-gray-700/50 w-1/2"></div>
-                <div className="h-48 bg-gray-700/50 w-full mt-4"></div>
-              </div>
-              <p className="text-gray-400 mt-4">Завантаження статті...</p>
-            </div>
-          </BorderBox>
+          <CascadeLoader variant="article" label="Завантаження статті..." className="min-h-[50vh]" />
         </div>
       </Page>
     );
