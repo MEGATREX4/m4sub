@@ -21,7 +21,7 @@ export default function AlsoOnLinks({ links }) {
     <div>
       <h2 className="text-lg font-bold text-[#c5629a] minecraftFont mb-4 flex items-center gap-2">
         <i className="hn hn-external-link"></i>
-        Також читайте на
+        Також на
       </h2>
       
       <div className="flex flex-col gap-2">
