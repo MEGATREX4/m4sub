@@ -7,6 +7,7 @@ const navigation = [
   { name: 'Правила', href: '/subserver/rules', icon: 'hn-writing' },
   { name: 'FAQ', href: '/faq', icon: 'hn-question-solid' },
   { name: 'Донат', href: '/donate', icon: 'hn-heart-solid' },
+  { name: 'Вікі', href: 'https://wiki.m4sub.click/', icon: 'hn-book-bookmark-solid' },
 ]
 
 const Header = () => {

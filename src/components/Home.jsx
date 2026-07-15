@@ -11,7 +11,7 @@ export default function Home() {
       title: "Вікі",
       description: "Дізнайтесь більше про особливості нашого сервера.",
       image: "/wiki.webp",
-      link: "http://wiki.m4sub.click/",
+      link: "https://wiki.m4sub.click/",
     },
     {
       title: "Мапа",

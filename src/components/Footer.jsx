@@ -16,6 +16,7 @@ const documentLinks = [
   { to: "/terms", label: "Умови" },
   { to: "/privacy", label: "Конфіденційність" },
   { to: "/materials", label: "Матеріали" },
+  { to: "https://wiki.m4sub.click/", label: "Вікі" }
 ];
 
 const navLinks = [
