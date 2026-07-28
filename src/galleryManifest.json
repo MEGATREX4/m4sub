@@ -21,6 +21,20 @@
       "thumbnail": "2025-10-27_16.42.22 (Custom).png"
     }
   ],
+  "Levcko_5s": [
+    {
+      "filename": "2025-10-27_14.44.07.png",
+      "thumbnail": "2025-10-27_14.44.07 (Custom).png"
+    },
+    {
+      "filename": "2025-10-27_14.46.51.png",
+      "thumbnail": "2025-10-27_14.46.51 (Custom).png"
+    },
+    {
+      "filename": "2025-10-27_14.54.09.png",
+      "thumbnail": "2025-10-27_14.54.09 (Custom).png"
+    }
+  ],
   "cape_2025": [
     {
       "filename": "Yevhen4_blank.png",
@@ -115,23 +129,13 @@
       "thumbnail": "2025-10-27_14.30.34 (Custom).png"
     }
   ],
-  "Levcko_5s": [
-    {
-      "filename": "2025-10-27_14.44.07.png",
-      "thumbnail": "2025-10-27_14.44.07 (Custom).png"
-    },
-    {
-      "filename": "2025-10-27_14.46.51.png",
-      "thumbnail": "2025-10-27_14.46.51 (Custom).png"
-    },
-    {
-      "filename": "2025-10-27_14.54.09.png",
-      "thumbnail": "2025-10-27_14.54.09 (Custom).png"
-    }
-  ],
   "output_grids": [
     {
       "filename": "CakesTeam_s5_custom_grid.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "Levcko_5s_custom_grid.png",
       "thumbnail": null
     },
     {
@@ -148,10 +152,6 @@
     },
     {
       "filename": "kit_house_5s_custom_grid.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "Levcko_5s_custom_grid.png",
       "thumbnail": null
     },
     {
@@ -172,82 +172,6 @@
     }
   ],
   "photography_2025": [
-    {
-      "filename": "kork0za_1096731.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_1099468.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_1100570.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_1100989.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21212279.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21217167.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21217568.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21218700.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21219156.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_21219561.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_2401945.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_2402348.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_2410075.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_2411467.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_7594117.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_7594274.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_7594799.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_7597883.png",
-      "thumbnail": null
-    },
-    {
-      "filename": "kork0za_7599540.png",
-      "thumbnail": null
-    },
     {
       "filename": "Sirriuus_21129794.png",
       "thumbnail": null
@@ -494,6 +418,82 @@
     },
     {
       "filename": "Yevhen4_26218279.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_1096731.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_1099468.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_1100570.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_1100989.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21212279.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21217167.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21217568.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21218700.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21219156.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_21219561.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_2401945.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_2402348.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_2410075.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_2411467.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_7594117.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_7594274.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_7594799.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_7597883.png",
+      "thumbnail": null
+    },
+    {
+      "filename": "kork0za_7599540.png",
       "thumbnail": null
     },
     {

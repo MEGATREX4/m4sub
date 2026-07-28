@@ -1,5 +1,4 @@
-// netlify/functions/purchase.js
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const MINECRAFT_SERVER_URL = (process.env.MINECRAFT_SERVER_URL || '').replace(/\/$/, '');
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
 exports.handler = async (event) => {
@@ -18,15 +17,32 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
+  if (!MINECRAFT_SERVER_URL) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: "Server configuration error" }),
+    };
+  }
+
   try {
-    const response = await fetch(`${MINECRAFT_SERVER_URL}/api/purchase/create`, {
+    const purchaseUrl = `${MINECRAFT_SERVER_URL}/api/purchase/create`;
+    console.log("Creating purchase at:", purchaseUrl);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+    const response = await fetch(purchaseUrl, {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
-        "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
+        "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET || "",
       },
       body: event.body,
     });
+
+    clearTimeout(timeoutId);
 
     const data = await response.json();
 
@@ -38,9 +54,13 @@ exports.handler = async (event) => {
   } catch (error) {
     console.error("Purchase error:", error);
     return {
-      statusCode: 500,
+      statusCode: 502,
       headers,
-      body: JSON.stringify({ error: "Failed to create purchase" }),
+      body: JSON.stringify({ 
+        success: false,
+        error: "Cannot connect to game server",
+        message: "Server is temporarily unavailable. Please try again later."
+      }),
     };
   }
 };
