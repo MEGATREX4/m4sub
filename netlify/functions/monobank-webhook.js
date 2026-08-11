@@ -1,5 +1,6 @@
 // netlify/functions/monobank-webhook.js
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
 exports.handler = async (event) => {
@@ -13,13 +14,14 @@ exports.handler = async (event) => {
   }
 
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `${MINECRAFT_SERVER_URL}/api/monobank/${MINECRAFT_WEBHOOK_SECRET}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: event.body,
-      }
+      },
+      10000
     );
 
     if (!response.ok) {

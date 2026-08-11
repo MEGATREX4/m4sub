@@ -1,4 +1,5 @@
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
 exports.handler = async (event) => {
@@ -28,14 +29,18 @@ exports.handler = async (event) => {
       };
     }
 
-    const response = await fetch(`${MINECRAFT_SERVER_URL}/api/redeem`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
+    const response = await fetchWithTimeout(
+      `${MINECRAFT_SERVER_URL}/api/redeem`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
+        },
+        body: JSON.stringify({ playerName, code }),
       },
-      body: JSON.stringify({ playerName, code }),
-    });
+      15000
+    );
 
     const data = await response.json();
     return {

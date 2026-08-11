@@ -1,5 +1,6 @@
 // netlify/functions/server-health.js
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 
 exports.handler = async (event) => {
   const headers = {
@@ -18,7 +19,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const response = await fetch(`${MINECRAFT_SERVER_URL}/health`);
+    const response = await fetchWithTimeout(`${MINECRAFT_SERVER_URL}/health`, {}, 8000);
 
     if (!response.ok) {
       throw new Error(`Server responded with ${response.status}`);

@@ -1,4 +1,5 @@
-const MINECRAFT_SERVER_URL = (process.env.MINECRAFT_SERVER_URL || '').replace(/\/$/, '');
+const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
 exports.handler = async (event) => {
@@ -29,20 +30,18 @@ exports.handler = async (event) => {
     const purchaseUrl = `${MINECRAFT_SERVER_URL}/api/purchase/create`;
     console.log("Creating purchase at:", purchaseUrl);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
-
-    const response = await fetch(purchaseUrl, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET || "",
+    const response = await fetchWithTimeout(
+      purchaseUrl,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET || "",
+        },
+        body: event.body,
       },
-      body: event.body,
-    });
-
-    clearTimeout(timeoutId);
+      15000
+    );
 
     const data = await response.json();
 

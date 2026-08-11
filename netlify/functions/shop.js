@@ -1,11 +1,5 @@
-const MINECRAFT_SERVER_URL = (process.env.MINECRAFT_SERVER_URL || '').replace(/\/$/, '');
-
-// Better backup proxies
-const BACKUP_PROXIES = [
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-];
+const { normalizeServerUrl, fetchWithFallback } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 
 exports.handler = async (event) => {
   const headers = {
@@ -34,63 +28,19 @@ exports.handler = async (event) => {
   const shopUrl = `${MINECRAFT_SERVER_URL}/api/shop`;
   console.log("Fetching shop from:", shopUrl);
 
-  // Try primary server first
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
+  const response = await fetchWithFallback(
+    shopUrl,
+    { headers: { 'Accept': 'application/json' } },
+    8000
+  );
 
-    const response = await fetch(shopUrl, {
-      signal: controller.signal,
-      headers: { 'Accept': 'application/json' }
-    });
-
-    clearTimeout(timeoutId);
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Primary server success");
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(data),
-      };
-    }
-    
-    console.warn(`Primary server failed with status ${response.status}`);
-  } catch (error) {
-    console.warn("Primary server error:", error.message);
-  }
-
-  // Try backup proxies
-  console.log("Trying backup proxies...");
-  for (let i = 0; i < BACKUP_PROXIES.length; i++) {
-    try {
-      const proxyUrl = BACKUP_PROXIES[i](shopUrl);
-      console.log(`Trying proxy ${i + 1}:`, proxyUrl);
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-      const response = await fetch(proxyUrl, {
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(`Proxy ${i + 1} success`);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(data),
-        };
-      }
-
-      console.warn(`Proxy ${i + 1} failed with status ${response.status}`);
-    } catch (error) {
-      console.warn(`Proxy ${i + 1} error:`, error.message);
-    }
+  if (response && response.ok) {
+    const data = await response.json();
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify(data),
+    };
   }
 
   // All attempts failed

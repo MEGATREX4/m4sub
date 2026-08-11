@@ -1,11 +1,6 @@
-const MINECRAFT_SERVER_URL = (process.env.MINECRAFT_SERVER_URL || '').replace(/\/$/, '');
+const { normalizeServerUrl, fetchWithFallback } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
-
-// Backup proxies for stats
-const BACKUP_PROXIES = [
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-];
 
 exports.handler = async (event) => {
   const headers = {
@@ -36,65 +31,24 @@ exports.handler = async (event) => {
   const groupBy = params.groupBy || 'day';
 
   const statsUrl = `${MINECRAFT_SERVER_URL}/api/stats/purchases?days=${days}&groupBy=${groupBy}`;
-  console.log("Fetching stats from:", statsUrl);
-
-  // Try primary server
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-    const response = await fetch(statsUrl, {
-      signal: controller.signal,
+  const response = await fetchWithFallback(
+    statsUrl,
+    {
       headers: {
         "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET || "",
         'Accept': 'application/json',
       },
-    });
+    },
+    8000
+  );
 
-    clearTimeout(timeoutId);
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Primary stats server success");
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(data),
-      };
-    }
-
-    console.warn(`Primary stats server failed with status ${response.status}`);
-  } catch (error) {
-    console.warn("Primary stats server error:", error.message);
-  }
-
-  // Try backup proxies
-  for (let i = 0; i < BACKUP_PROXIES.length; i++) {
-    try {
-      const proxyUrl = BACKUP_PROXIES[i](statsUrl);
-      console.log(`Trying stats proxy ${i + 1}`);
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-      const response = await fetch(proxyUrl, {
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(`Stats proxy ${i + 1} success`);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(data),
-        };
-      }
-    } catch (error) {
-      console.warn(`Stats proxy ${i + 1} error:`, error.message);
-    }
+  if (response && response.ok) {
+    const data = await response.json();
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify(data),
+    };
   }
 
   // All failed - return empty stats instead of error

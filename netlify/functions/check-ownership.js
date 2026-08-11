@@ -1,32 +1,7 @@
 // netlify/functions/check-ownership.js
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const { normalizeServerUrl, fetchWithFallback } = require("./utils");
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
-
-const BACKUP_PROXIES = [
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://cors-anywhere.herokuapp.com/${url}`,
-];
-
-const fetchWithFallback = async (url, options = {}) => {
-  let response = await fetch(url, options).catch(() => null);
-  if (response && response.ok) {
-    return response;
-  }
-
-  for (const proxyBuilder of BACKUP_PROXIES) {
-    try {
-      const proxyResponse = await fetch(proxyBuilder(url), options);
-      if (proxyResponse.ok) {
-        return proxyResponse;
-      }
-      response = response || proxyResponse;
-    } catch (e) {
-      console.warn("Ownership proxy failed:", e);
-    }
-  }
-
-  return response;
-};
 
 exports.handler = async (event) => {
   const headers = {
