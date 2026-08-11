@@ -1,3 +1,5 @@
+// src/components/Donate.jsx
+
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useShopData } from "./donate/hooks/useShopData";
 import { useNickname } from "./donate/hooks/useNickname";
