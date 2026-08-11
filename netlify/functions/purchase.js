@@ -1,6 +1,11 @@
 const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
 const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL || "https://api.m4sub.click");
-const MINECRAFT_WEBHOOK_SECRET = String(process.env.MINECRAFT_WEBHOOK_SECRET || "").trim();
+const MINECRAFT_WEBHOOK_SECRET = String(
+  process.env.MINECRAFT_WEBHOOK_SECRET ||
+  process.env.NETLIFY_SECRET ||
+  process.env.REACT_APP_NETLIFY_SECRET ||
+  ""
+).trim();
 
 exports.handler = async (event) => {
   const headers = {
@@ -28,6 +33,8 @@ exports.handler = async (event) => {
     };
   }
 
+  console.log("Purchase function using webhook secret length:", MINECRAFT_WEBHOOK_SECRET.length);
+
   try {
     const purchaseUrl = `${MINECRAFT_SERVER_URL}/api/purchase/create`;
     console.log("Creating purchase at:", purchaseUrl);
@@ -53,7 +60,7 @@ exports.handler = async (event) => {
     }
 
     return {
-      statusCode: response.ok ? 200 : 400,
+      statusCode: response.status,
       headers,
       body: JSON.stringify(data),
     };
