@@ -2,6 +2,32 @@
 const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
+const BACKUP_PROXIES = [
+  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  (url) => `https://cors-anywhere.herokuapp.com/${url}`,
+];
+
+const fetchWithFallback = async (url, options = {}) => {
+  let response = await fetch(url, options).catch(() => null);
+  if (response && response.ok) {
+    return response;
+  }
+
+  for (const proxyBuilder of BACKUP_PROXIES) {
+    try {
+      const proxyResponse = await fetch(proxyBuilder(url), options);
+      if (proxyResponse.ok) {
+        return proxyResponse;
+      }
+      response = response || proxyResponse;
+    } catch (e) {
+      console.warn("Ownership proxy failed:", e);
+    }
+  }
+
+  return response;
+};
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -28,30 +54,47 @@ exports.handler = async (event) => {
     };
   }
 
+  if (!MINECRAFT_SERVER_URL || !MINECRAFT_WEBHOOK_SECRET) {
+    console.error("Ownership function misconfigured: MINECRAFT_SERVER_URL or MINECRAFT_WEBHOOK_SECRET is missing");
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: "Ownership function misconfigured" }),
+    };
+  }
+
   try {
-    const response = await fetch(
-      `${MINECRAFT_SERVER_URL}/api/player/${encodeURIComponent(playerName)}/ownership`,
-      {
-        headers: {
-          "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
-        },
-      }
-    );
+    const url = `${MINECRAFT_SERVER_URL}/api/player/${encodeURIComponent(playerName)}/ownership`;
+    const response = await fetchWithFallback(url, {
+      headers: {
+        "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
+      },
+    });
+
+    if (!response) {
+      throw new Error("Unable to reach ownership backend");
+    }
+
+    if (response.status === 404) {
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          playerName,
+          exists: false,
+          ownedItems: [],
+        }),
+      };
+    }
 
     if (!response.ok) {
-      // Player not found or server error - return empty ownership
-      if (response.status === 404) {
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            playerName,
-            exists: false,
-            ownedItems: [],
-          }),
-        };
-      }
-      throw new Error(`Server responded with ${response.status}`);
+      const bodyText = await response.text().catch(() => "");
+      console.error("Ownership backend error:", response.status, bodyText);
+      return {
+        statusCode: response.status,
+        headers,
+        body: JSON.stringify({ error: `Ownership backend error: ${response.status}` }),
+      };
     }
 
     const data = await response.json();

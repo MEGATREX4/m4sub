@@ -45,6 +45,10 @@ export const newsManifest = [
     "pageLink": "sub_2025"
   },
   {
+    "filename": "technical_revolution.md",
+    "pageLink": "technical_revolution"
+  },
+  {
     "filename": "turbo_update.md",
     "pageLink": "turbo_update"
   }

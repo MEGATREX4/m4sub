@@ -2,7 +2,7 @@
 authors:
   - name: MEGATREX4
     mc: Yevhen4
-date: 2026-04-12
+date: 2026-07-12
 preview: https://res.cloudinary.com/kutok/image/fetch/s--nCE9Yfi8--/c_limit,f_auto,fl_progressive,h_1080,q_auto,w_1238/https://kutok.s3.eu-central-1.amazonaws.com/uploads/articles/cjxynlciays6fjhoem7g.png
 page-link: turbo_update
 title: "Турбоквест: Прірва мороку, Турбоцицькар та магія підміни пакетів"
