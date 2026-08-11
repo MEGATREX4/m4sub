@@ -1,10 +1,10 @@
-// netlify/functions/shop.js
-const MINECRAFT_SERVER_URL = process.env.MINECRAFT_SERVER_URL;
+const MINECRAFT_SERVER_URL = (process.env.MINECRAFT_SERVER_URL || '').replace(/\/$/, '');
 
-// Backup public HTTPS proxies for redundancy
+// Better backup proxies
 const BACKUP_PROXIES = [
   (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://cors-anywhere.herokuapp.com/${url}`,
+  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
 ];
 
 exports.handler = async (event) => {
@@ -22,41 +22,85 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
-  try {
-    const shopUrl = `${MINECRAFT_SERVER_URL}/api/shop`;
-    
-    // Try primary server first
-    let response = await fetch(shopUrl).catch(() => null);
-    
-    // If primary fails, try backup proxies
-    if (!response) {
-      for (const proxyBuilder of BACKUP_PROXIES) {
-        try {
-          response = await fetch(proxyBuilder(shopUrl));
-          if (response.ok) break;
-        } catch (e) {
-          console.warn("Backup proxy failed:", e);
-        }
-      }
-    }
-    
-    if (!response) {
-      throw new Error("All shop data sources failed");
-    }
-    
-    const data = await response.json();
-    
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(data),
-    };
-  } catch (error) {
-    console.error("Shop fetch error:", error);
+  if (!MINECRAFT_SERVER_URL) {
+    console.error("MINECRAFT_SERVER_URL not configured");
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: "Failed to fetch shop data" }),
+      body: JSON.stringify({ error: "Server configuration error" }),
     };
   }
+
+  const shopUrl = `${MINECRAFT_SERVER_URL}/api/shop`;
+  console.log("Fetching shop from:", shopUrl);
+
+  // Try primary server first
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    const response = await fetch(shopUrl, {
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Primary server success");
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(data),
+      };
+    }
+    
+    console.warn(`Primary server failed with status ${response.status}`);
+  } catch (error) {
+    console.warn("Primary server error:", error.message);
+  }
+
+  // Try backup proxies
+  console.log("Trying backup proxies...");
+  for (let i = 0; i < BACKUP_PROXIES.length; i++) {
+    try {
+      const proxyUrl = BACKUP_PROXIES[i](shopUrl);
+      console.log(`Trying proxy ${i + 1}:`, proxyUrl);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      const response = await fetch(proxyUrl, {
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`Proxy ${i + 1} success`);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify(data),
+        };
+      }
+
+      console.warn(`Proxy ${i + 1} failed with status ${response.status}`);
+    } catch (error) {
+      console.warn(`Proxy ${i + 1} error:`, error.message);
+    }
+  }
+
+  // All attempts failed
+  console.error("All shop data sources failed");
+  return {
+    statusCode: 502,
+    headers,
+    body: JSON.stringify({ 
+      error: "Cannot connect to game server. Please try again later.",
+      details: "All connection attempts failed"
+    }),
+  };
 };
