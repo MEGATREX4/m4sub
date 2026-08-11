@@ -1,6 +1,6 @@
 // netlify/functions/server-health.js
 const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
-const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL || "https://api.m4sub.click");
 
 exports.handler = async (event) => {
   const headers = {

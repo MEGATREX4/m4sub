@@ -1,5 +1,5 @@
 const { normalizeServerUrl, fetchWithFallback } = require("./utils");
-const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL || "https://api.m4sub.click");
 const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
 
 exports.handler = async (event) => {

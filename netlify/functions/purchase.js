@@ -1,6 +1,6 @@
 const { normalizeServerUrl, fetchWithTimeout } = require("./utils");
-const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL);
-const MINECRAFT_WEBHOOK_SECRET = process.env.MINECRAFT_WEBHOOK_SECRET;
+const MINECRAFT_SERVER_URL = normalizeServerUrl(process.env.MINECRAFT_SERVER_URL || "https://api.m4sub.click");
+const MINECRAFT_WEBHOOK_SECRET = String(process.env.MINECRAFT_WEBHOOK_SECRET || "").trim();
 
 exports.handler = async (event) => {
   const headers = {
@@ -18,7 +18,9 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
-  if (!MINECRAFT_SERVER_URL) {
+  if (!MINECRAFT_SERVER_URL || !MINECRAFT_WEBHOOK_SECRET) {
+    console.error("Purchase function misconfigured: MINECRAFT_SERVER_URL or MINECRAFT_WEBHOOK_SECRET is missing");
+    console.error("Purchase secret length:", MINECRAFT_WEBHOOK_SECRET.length);
     return {
       statusCode: 500,
       headers,
@@ -36,7 +38,8 @@ exports.handler = async (event) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET || "",
+          "Accept": "application/json",
+          "X-Auth-Token": MINECRAFT_WEBHOOK_SECRET,
         },
         body: event.body,
       },
@@ -44,6 +47,10 @@ exports.handler = async (event) => {
     );
 
     const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Purchase backend error:", response.status, data);
+    }
 
     return {
       statusCode: response.ok ? 200 : 400,
